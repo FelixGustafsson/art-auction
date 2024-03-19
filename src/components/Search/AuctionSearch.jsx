@@ -3,7 +3,7 @@ import AuctionList from './AuctionList.jsx';
 import useAuctionSearchHook from '../../hooks/useAuctionSearchHook.jsx';
 
 function AuctionSearch() {
-  const { searchTerm, searchResult, handleInputChange } =
+  const { searchTerm, filteredAuctions, handleInputChange } =
     useAuctionSearchHook();
 
   return (
@@ -12,7 +12,7 @@ function AuctionSearch() {
         searchTerm={searchTerm}
         onInputChange={handleInputChange}
       />
-      {searchTerm && <AuctionList searchResult={searchResult} />}
+      {<AuctionList searchResult={filteredAuctions} />}
     </div>
   );
 }
