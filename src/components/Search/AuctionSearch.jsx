@@ -12,7 +12,7 @@ function AuctionSearch() {
         searchTerm={searchTerm}
         onInputChange={handleInputChange}
       />
-      <AuctionList searchResult={searchResult} />
+      {searchTerm && <AuctionList searchResult={searchResult} />}
     </div>
   );
 }

@@ -4,9 +4,10 @@ import AuctionListItem from './AuctionListItem';
 function AuctionList({ searchResult }) {
   return (
     <ul>
-      {searchResult.map((auction) => (
-        <AuctionListItem key={auction.id} auction={auction} />
-      ))}
+      {searchResult &&
+        searchResult.map((auction) => (
+          <AuctionListItem key={auction.id} auction={auction} />
+        ))}
     </ul>
   );
 }
