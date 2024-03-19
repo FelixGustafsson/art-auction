@@ -1,1 +1,193 @@
-{}
+{
+    "items": [
+        {
+            "id": "1",
+            "title": "Starry Night",
+            "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh.",
+            "artist": "Vincent van Gogh",
+            "startingBid": 5000,
+            "highestBid": {
+                "userId": 1,
+                "amount": 5500
+            },
+            "allBids": [
+                {
+                    "userId": 1,
+                    "amount": 5000
+                },
+                {
+                    "userId": 2,
+                    "amount": 5200
+                },
+                {
+                    "userId": 1,
+                    "amount": 5500
+                }
+            ],
+            "image": "https://source.unsplash.com/random/800x600/?art",
+            "auctionEnds": "2024-05-15",
+            "filters": {
+                "periods": [
+                    "Modern"
+                ],
+                "types": [
+                    "Oil"
+                ],
+                "locations": [
+                    "Europe"
+                ]
+            }
+        },
+        {
+            "id": "2",
+            "title": "Mona Lisa",
+            "description": "Leonardo da Vinci's masterpiece depicting a woman with an enigmatic smile.",
+            "artist": "Leonardo da Vinci",
+            "startingBid": 7000,
+            "highestBid": {
+                "id": 2,
+                "amount": 4200
+            },
+            "allBids": [],
+            "image": "https://source.unsplash.com/random/800x600/?portrait",
+            "auctionEnds": "2024-06-20",
+            "filters": {
+                "periods": [
+                    "Renaissance"
+                ],
+                "types": [
+                    "Oil"
+                ],
+                "locations": [
+                    "Europe"
+                ]
+            }
+        },
+        {
+            "id": "3",
+            "title": "The Persistence of Memory",
+            "description": "Salvador Dalí's famous painting featuring melting clocks in a dreamlike landscape.",
+            "artist": "Salvador Dalí",
+            "startingBid": 6000,
+            "highestBid": {
+                "id": 3,
+                "amount": 300
+            },
+            "allBids": [],
+            "image": "https://source.unsplash.com/random/800x600/?surrealism",
+            "auctionEnds": "2024-07-25",
+            "filters": {
+                "periods": [
+                    "Modern"
+                ],
+                "types": [
+                    "Surrealism"
+                ],
+                "locations": [
+                    "Europe"
+                ]
+            }
+        },
+        {
+            "id": "4",
+            "title": "Girl with a Pearl Earring",
+            "description": "Johannes Vermeer's iconic painting of a girl wearing a pearl earring.",
+            "artist": "Johannes Vermeer",
+            "startingBid": 4500,
+            "highestBid": {
+                "id": 4,
+                "amount": 4050
+            },
+            "allBids": [],
+            "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
+            "auctionEnds": "2024-08-30",
+            "filters": {
+                "periods": [
+                    "1700s"
+                ],
+                "types": [
+                    "Oil"
+                ],
+                "locations": [
+                    "Europe"
+                ]
+            }
+        },
+        {
+            "id": "5",
+            "title": "The Starry Night",
+            "description": "Another version of Vincent van Gogh's masterpiece showing a swirling night sky above a village.",
+            "artist": "Vincent van Gogh",
+            "startingBid": 5500,
+            "highestBid": {
+                "id": 4,
+                "amount": 4395
+            },
+            "allBids": [],
+            "image": "https://source.unsplash.com/random/800x600/?night,painting",
+            "auctionEnds": "2024-09-15",
+            "filters": {
+                "periods": [
+                    "Modern"
+                ],
+                "types": [
+                    "Oil"
+                ],
+                "locations": [
+                    "Europe"
+                ]
+            }
+        }
+    ],
+    "users": [
+        {
+            "id": "1",
+            "username": "artlover",
+            "name": "Veronica",
+            "lastname": "Strand",
+            "email": "veronica@example.com",
+            "password": "123",
+            "ongoingBids": [
+                {
+                    "itemId": 1,
+                    "bidAmount": 5500
+                }
+            ],
+            "wonItems": [],
+            "lostItems": []
+        },
+        {
+            "id": "2",
+            "username": "user2",
+            "name": "Jane",
+            "lastname": "Smith",
+            "email": "user2@example.com",
+            "password": "password2",
+            "ongoingBids": [],
+            "wonItems": [],
+            "lostItems": []
+        },
+        {
+            "id": "3",
+            "username": "user3",
+            "name": "Alice",
+            "lastname": "Johnson",
+            "email": "user3@example.com",
+            "password": "password3",
+            "ongoingBids": [],
+            "wonItems": [],
+            "lostItems": []
+        },
+        {
+            "id": "4",
+            "username": "user4",
+            "name": "Bob",
+            "lastname": "Brown",
+            "email": "user4@example.com",
+            "password": "password4",
+            "ongoingBids": [],
+            "wonItems": [],
+            "lostItems": []
+        }
+    ]
+}
