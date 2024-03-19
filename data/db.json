@@ -25,7 +25,12 @@
         }
       ],
       "image": "https://source.unsplash.com/random/800x600/?art",
-      "auctionEnds": "2024-05-15"
+      "auctionEnds": "2024-05-15",
+      "filters": {
+        "periods": ["Modern"],
+        "types": ["Oil"],
+        "locations": ["Europe"]
+      }
     },
     {
       "id": "2",
@@ -36,7 +41,12 @@
       "highestBid": null,
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?portrait",
-      "auctionEnds": "2024-06-20"
+      "auctionEnds": "2024-06-20",
+      "filters": {
+        "periods": ["Renaissance"],
+        "types": ["Oil"],
+        "locations": ["Europe"]
+      }
     },
     {
       "id": "3",
@@ -47,7 +57,12 @@
       "highestBid": null,
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?surrealism",
-      "auctionEnds": "2024-07-25"
+      "auctionEnds": "2024-07-25",
+      "filters": {
+        "periods": ["Modern"],
+        "types": ["Surrealism"],
+        "locations": ["Europe"]
+      }
     },
     {
       "id": "4",
@@ -58,7 +73,12 @@
       "highestBid": null,
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
-      "auctionEnds": "2024-08-30"
+      "auctionEnds": "2024-08-30",
+      "filters": {
+        "periods": ["1700s"],
+        "types": ["Oil"],
+        "locations": ["Europe"]
+      }
     },
     {
       "id": "5",
@@ -69,7 +89,12 @@
       "highestBid": null,
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?night,painting",
-      "auctionEnds": "2024-09-15"
+      "auctionEnds": "2024-09-15",
+      "filters": {
+        "periods": ["Modern"],
+        "types": ["Oil"],
+        "locations": ["Europe"]
+      }
     }
   ],
   "users": [
