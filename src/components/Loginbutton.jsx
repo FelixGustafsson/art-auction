@@ -12,8 +12,21 @@ export default function Loginbutton(){
 
 
     const handleClose = () => setShowModal(false);
-    function handleLogin() {
-        
+    const handleRadioChange = (value) => setSelectedValue(value) 
+
+
+    async function handleSubmit(event) {
+        event.preventDefault()
+        const form = event.currentTarget
+        const purpose = form.elements.login.checked ? "login" : "register"
+        const userCredentials = {email: form.elements.email.value, password: form.elements.password.value}
+        if (purpose === "login") {
+            setLogin(userCredentials.email)
+        }
+        else if (purpose === "register") {
+            
+        }
+        else {(console.log("?????????????"))}
     }
    
         return(
@@ -23,11 +36,11 @@ export default function Loginbutton(){
         showModal && (
         <Modal show={showModal} onHide={handleClose} animation={false}>
             <Modal.Header closeButton>
-            <Modal.Title>Log in</Modal.Title>
+            <Modal.Title>{selectedValue === "login" ? "Log in" : "Register"}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
-                <div key={`inline-radio`} className="mb-3">
+            <Form onSubmit={handleSubmit} return="false">
+            <div key={`inline-radio`} className="mb-3">
             <Form.Check
             inline
             label="Log in"
@@ -38,8 +51,11 @@ export default function Loginbutton(){
                 selectedValue === 
                 "login"
             } 
-            onClick={() => setSelectedValue("login")}
-          />
+            onChange={() => 
+                handleRadioChange( 
+                    "login"
+                ) 
+            }           />
           <Form.Check
             inline
             label="Register"
@@ -50,26 +66,26 @@ export default function Loginbutton(){
                 selectedValue === 
                 "register"
             } 
-            onClick={() => setSelectedValue("register")}
-
-          />
-                </div>
-                <input type="email" name="email" autoComplete="email" className="form-control" placeholder="Username" aria-label="Username" required/>
-                <input type="password" name="password" className="form-control" placeholder="Password" aria-label="Password" required/>
-                </Form>
-            </Modal.Body>
-            <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            onChange={() => 
+                handleRadioChange( 
+                    "register"
+                ) 
+            }           />
+            </div>
+            <input type="email" name="email" autoComplete="email" className="form-control mb-2" placeholder="Username" aria-label="Username" required/>
+            <input type="password" name="password" className="form-control" placeholder="Password" aria-label="Password" required/>
+            <Button variant="secondary" className="my-3" onClick={handleClose}>
             Cancel
             </Button>
-            <Button variant="primary" onClick={handleLogin}>
-            Log in
+            <Button variant="primary" className="my-3 ms-2" type="submit">
+            {selectedValue === "login" ? "Login" : "Register"}
             </Button>
-            </Modal.Footer>
+            </Form>
+            </Modal.Body>
         </Modal>
         )   
         }
-            </>
+        </>
         )
 
 }
