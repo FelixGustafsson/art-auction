@@ -1,5 +1,6 @@
 import { GlobalContext } from "../GlobalContext";
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -17,6 +18,7 @@ export default function Loginbutton(){
     }
     const dismiss = () => setShowLoginSuccess(false)
     const handleRadioChange = (value) => setSelectedValue(value) 
+    const redirect = useNavigate()
 
     async function handleSubmit(event) {
         event.preventDefault()
@@ -48,7 +50,7 @@ export default function Loginbutton(){
    
         return(
             <>
-            <button className="btn btn-primary" onClick={()=>setShowModal(true)}>{login ? "Profile" : "Login"}</button>
+            <button className="btn btn-primary" onClick={()=>login ? redirect("/profile") : setShowModal(true)}>{login ? "Profile" : "Login"}</button>
         {
         showModal && (
         <Modal show={showModal} onHide={handleClose} animation={false}>
