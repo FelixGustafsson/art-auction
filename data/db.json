@@ -1,6 +1,9 @@
 {
-"users": [{
-    "email": "bob@bobkins.net",
-    "password": "bubbles"
-}]
+  "users": [
+    {
+      "email": "bob@bobkins.net",
+      "password": "bubbles",
+      "id": "1825"
+    }
+  ]
 }
