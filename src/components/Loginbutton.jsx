@@ -37,7 +37,7 @@ export default function Loginbutton(){
         const match = users.find((user) => user.email === userCredentials.email)
         if (purpose === "login") {
             if (match === undefined) {
-                setLoginError(1)
+                setLoginError("User not found. Select register to create an account.")
             }
             else if (match.password === userCredentials.password) {
                 setSuccessText("Login successful.")
@@ -46,7 +46,7 @@ export default function Loginbutton(){
                 setShowSuccessModal(true)
             }
             else if (match.password !== userCredentials.password) {
-                setLoginError(2)
+                setLoginError("Incorrect password - please try again.")
             }
             else {console.log("Unknown error with login has occurred")}
         }
@@ -62,9 +62,9 @@ export default function Loginbutton(){
                     setShowModal(false)
                     setShowSuccessModal(true)
                 }
-                else {setLoginError(3)}
+                else {setLoginError("Unable to register new user.")}
             }
-            else {setLoginError(4)}        
+            else {setLoginError("This email address already has an account!")}        
         }
         else {(console.log("Something has gone wrong with the radio buttons."))}
         }
@@ -123,27 +123,12 @@ export default function Loginbutton(){
             </Form>
             </Modal.Body>
             <Modal.Footer>
-        { loginError === 1 && 
+        { loginError && 
             <div className="alert alert-warning" role="alert">
-            User not found. Did you mean to register?
+                {loginError}
             </div>
-        }   
-        { loginError === 2 && 
-            <div className="alert alert-danger" role="alert">
-            Incorrect password - please try again.
-            </div>
-        }
-        { loginError === 3 && 
-            <div className="alert alert-danger" role="alert">
-            Unable to register new user.
-            </div>
-        }
-        { loginError === 4 && 
-            <div className="alert alert-danger" role="alert">
-            This email address already has an account!
-            </div>
-        }    
-            </Modal.Footer>
+        }       
+        </Modal.Footer>
         </Modal>
         )   
         }
