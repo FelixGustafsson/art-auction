@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer.jsx';
+import Home from './routes/Home.route.jsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from "./routes/Home.route.jsx"
@@ -8,8 +11,6 @@ import { GlobalProvider } from './GlobalContext.jsx'
 
 
 function App() {
- 
-
   return (
     <>
       <GlobalProvider>
@@ -20,10 +21,11 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/profile" element={<Profile/>}/>
         </Routes>
+        <Footer />
       </BrowserRouter>
       </GlobalProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
