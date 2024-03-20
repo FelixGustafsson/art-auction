@@ -11,8 +11,10 @@ const HomeFilterList = () => {
                     <h4>Periods</h4>
                     <ul className='list-group'>
                         <li className='list-group-item'>
+
                             <input type='checkbox' />
                             <span className='px-3'>Medieval</span>
+
                         </li>
                         <li className='list-group-item'>
                             <input type='checkbox' />

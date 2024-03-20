@@ -10,11 +10,11 @@ const AuctionList = () => {
     }, [])
 
     return (
-        <div>
+        <ul className='d-flex flex-column gap-5'>
             {
                 auctions.map((auction) => { return <AuctionListItem auction={auction} /> })
             }
-        </div>
+        </ul>
 
     )
 }
