@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SuccessModal from "../components/SuccessModal";
+import ProfilePageItem from "../components/ProfilePageItem";
 
 
 export default function Profile() {
@@ -14,6 +15,9 @@ export default function Profile() {
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [showAuctionForm, setShowAuctionForm] = useState(false)
     const [successText, setSuccessText] = useState("")
+    const [bids, setBids] = useState([])
+    const [savedAuctions, setSavedAuctions] = useState([])
+    const [myAuctions, setMyAuctions] = useState([])
     const currentUser = login
     const redirect = useNavigate()
     
@@ -24,9 +28,14 @@ export default function Profile() {
         const match = users.find((user) => user.email === currentUser)
         if (match === undefined) {console.log("error with profile - user not found")}
         setUserInfo(match)
+        setBids(match.ongoingBids)
+        setSavedAuctions(match.savedAuctions)
+        setMyAuctions(match.myAuctions)
         };
         fetchUser();
       }, []);
+
+    
 
     const handleSubmitInfo = async (event) => {
         event.preventDefault()
@@ -85,11 +94,29 @@ export default function Profile() {
     }
 
     return <>
+    <div className="container">
         <h1>Welcome {userInfo.name}</h1>
         <button className="btn btn-primary" onClick={()=>setShowEditForm(true)}>Edit account info</button>
         <button className="btn btn-secondary" onClick={()=>{setLogin(null); redirect("/")}}>Logout</button>
-        <button type="button" className="btn btn-success" onClick={()=>setShowAuctionForm(true)}>Create new auction</button>
-        <button onClick={()=>(console.log(userInfo))}>show user info</button>
+        <button onClick={()=>(console.log(bids))}>show bid info</button>
+        <div className="row">
+        <div className="col">
+            <h2>Your bids</h2>
+            {bids && bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.bidId}/> )}
+        </div>
+        <div className="col">
+            <h2>Saved auctions</h2>
+            {savedAuctions && savedAuctions.map((auction) => <ProfilePageItem {...auction} key={auction.itemId}/> )}
+        </div>
+        <div className="col">
+            <h2>Your auctions</h2>
+            {myAuctions && myAuctions.map((auction) => <ProfilePageItem {...auction} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: " } bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction.itemId}/> )}
+            <div className="d-flex justify-content-center my-4">
+            <button type="button" className="btn btn-success" onClick={()=>setShowAuctionForm(true)}>Create new auction</button>
+            </div>
+        </div>
+        </div>
+
         <Modal show={showEditForm} onHide={()=>setShowEditForm(false)} animation={false}>
             <Modal.Header closeButton>
               <Modal.Title>Edit account information</Modal.Title>
@@ -138,5 +165,6 @@ export default function Profile() {
           </Modal>     
 
         <SuccessModal showSuccessModal={showSuccessModal} successText={successText} dismiss={()=>setShowSuccessModal(false)}/> 
+    </div>
     </>
 }

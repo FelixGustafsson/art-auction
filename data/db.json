@@ -165,12 +165,46 @@
       "password": "e",
       "username": "sdf",
       "name": "sfdds",
-      "lastname": "sdfs"
+      "lastname": "sdfs",
+      "ongoingBids": [
+        {
+          "itemId": 1,
+          "bidAmount": 4000,
+          "bidId": 1,
+          "image": "https://source.unsplash.com/random/800x600/?art",
+         "title": "Starry Night" 
+        }],
+        "savedAuctions": [
+          {
+            "itemId": 1,
+            "image": "https://source.unsplash.com/random/800x600/?art",
+            "title": "Starry Night",
+            "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
+          }
+        ],
+        "myAuctions": [
+          {
+            "itemId": "aef3",
+            "title": "Rhino",
+            "image": "https://www.singulart.com/blog/wp-content/uploads/2023/11/Durers-Rhinoceros-1536x1212.png",
+            "startingBid": "5000000"
+
+          }]
     },
     {
       "id": "4d32",
       "email": "dsf@sdsa",
-      "password": "fsgsf"
+      "password": "fsgsf",
+      "startingBid": "5000000"
+    }
+  ],
+  "bids": [
+    {
+      "id": "1",
+      "bidder": "d446",
+      "item": "1",
+      "amount": 4000,
+      "date": "x"
     }
   ]
 }
