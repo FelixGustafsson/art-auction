@@ -1,5 +1,5 @@
 import AuctionSearchForm from './AuctionSearchForm';
-import AuctionList from './AuctionList.jsx';
+import AuctionSearchList from './AuctionSearchList.jsx';
 import useAuctionSearchHook from '../../hooks/useAuctionSearchHook.jsx';
 
 function AuctionSearch() {
@@ -12,7 +12,7 @@ function AuctionSearch() {
         searchTerm={searchTerm}
         onInputChange={handleInputChange}
       />
-      {searchTerm && <AuctionList searchResult={filteredAuctions} />}
+      {searchTerm && <AuctionSearchList searchResult={filteredAuctions} />}
     </div>
   );
 }

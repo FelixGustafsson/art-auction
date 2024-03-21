@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 function AuctionSearchForm({ searchTerm, onInputChange }) {
   return (
     <div>
@@ -12,10 +10,5 @@ function AuctionSearchForm({ searchTerm, onInputChange }) {
     </div>
   );
 }
-
-AuctionSearchForm.propTypes = {
-  searchTerm: PropTypes.string.isRequired,
-  onInputChange: PropTypes.func.isRequired,
-};
 
 export default AuctionSearchForm;

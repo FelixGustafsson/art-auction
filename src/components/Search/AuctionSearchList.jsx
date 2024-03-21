@@ -1,4 +1,4 @@
-import AuctionListItem from './AuctionListItem';
+import AuctionSearchListItem from './AuctionSearchListItem';
 import { useNavigate } from 'react-router-dom';
 
 function AuctionList({ searchResult }) {
@@ -16,7 +16,7 @@ function AuctionList({ searchResult }) {
           key={auction.id}
           onClick={() => handleAuctionClick(auction.id)}
         >
-          <AuctionListItem auction={auction} />
+          <AuctionSearchListItem auction={auction} />
         </div>
       ))}
     </div>
