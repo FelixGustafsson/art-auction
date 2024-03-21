@@ -98,7 +98,6 @@ export default function Profile() {
         <h1>Welcome {userInfo.name}</h1>
         <button className="btn btn-primary" onClick={()=>setShowEditForm(true)}>Edit account info</button>
         <button className="btn btn-secondary" onClick={()=>{setLogin(null); redirect("/")}}>Logout</button>
-        <button onClick={()=>(console.log(bids))}>show bid info</button>
         <div className="row">
         <div className="col">
             <h2>Your bids</h2>
