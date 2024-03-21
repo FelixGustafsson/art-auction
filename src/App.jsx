@@ -6,8 +6,7 @@ import Profile from './routes/Profile.route.jsx';
 import Loginbutton from './components/Loginbutton.jsx';
 import ArtInfo from './routes/ArtInfo.route.jsx';
 import { GlobalProvider } from './contexts/GlobalContext.jsx';
-import AuctionSearch from './components/Search/AuctionSearch.jsx';
-import BidPage from './routes/Bid.route.jsx';
+import ArtInfo from './routes/ArtInfo.route.jsx';
 
 function App() {
   return (
@@ -15,16 +14,11 @@ function App() {
       <GlobalProvider>
         <BrowserRouter>
           <Navbar />
-          <AuctionSearch />
           <Loginbutton />
           <Routes>
             <Route path='/' element={<Home />} />
-
-            <Route path='/info/:id' element={<ArtInfo />} />
-
             <Route path='/profile' element={<Profile />} />
-
-            <Route path='/bid' element={<BidPage />} />
+            <Route path='/artinfo/:id' element={<ArtInfo />} />
           </Routes>
           <Footer />
         </BrowserRouter>
