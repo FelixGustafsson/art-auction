@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import auctionItems from '../../data/db.json';
 import AuctionListItem from './AuctionListItem';
 import { HomeFilterContext } from '../contexts/HomeFilterContext';

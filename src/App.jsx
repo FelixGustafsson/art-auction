@@ -5,7 +5,7 @@ import Home from './routes/Home.route.jsx';
 import Profile from './routes/Profile.route.jsx';
 import Loginbutton from './components/Loginbutton.jsx';
 import ArtInfo from './routes/ArtInfo.route.jsx';
-import { GlobalProvider } from './GlobalContext.jsx';
+import { GlobalProvider } from './contexts/GlobalContext.jsx';
 import AuctionSearch from './components/Search/AuctionSearch.jsx';
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
 
-            <Route path='/artinfo/:id' element={<ArtInfo />} />
+            <Route path='/info/:id' element={<ArtInfo />} />
 
             <Route path='/profile' element={<Profile />} />
           </Routes>

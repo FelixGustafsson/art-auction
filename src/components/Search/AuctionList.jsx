@@ -1,7 +1,10 @@
 import AuctionListItem from './AuctionListItem';
+import { useNavigate } from 'react-router-dom';
 
 function AuctionList({ searchResult }) {
+  const navigate = useNavigate();
   const handleAuctionClick = (id) => {
+    navigate(`/info/${id}`);
     console.log(id);
   };
   console.log(searchResult);

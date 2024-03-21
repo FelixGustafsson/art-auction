@@ -9,10 +9,8 @@ function useAuctionSearchHook() {
     const filteredAuctions = items.items.filter((auction) => {
       return (
         auction.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        Object.values(auction.filters).some((filter) =>
-          filter
-            .map((value) => value.toLowerCase())
-            .includes(searchTerm.toLowerCase())
+        auction.filters.some((filter) =>
+          filter.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
     });
