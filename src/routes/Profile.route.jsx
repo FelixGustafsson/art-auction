@@ -64,7 +64,8 @@ export default function Profile() {
             artist: form.artist.value,
             startingBid: form.startingBid.value,
             image: form.image.value,
-            auctionEnds: form.auctionEnds.value
+            auctionEnds: form.auctionEnds.value,
+            seller: userInfo.id
         }
         const response = await fetch("http://localhost:8000/items", {
             method: "POST",
@@ -74,7 +75,7 @@ export default function Profile() {
             body: JSON.stringify(newAuctionInfo)
         })
         if (response.status === 201) {
-            setShowEditForm(false)
+            setShowAuctionForm(false)
             setSuccessText("New auction created.")
             setShowSuccessModal(true)
         }
@@ -135,7 +136,7 @@ export default function Profile() {
             <Modal.Footer>
             </Modal.Footer>
           </Modal>     
-          
+
         <SuccessModal showSuccessModal={showSuccessModal} successText={successText} dismiss={()=>setShowSuccessModal(false)}/> 
     </>
 }
