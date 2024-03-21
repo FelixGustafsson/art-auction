@@ -4,19 +4,21 @@ import Footer from './components/Footer.jsx';
 import Home from './routes/Home.route.jsx';
 import Profile from './routes/Profile.route.jsx';
 import Loginbutton from './components/Loginbutton.jsx';
+import ArtInfo from './routes/ArtInfo.route.jsx';
 import { GlobalProvider } from './GlobalContext.jsx';
-import AuctionSearch from './components/Search/AuctionSearch.jsx';
 
 function App() {
   return (
     <>
       <GlobalProvider>
         <BrowserRouter>
-          <AuctionSearch />
           <Navbar />
           <Loginbutton />
           <Routes>
             <Route path='/' element={<Home />} />
+
+            <Route path='/artinfo/:id' element={<ArtInfo />} />
+
             <Route path='/profile' element={<Profile />} />
           </Routes>
           <Footer />
