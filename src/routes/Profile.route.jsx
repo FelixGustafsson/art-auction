@@ -58,7 +58,7 @@ export default function Profile() {
         <button className="btn btn-primary" onClick={()=>setShowEditForm(true)}>Edit account info</button>
         <button className="btn btn-secondary" onClick={()=>{setLogin(null); redirect("/")}}>Logout</button>
         <button onClick={()=>(console.log(userInfo))}>show user info</button>
-        {<Modal show={showEditForm} onHide={()=>setShowEditForm(false)} animation={false}>
+        <Modal show={showEditForm} onHide={()=>setShowEditForm(false)} animation={false}>
             <Modal.Header closeButton>
               <Modal.Title>Edit account information</Modal.Title>
             </Modal.Header>
@@ -80,7 +80,6 @@ export default function Profile() {
             <Modal.Footer>
             </Modal.Footer>
           </Modal>           
-        }
         <SuccessModal showSuccessModal={showSuccessModal} successText={"User information updated!"} dismiss={()=>setShowSuccessModal(false)}/> 
     </>
 }
