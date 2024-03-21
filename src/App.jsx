@@ -5,12 +5,14 @@ import Home from './routes/Home.route.jsx';
 import Profile from './routes/Profile.route.jsx';
 import Loginbutton from './components/Loginbutton.jsx';
 import { GlobalProvider } from './GlobalContext.jsx';
+import AuctionSearch from './components/Search/AuctionSearch.jsx';
 
 function App() {
   return (
     <>
       <GlobalProvider>
         <BrowserRouter>
+          <AuctionSearch />
           <Navbar />
           <Loginbutton />
           <Routes>

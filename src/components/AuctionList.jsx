@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import auctionItems from "../../data/db.json"
-import AuctionListItem from './AuctionListItem'
+import { useEffect, useState } from 'react';
+import auctionItems from '../../data/db.json';
+import AuctionListItem from './AuctionListItem';
 
 const AuctionList = () => {
-    const [auctions, setAuctions] = useState([])
+  const [auctions, setAuctions] = useState([]);
 
-    useEffect(() => {
-        setAuctions(auctionItems.items)
-    }, [])
+  useEffect(() => {
+    setAuctions(auctionItems.items);
+  }, []);
 
-    return (
-        <ul className='d-flex flex-column gap-5'>
-            {
-                auctions.map((auction) => { return <AuctionListItem auction={auction} /> })
-            }
-        </ul>
+  return (
+    <ul className='d-flex flex-column gap-5'>
+      {auctions.map((auction) => {
+        return <AuctionListItem auction={auction} />;
+      })}
+    </ul>
+  );
+};
 
-    )
-}
-
-export default AuctionList
+export default AuctionList;

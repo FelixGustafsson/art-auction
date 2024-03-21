@@ -1,16 +1,13 @@
-import PropTypes from 'prop-types';
-
 function AuctionListItem({ auction }) {
   return (
-    <li key={auction.id}>
-      <h3>{auction.title}</h3>
-      <p>{auction.description}</p>
-    </li>
+    <div className='card m-2 p-2' style={{ width: '18rem' }}>
+      <img src={auction.image} className='card-img-top' alt={auction.title} />
+      <div className='card-body'>
+        <h5 className='card-title'>{auction.title}</h5>
+        <p className='card-text'>{auction.description}</p>
+      </div>
+    </div>
   );
 }
-
-AuctionListItem.propTypes = {
-  auction: PropTypes.object,
-};
 
 export default AuctionListItem;
