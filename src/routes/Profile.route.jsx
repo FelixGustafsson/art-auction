@@ -1,15 +1,17 @@
-import { GlobalContext } from "../GlobalContext"
+import { GlobalContext } from "../contexts/GlobalContext"
 import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import SuccessModal from "../components/SuccessModal";
 
 
 export default function Profile() {
     const {login, setLogin} = useContext(GlobalContext)  // global login status
     const [userInfo, setUserInfo] = useState([])
     const [showEditForm, setShowEditForm] = useState(false)
+    const [showSuccessModal, setShowSuccessModal] = useState(false)
     const currentUser = login
     const redirect = useNavigate()
     
@@ -24,16 +26,38 @@ export default function Profile() {
         fetchUser();
       }, []);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        const form = event.currentTarget
-        console.log(form)
+        const form = event.currentTarget.elements
+        const newUserInfo = {
+            username: form.username.value,
+            name: form.name.value,
+            lastname: form.lastname.value,
+            email: form.email.value,
+            password: form.password.value
+        }
+        const response = await fetch(`http://localhost:8000/users/${userInfo.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newUserInfo)
+        })
+        if (response.status === 200){
+            setShowEditForm(false)
+            setShowSuccessModal(true)
+            const updatedUser = await fetch (`http://localhost:8000/users/${userInfo.id}`)
+            const updatedUserInfo = await updatedUser.json()
+            setUserInfo(updatedUserInfo)
+        }
+        
     }
 
     return <>
         <h1>Welcome {userInfo.name}</h1>
         <button className="btn btn-primary" onClick={()=>setShowEditForm(true)}>Edit account info</button>
         <button className="btn btn-secondary" onClick={()=>{setLogin(null); redirect("/")}}>Logout</button>
+        <button onClick={()=>(console.log(userInfo))}>show user info</button>
         {<Modal show={showEditForm} onHide={()=>setShowEditForm(false)} animation={false}>
             <Modal.Header closeButton>
               <Modal.Title>Edit account information</Modal.Title>
@@ -42,7 +66,7 @@ export default function Profile() {
             <Form onSubmit={handleSubmit} return="false">
                 <input type="text" name="username" className="form-control mb-2" placeholder="Username" aria-label="username" required/>
                 <input type="text" name="name" className="form-control mb-2" placeholder="Name" aria-label="name" required/>
-                <input type="text" name="surname" className="form-control mb-2" placeholder="Surname" aria-label="surname" required/>
+                <input type="text" name="lastname" className="form-control mb-2" placeholder="Surname" aria-label="lastname" required/>
                 <input type="email" name="email" autoComplete="email" className="form-control mb-2" placeholder="Email" aria-label="email" required/>
                 <input type="text" name="password" className="form-control mb-2" placeholder="Password" aria-label="password" required/>
             <Button variant="secondary" className="my-3" onClick={()=>setShowEditForm(false)}>
@@ -57,6 +81,6 @@ export default function Profile() {
             </Modal.Footer>
           </Modal>           
         }
-       
+        <SuccessModal showSuccessModal={showSuccessModal} successText={"User information updated!"} dismiss={()=>setShowSuccessModal(false)}/> 
     </>
 }
