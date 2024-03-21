@@ -5,6 +5,9 @@ const AuctionListItem = ({ auction }) => {
   const handleMoreInfo = (id) => {
     navigate(`/info/${id}`);
   };
+  const handleBidNow = (id) => {
+    navigate(`/bid/${id}`);
+  };
   return (
     <li className='d-flex justify-content-between shadow rounded-5 p-5'>
       <div className='me-5'>
@@ -23,7 +26,12 @@ const AuctionListItem = ({ auction }) => {
               More info
             </button>
             <button className='btn btn-primary'>Add to favourites</button>
-            <button className='btn btn-success'>Bid now</button>
+            <button
+              onClick={() => handleBidNow(auction.id)}
+              className='btn btn-success'
+            >
+              Bid now
+            </button>
           </div>
         </div>
       </div>
