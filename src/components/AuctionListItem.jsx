@@ -16,7 +16,7 @@ const AuctionListItem = ({ auction }) => {
         <div className='d-flex flex-column'>
           <span>Other information:</span>
           <span>Starting price: £{auction.startingBid}</span>
-          <span>Current bid: £{auction.highestBid.amount}</span>
+          {auction.highestBid && <span>Current bid: £{auction.highestBid.amount}</span>}
           <span>Auction ends: {auction.auctionEnds}</span>
           <div className='my-3 d-flex gap-2'>
             <button
