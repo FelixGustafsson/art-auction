@@ -1,4 +1,3 @@
-import React from 'react';
 import HomeFilterList from '../components/HomeFilterList';
 import AuctionList from '../components/AuctionList';
 import { HomeFilterProvider } from '../contexts/HomeFilterContext';
