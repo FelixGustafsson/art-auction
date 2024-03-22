@@ -4,9 +4,9 @@ import Footer from './components/Footer.jsx';
 import Home from './routes/Home.route.jsx';
 import Profile from './routes/Profile.route.jsx';
 import Loginbutton from './components/Loginbutton.jsx';
+import ArtInfo from './routes/ArtInfo.route.jsx';
 import { GlobalProvider } from './contexts/GlobalContext.jsx';
 import { ListingProvider } from './contexts/ListingContext.jsx';
-import ArtInfo from './routes/ArtInfo.route.jsx';
 
 function App() {
   return (
