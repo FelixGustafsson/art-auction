@@ -26,7 +26,9 @@
       ],
       "image": "https://source.unsplash.com/random/800x600/?art",
       "auctionEnds": "2024-05-15",
-      "filters": ["Modern"]
+      "filters": [
+        "Modern"
+      ]
     },
     {
       "id": "2",
@@ -41,7 +43,9 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?portrait",
       "auctionEnds": "2024-06-20",
-      "filters": ["Modern"]
+      "filters": [
+        "Modern"
+      ]
     },
     {
       "id": "3",
@@ -56,7 +60,9 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?surrealism",
       "auctionEnds": "2024-07-25",
-      "filters": ["Modern"]
+      "filters": [
+        "Modern"
+      ]
     },
     {
       "id": "4",
@@ -71,7 +77,9 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
       "auctionEnds": "2024-08-30",
-      "filters": ["1800s"]
+      "filters": [
+        "1800s"
+      ]
     },
     {
       "id": "5",
@@ -86,7 +94,19 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?night,painting",
       "auctionEnds": "2024-09-15",
-      "filters": ["1700s"]
+      "filters": [
+        "1700s"
+      ]
+    },
+    {
+      "id": "aef3",
+      "title": "Rhino",
+      "description": "<3<3<3<3<3<3",
+      "artist": "Albrecht Durer",
+      "startingBid": "5000000",
+      "image": "https://www.singulart.com/blog/wp-content/uploads/2023/11/Durers-Rhinoceros-1536x1212.png",
+      "auctionEnds": "2024-03-30T15:36",
+      "seller": "d446"
     }
   ],
   "users": [
@@ -109,8 +129,8 @@
     {
       "id": "2",
       "username": "user2",
-      "name": "Jane",
-      "lastname": "Smith",
+      "name": "John",
+      "lastname": "Doe",
       "email": "user2@example.com",
       "password": "password2",
       "ongoingBids": [],
@@ -138,6 +158,53 @@
       "ongoingBids": [],
       "wonItems": [],
       "lostItems": []
+    },
+    {
+      "id": "d446",
+      "email": "e@e",
+      "password": "e",
+      "username": "sdf",
+      "name": "sfdds",
+      "lastname": "sdfs",
+      "ongoingBids": [
+        {
+          "itemId": 1,
+          "bidAmount": 4000,
+          "bidId": 1,
+          "image": "https://source.unsplash.com/random/800x600/?art",
+         "title": "Starry Night" 
+        }],
+        "savedAuctions": [
+          {
+            "itemId": 1,
+            "image": "https://source.unsplash.com/random/800x600/?art",
+            "title": "Starry Night",
+            "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
+          }
+        ],
+        "myAuctions": [
+          {
+            "itemId": "aef3",
+            "title": "Rhino",
+            "image": "https://www.singulart.com/blog/wp-content/uploads/2023/11/Durers-Rhinoceros-1536x1212.png",
+            "startingBid": "5000000"
+
+          }]
+    },
+    {
+      "id": "4d32",
+      "email": "dsf@sdsa",
+      "password": "fsgsf",
+      "startingBid": "5000000"
+    }
+  ],
+  "bids": [
+    {
+      "id": "1",
+      "bidder": "d446",
+      "item": "1",
+      "amount": 4000,
+      "date": "x"
     }
   ]
 }

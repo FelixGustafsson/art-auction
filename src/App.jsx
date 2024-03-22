@@ -6,25 +6,35 @@ import Profile from './routes/Profile.route.jsx';
 import Loginbutton from './components/Loginbutton.jsx';
 import ArtInfo from './routes/ArtInfo.route.jsx';
 import { GlobalProvider } from './contexts/GlobalContext.jsx';
+
 import AuctionSearch from './components/Search/AuctionSearch.jsx';
+
+import { ListingProvider } from './contexts/ListingContext.jsx';
+
+
 
 function App() {
   return (
     <>
-      <GlobalProvider>
-        <BrowserRouter>
-          <Navbar />
-          <AuctionSearch />
-          <Loginbutton />
-          <Routes>
-            <Route path='/' element={<Home />} />
+      </GlobalProvider>
+ </ListingProvider>
 
-            <Route path='/info/:id' element={<ArtInfo />} />
+     
+     
+          <BrowserRouter>
+            <Navbar />
+               <AuctionSearch />
+            <Loginbutton />
+              
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/info/:id' element={<ArtInfo />} />
+            </Routes>
+            <Footer />
+          </BrowserRouter>
+        </ListingProvider>
 
-            <Route path='/profile' element={<Profile />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
       </GlobalProvider>
     </>
   );

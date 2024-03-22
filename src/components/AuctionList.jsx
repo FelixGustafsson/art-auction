@@ -1,30 +1,31 @@
-import { useEffect, useState, useContext } from 'react';
-import auctionItems from '../../data/db.json';
+
+import { useContext } from 'react';
+
 import AuctionListItem from './AuctionListItem';
 import { HomeFilterContext } from '../contexts/HomeFilterContext';
+import { ListingContext } from '../contexts/ListingContext';
 
 const AuctionList = () => {
-  const [auctions, setAuctions] = useState([]);
+  const { listings } = useContext(ListingContext);
   const { chosenFilters } = useContext(HomeFilterContext);
 
-  useEffect(() => {
-    setAuctions(auctionItems.items);
-  }, []);
+  const filterAuctions = (listings, filters) => {
+    if (filters.length === 0) {
+      return listings;
+    } else {
+      return listings.filter((listing) =>
+        filters.some((filterTitle) => listing.filters.includes(filterTitle))
+      );
+    }
+  };
+
+  const filteredAuctions = filterAuctions(listings, chosenFilters);
 
   return (
     <ul className='d-flex flex-column gap-5'>
-      {auctions.map((auction) => {
-        if (chosenFilters.length < 1) {
-          return <AuctionListItem auction={auction} />;
-        } else {
-          for (const filterTitle of chosenFilters) {
-            if (auction.filters.includes(filterTitle)) {
-              console.log('Hej');
-              return <AuctionListItem auction={auction} />;
-            }
-          }
-        }
-      })}
+      {filteredAuctions.map((auction) => (
+        <AuctionListItem auction={auction} key={auction.id} />
+      ))}
     </ul>
   );
 };
