@@ -97,16 +97,6 @@
       "filters": [
         "1700s"
       ]
-    },
-    {
-      "id": "aef3",
-      "title": "Rhino",
-      "description": "<3<3<3<3<3<3",
-      "artist": "Albrecht Durer",
-      "startingBid": "5000000",
-      "image": "https://www.singulart.com/blog/wp-content/uploads/2023/11/Durers-Rhinoceros-1536x1212.png",
-      "auctionEnds": "2024-03-30T15:36",
-      "seller": "d446"
     }
   ],
   "users": [
@@ -172,24 +162,25 @@
           "bidAmount": 4000,
           "bidId": 1,
           "image": "https://source.unsplash.com/random/800x600/?art",
-         "title": "Starry Night" 
-        }],
-        "savedAuctions": [
-          {
-            "itemId": 1,
-            "image": "https://source.unsplash.com/random/800x600/?art",
-            "title": "Starry Night",
-            "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
-          }
-        ],
-        "myAuctions": [
-          {
-            "itemId": "aef3",
-            "title": "Rhino",
-            "image": "https://www.singulart.com/blog/wp-content/uploads/2023/11/Durers-Rhinoceros-1536x1212.png",
-            "startingBid": "5000000"
-
-          }]
+          "title": "Starry Night"
+        }
+      ],
+      "savedAuctions": [
+        {
+          "itemId": 1,
+          "image": "https://source.unsplash.com/random/800x600/?art",
+          "title": "Starry Night",
+          "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
+        }
+      ],
+      "myAuctions": [
+        {
+          "itemId": "aef3",
+          "title": "Rhino",
+          "image": "https://www.singulart.com/blog/wp-content/uploads/2023/11/Durers-Rhinoceros-1536x1212.png",
+          "startingBid": "5000000"
+        }
+      ]
     },
     {
       "id": "4d32",
