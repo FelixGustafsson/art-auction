@@ -1,28 +1,19 @@
-import { useState } from 'react';
-import useAuctionSearchHook from '../hooks/useAuctionSearchHook';
+import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import BidForm from '../components/Bidding/BidForm';
+import { ListingContext } from '../contexts/ListingContext'; // Importera ListingContext
 
-const BidPage = () => {
-  const [inputBid, setInputBid] = useState('');
+const BidPageContent = () => {
+  const { id } = useParams();
+  const { listings } = useContext(ListingContext); // Använd useContext för att hämta kontexten
 
-  const { filteredAuctions } = useAuctionSearchHook();
-  let { id } = useParams();
-  if (!filteredAuctions) {
-    return <div>Loading...</div>;
-  }
-  const auction = filteredAuctions.find((auction) => auction.id === id);
+  // Hitta den specifika auktionen med hjälp av id från params
+  const auction = listings.find((auction) => auction.id === id);
+
   if (!auction) {
-    return <div>Auktionen kunde inte hittas.</div>;
+    return <div>Auction not found.</div>;
   }
 
-  const handleInputChange = (event) => {
-    setInputBid(event.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(Number(inputBid));
-  };
   return (
     <div className='d-flex row container p-5'>
       <div className='col w-25'>
@@ -30,7 +21,6 @@ const BidPage = () => {
       </div>
       <div className='col '>
         <h2>{auction.title}</h2>
-
         <p>{auction.artist}</p>
         <div>
           <button type='button' className='btn btn-danger w-50 '>
@@ -40,32 +30,21 @@ const BidPage = () => {
           </button>
         </div>
         <p>Or enter your bid below</p>
-        <form onSubmit={handleSubmit}>
-          <input
-            className='form-control'
-            type='number'
-            value={inputBid}
-            onChange={handleInputChange}
-            placeholder='Place your bid...'
-          />
-          <button className='btn btn-success  w-100 mt-2' type='submit'>
-            Bid
-          </button>
-        </form>
+
+        <BidForm auction={auction} />
         <p>
           {auction.highestBid && auction.highestBid.amount
             ? `Highest bid: ${parseInt(auction.highestBid.amount)} $`
             : ''}
         </p>
         <p>
-          <strong>Slutar:</strong>
+          <strong>Ends:</strong>
           {new Date(auction.auctionEnds).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
           })}
         </p>
-
         <div className='d-flex gap-4'>
           <button type='button' className='btn btn-success '>
             Bid Now
@@ -76,4 +55,4 @@ const BidPage = () => {
   );
 };
 
-export default BidPage;
+export default BidPageContent;
