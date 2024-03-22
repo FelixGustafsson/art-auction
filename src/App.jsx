@@ -7,7 +7,6 @@ import Loginbutton from './components/Loginbutton.jsx';
 import ArtInfo from './routes/ArtInfo.route.jsx';
 import { GlobalProvider } from './contexts/GlobalContext.jsx';
 import { ListingProvider } from './contexts/ListingContext.jsx';
-import ArtInfo from './routes/ArtInfo.route.jsx';
 
 function App() {
   return (

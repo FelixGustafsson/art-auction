@@ -9,7 +9,7 @@ const InfoTextContainer = () => {
   }
   const auction = filteredAuctions.find((auction) => auction.id === id);
   if (!auction) {
-    return <div>Auktionen kunde inte hittas.</div>;
+    return <div>The auction could not be found.</div>;
   }
   return (
     <div className='d-flex row container p-5'>
@@ -19,22 +19,20 @@ const InfoTextContainer = () => {
       </div>
       <div className='col align-self-center'>
         <p>
-          <strong>Beskrivning:</strong> {auction.description}
+          <strong>Description:</strong> {auction.description}
         </p>
         <p>
-          <strong>Konstnär:</strong> {auction.artist}
+          <strong>Artist:</strong> {auction.artist}
         </p>
         <p>
-          <strong>Startpris:</strong> {auction.startingBid} kr
+          <strong>Starting Price:</strong> {auction.startingBid} $
         </p>
         <p>
-          <strong>Högsta bud:</strong>{' '}
-          {auction.highestBid
-            ? auction.highestBid.amount + ' kr'
-            : 'Inget bud ännu'}
+          <strong>Highest Bid:</strong>{' '}
+          {auction.highestBid ? auction.highestBid.amount + ' $' : 'No bid yet'}
         </p>
         <p>
-          <strong>Slutar:</strong>{' '}
+          <strong>Ends:</strong>{' '}
           {new Date(auction.auctionEnds).toLocaleDateString()}
         </p>
 
