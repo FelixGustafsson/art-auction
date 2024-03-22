@@ -6,10 +6,11 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SuccessModal from "../components/SuccessModal";
 import ProfilePageItem from "../components/ProfilePageItem";
+import Checkbox from "../components/Checkbox";
 
 
 export default function Profile() {
-    const {login, setLogin} = useContext(GlobalContext)  // global login status
+    const {login, setLogin} = useContext(GlobalContext)
     const [userInfo, setUserInfo] = useState([])
     const [showEditForm, setShowEditForm] = useState(false)
     const [showSuccessModal, setShowSuccessModal] = useState(false)
@@ -20,13 +21,19 @@ export default function Profile() {
     const [myAuctions, setMyAuctions] = useState([])
     const currentUser = login
     const redirect = useNavigate()
+
+    const dismiss = () => setShowSuccessModal(false)
+
+    const periodTags = ["Medieval", "Renaissance", "1700s", "1800s", "Modern"]
+    const typeTags = ["Oil", "Acrylic", "Drawing"]
+    const locationTags = ["Europe", "America", "Asia"]
     
     useEffect(() => {
         const fetchUser = async () => {
         const response = await fetch('http://localhost:8000/users');
         const users = await response.json();
         const match = users.find((user) => user.email === currentUser)
-        if (match === undefined) {console.log("error with profile - user not found")}
+        if (match === undefined) {redirect("/")}
         setUserInfo(match)
         setBids(match.ongoingBids)
         setSavedAuctions(match.savedAuctions)
@@ -56,17 +63,21 @@ export default function Profile() {
         })
         if (response.status === 200) {
             setShowEditForm(false)
-            setSuccessText("User information updated.")
-            setShowSuccessModal(true)
             const updatedUser = await fetch (`http://localhost:8000/users/${userInfo.id}`)
             const updatedUserInfo = await updatedUser.json()
             setUserInfo(updatedUserInfo)
+            setSuccessText("User information updated.")
+            setShowSuccessModal(true)
         }
     }
 
     const handleSubmitAuction = async(event) => {
         event.preventDefault()
         const form = event.currentTarget.elements
+        const tags = Array.from(form).filter((item) => item.checked === true)
+        console.log(tags)
+        const filters = tags.map((tag) => tag.id)
+        console.log(filters)
         const newAuctionInfo = {
             title: form.title.value,
             description: form.description.value,
@@ -74,7 +85,8 @@ export default function Profile() {
             startingBid: form.startingBid.value,
             image: form.image.value,
             auctionEnds: form.auctionEnds.value,
-            seller: userInfo.id
+            seller: userInfo.id,
+            filters: tags.map((tag) => tag.id)
         }
         const response = await fetch("http://localhost:8000/items", {
             method: "POST",
@@ -89,7 +101,7 @@ export default function Profile() {
             setShowSuccessModal(true)
         }
         else{
-        console.log(response.status)
+        console.log("Something went wrong")
         }
     }
 
@@ -151,6 +163,15 @@ export default function Profile() {
                 <input type="number" name="startingBid" className="form-control mb-2" placeholder="Starting price" aria-label="startingBid" required/>
                 <input type="text" name="image" className="form-control mb-2" placeholder="Image link" aria-label="image" required/>
                 <input type="datetime-local" name="auctionEnds" className="form-control mb-2" placeholder="End date" aria-label="auctionEnds" required/>
+                <div className='mb-3'>Period tags: <br/> 
+                {periodTags.map((tag) => <Checkbox type="checkbox" label={tag} value={tag} key={tag}/>)}
+                </div>
+                <div className='mb-3'>Type tags:  <br/>
+                {typeTags.map((tag) => <Checkbox type="checkbox" label={tag} value={tag} key={tag}/>)}
+                </div>
+                <div className='mb-3'>Location tags:  <br/>
+                {locationTags.map((tag) => <Checkbox type="checkbox" label={tag} value={tag} key={tag}/>)}
+                </div>
             <Button variant="secondary" className="my-3" onClick={()=>setShowAuctionForm(false)}>
             Cancel
             </Button>
@@ -163,7 +184,7 @@ export default function Profile() {
             </Modal.Footer>
           </Modal>     
 
-        <SuccessModal showSuccessModal={showSuccessModal} successText={successText} dismiss={()=>setShowSuccessModal(false)}/> 
+        <SuccessModal showSuccessModal={showSuccessModal} successText={successText} dismiss={dismiss}/> 
     </div>
     </>
 }
