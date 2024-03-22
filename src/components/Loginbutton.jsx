@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import SuccessModal from './SuccessModal';
 
 export default function Loginbutton() {
   // various states needed for functionality:
@@ -48,6 +49,7 @@ export default function Loginbutton() {
         setLogin(userCredentials.email);
         setShowModal(false);
         setShowSuccessModal(true);
+        setLoginError(null);
       } else if (match.password !== userCredentials.password) {
         setLoginError('Incorrect password - please try again.');
       } else {
@@ -64,6 +66,7 @@ export default function Loginbutton() {
           setSuccessText('Registration successful.');
           setShowModal(false);
           setShowSuccessModal(true);
+          setLoginError(null);
         } else {
           setLoginError('Unable to register new user.');
         }
@@ -83,7 +86,7 @@ export default function Loginbutton() {
       >
         {login ? 'Profile' : 'Login'}
       </button>
-      {showModal && (
+      {
         <Modal show={showModal} onHide={handleClose} animation={false}>
           <Modal.Header closeButton>
             <Modal.Title>
@@ -117,8 +120,8 @@ export default function Loginbutton() {
                 name='email'
                 autoComplete='email'
                 className='form-control mb-2'
-                placeholder='Username'
-                aria-label='Username'
+                placeholder='email'
+                aria-label='email'
                 required
               />
               <input
@@ -149,22 +152,8 @@ export default function Loginbutton() {
             )}
           </Modal.Footer>
         </Modal>
-      )}
-      {showSuccessModal && (
-        <Modal show={showSuccessModal} onHide={dismiss} animation={false}>
-          <Modal.Header closeButton>
-            <Modal.Title>Success!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>{successText}</p>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant='primary' onClick={dismiss}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
+      }
+      <SuccessModal showSuccessModal={showSuccessModal} successText={successText} dismiss={dismiss}/> 
     </>
   );
 }
