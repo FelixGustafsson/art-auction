@@ -15,7 +15,7 @@ function App() {
         <ListingProvider>
           <BrowserRouter>
             <Navbar />
-            <Loginbutton />
+            
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/profile' element={<Profile />} />
