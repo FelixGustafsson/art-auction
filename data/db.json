@@ -7,8 +7,8 @@
       "artist": "Vincent van Gogh",
       "startingBid": 5000,
       "highestBid": {
-        "userId": 1,
-        "amount": 5500
+        "userId": "",
+        "amount": ""
       },
       "allBids": [
         {
