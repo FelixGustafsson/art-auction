@@ -9,6 +9,7 @@ import Profile from './routes/Profile.route.jsx';
 import Loginbutton from './components/Loginbutton.jsx';
 import { GlobalProvider } from './contexts/GlobalContext.jsx';
 import ArtInfo from './routes/ArtInfo.route.jsx'
+import HelpCenter from './routes/HelpCenter.route.jsx';
 
 
 
@@ -25,6 +26,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/profile' element={<Profile />} />
             <Route path="/artinfo/:id" element={<ArtInfo/>}/>
+            <Route path='/helpcenter' element={<HelpCenter/>}/>
           </Routes>
           <Footer />
         </BrowserRouter>
