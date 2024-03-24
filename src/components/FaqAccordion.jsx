@@ -93,7 +93,6 @@ return (
 )
 }; */
 
-
 export default function FAQ({ faqData }) {
   const [activeIndex, setActiveIndex] = useState(null);
 
