@@ -43,13 +43,13 @@ const HelpCenter = () => {
 
     return (
         <div className="d-flex flex-column mx-4">
-            <h1 className="mt-4">Help Center</h1>
-            <div className="d-flex gap-3">
-                <button type='button' className='btn btn-secondary btn-lg'>Buying</button>
-                <button type='button' className='btn btn-secondary btn-lg'>Selling</button>
+            <h1 className="mt-4 mb-6 mx-4">Help Center</h1>
+            <div className="text-center ">
+                <button type='button' className='btn btn-secondary btn-lg mr-1'>Buying</button>
+                <button type='button' className='btn btn-secondary btn-lg mr-1'>Selling</button>
             </div>
             <h3 className="mx-4">FAQ</h3>
-            <div className='mx-4 mb-4'>
+            <div className='mx-4 mb-4 min-vw-25 max-vw-50'>
                 {/* Skicka in faqData som props till FAQ */}
                 <FAQ faqData={faqData} />
             </div>
