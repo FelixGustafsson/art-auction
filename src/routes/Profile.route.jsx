@@ -6,7 +6,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SuccessModal from "../components/SuccessModal";
 import ProfilePageItem from "../components/ProfilePageItem";
-import Checkbox from "../components/Checkbox";
+import Dropdown from "../components/Dropdown";
+import { periodTags, typeTags, locationTags } from "../../data/FilterNames";
 
 
 export default function Profile() {
@@ -19,15 +20,14 @@ export default function Profile() {
     const [bids, setBids] = useState([])
     const [savedAuctions, setSavedAuctions] = useState([])
     const [myAuctions, setMyAuctions] = useState([])
+    const [type, setType] = useState("")
+    const [period, setPeriod] = useState("")
+    const [location, setLocation] = useState("")
     const currentUser = login
     const redirect = useNavigate()
 
     const dismiss = () => setShowSuccessModal(false)
 
-    const periodTags = ["Medieval", "Renaissance", "1700s", "1800s", "Modern"]
-    const typeTags = ["Oil", "Acrylic", "Drawing"]
-    const locationTags = ["Europe", "America", "Asia"]
-    
     useEffect(() => {
         const fetchUser = async () => {
         const response = await fetch('http://localhost:8000/users');
@@ -74,9 +74,7 @@ export default function Profile() {
     const handleSubmitAuction = async(event) => {
         event.preventDefault()
         const form = event.currentTarget.elements
-        const tags = Array.from(form).filter((item) => item.checked === true)
-        console.log(tags)
-        const filters = tags.map((tag) => tag.id)
+        const filters = [type, period, location]
         console.log(filters)
         const newAuctionInfo = {
             title: form.title.value,
@@ -86,7 +84,7 @@ export default function Profile() {
             image: form.image.value,
             auctionEnds: form.auctionEnds.value,
             seller: userInfo.id,
-            filters: tags.map((tag) => tag.id)
+            filters: filters
         }
         const response = await fetch("http://localhost:8000/items", {
             method: "POST",
@@ -163,14 +161,14 @@ export default function Profile() {
                 <input type="number" name="startingBid" className="form-control mb-2" placeholder="Starting price" aria-label="startingBid" required/>
                 <input type="text" name="image" className="form-control mb-2" placeholder="Image link" aria-label="image" required/>
                 <input type="datetime-local" name="auctionEnds" className="form-control mb-2" placeholder="End date" aria-label="auctionEnds" required/>
-                <div className='mb-3'>Period tags: <br/> 
-                {periodTags.map((tag) => <Checkbox type="checkbox" label={tag} value={tag} key={tag}/>)}
+                <div className='mb-3'>Period tag: <br/> 
+                <Dropdown optionArray={periodTags} setVariable={setPeriod}/>
                 </div>
-                <div className='mb-3'>Type tags:  <br/>
-                {typeTags.map((tag) => <Checkbox type="checkbox" label={tag} value={tag} key={tag}/>)}
+                <div className='mb-3'>Type tag:  <br/>
+                <Dropdown optionArray={typeTags} setVariable={setType}/>
                 </div>
-                <div className='mb-3'>Location tags:  <br/>
-                {locationTags.map((tag) => <Checkbox type="checkbox" label={tag} value={tag} key={tag}/>)}
+                <div className='mb-3'>Location tag:  <br/>
+                <Dropdown optionArray={locationTags} setVariable={setLocation}/>
                 </div>
             <Button variant="secondary" className="my-3" onClick={()=>setShowAuctionForm(false)}>
             Cancel
