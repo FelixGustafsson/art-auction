@@ -11,19 +11,19 @@ import { periodTags, typeTags, locationTags } from "../../data/FilterNames";
 
 
 export default function Profile() {
-    const {login, setLogin} = useContext(GlobalContext)
-    const [userInfo, setUserInfo] = useState([])
-    const [showEditForm, setShowEditForm] = useState(false)
-    const [showSuccessModal, setShowSuccessModal] = useState(false)
-    const [showAuctionForm, setShowAuctionForm] = useState(false)
-    const [successText, setSuccessText] = useState("")
-    const [bids, setBids] = useState([])
-    const [savedAuctions, setSavedAuctions] = useState([])
-    const [myAuctions, setMyAuctions] = useState([])
-    const [type, setType] = useState("")
-    const [period, setPeriod] = useState("")
-    const [location, setLocation] = useState("")
-    const currentUser = login
+    const {login, setLogin} = useContext(GlobalContext) // login status
+    const [userInfo, setUserInfo] = useState([])  // user data from fetch
+    const [showEditForm, setShowEditForm] = useState(false) // switches edit account form on and off
+    const [showAuctionForm, setShowAuctionForm] = useState(false) //switches create auction form on and off
+    const [showSuccessModal, setShowSuccessModal] = useState(false) // handles message after succesful form submission
+    const [successText, setSuccessText] = useState("") // provides message text
+    const [bids, setBids] = useState([]) // sets and stores user's bids
+    const [savedAuctions, setSavedAuctions] = useState([]) // sets and stores user's saved auctions
+    const [myAuctions, setMyAuctions] = useState([]) // sets and stores user's active auctions
+    const [type, setType] = useState("") // handles type filters in create auctiosn form
+    const [period, setPeriod] = useState("") // handles period filters in create auctiosn form
+    const [location, setLocation] = useState("") // handles location filters in create auctiosn form
+    const currentUser = login // n.b. this is the user's email address
     const redirect = useNavigate()
 
     const dismiss = () => setShowSuccessModal(false)
@@ -33,7 +33,7 @@ export default function Profile() {
         const response = await fetch('http://localhost:8000/users');
         const users = await response.json();
         const match = users.find((user) => user.email === currentUser)
-        if (match === undefined) {redirect("/")}
+        if (match === undefined) {redirect("/")}  // reloads the home page if no-one is logged in
         setUserInfo(match)
         setBids(match.ongoingBids)
         setSavedAuctions(match.savedAuctions)
@@ -41,8 +41,6 @@ export default function Profile() {
         };
         fetchUser();
       }, []);
-
-    
 
     const handleSubmitInfo = async (event) => {
         event.preventDefault()
@@ -75,7 +73,6 @@ export default function Profile() {
         event.preventDefault()
         const form = event.currentTarget.elements
         const filters = [type, period, location]
-        console.log(filters)
         const newAuctionInfo = {
             title: form.title.value,
             description: form.description.value,
@@ -111,15 +108,15 @@ export default function Profile() {
         <div className="row">
         <div className="col">
             <h2>Your bids</h2>
-            {bids && bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.bidId}/> )}
+            {bids ? bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.bidId}/> ) : <p>You haven't placed any bids!</p>}
         </div>
         <div className="col">
             <h2>Saved auctions</h2>
-            {savedAuctions && savedAuctions.map((auction) => <ProfilePageItem {...auction} key={auction.itemId}/> )}
+            {savedAuctions ? savedAuctions.map((auction) => <ProfilePageItem {...auction} key={auction.itemId}/>) : <p>You have no saved auctions!</p> }
         </div>
         <div className="col">
             <h2>Your auctions</h2>
-            {myAuctions && myAuctions.map((auction) => <ProfilePageItem {...auction} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: " } bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction.itemId}/> )}
+            {myAuctions ? myAuctions.map((auction) => <ProfilePageItem {...auction} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: " } bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction.itemId}/> ) : <p>You have no active auctions!</p>}
             <div className="d-flex justify-content-center my-4">
             <button type="button" className="btn btn-success" onClick={()=>setShowAuctionForm(true)}>Create new auction</button>
             </div>
