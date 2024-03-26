@@ -17,9 +17,9 @@ function App() {
       <GlobalProvider>
         <ListingProvider>
           <BrowserRouter>
-            <AuctionSearch />
+            
             <Navbar />
-            <Loginbutton />
+            
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/profile' element={<Profile />} />
