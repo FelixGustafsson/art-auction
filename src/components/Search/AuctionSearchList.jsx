@@ -5,17 +5,12 @@ function AuctionList({ searchResult }) {
   const navigate = useNavigate();
   const handleAuctionClick = (id) => {
     navigate(`/info/${id}`);
-    console.log(id);
   };
   console.log(searchResult);
   return (
-    <div className='container-s d-flex flex-wrap p-4 '>
-      {searchResult.map((auction) => (
-        <div
-          className=''
-          key={auction.id}
-          onClick={() => handleAuctionClick(auction.id)}
-        >
+    <div className='container-s d-flex p-4 position-absolute bg-dark z-3 mt-5'>
+      {searchResult.slice(0, 5).map((auction) => (
+        <div key={auction.id} onClick={() => handleAuctionClick(auction.id)}>
           <AuctionSearchListItem auction={auction} />
         </div>
       ))}
