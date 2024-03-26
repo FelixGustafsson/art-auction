@@ -168,9 +168,9 @@
       "id": "d446",
       "email": "e@e",
       "password": "e",
-      "username": "Fred",
-      "name": "Fred",
-      "lastname": "Fred",
+      "username": "George",
+      "name": "George",
+      "lastname": "G",
       "ongoingBids": [
         {
           "itemId": 1,
@@ -178,6 +178,20 @@
           "bidId": 1,
           "image": "https://source.unsplash.com/random/800x600/?art",
           "title": "Starry Night"
+        },
+        {
+          "itemId": 1,
+          "bidAmount": 5000,
+          "bidId": 2,
+          "image": "https://source.unsplash.com/random/800x600/?art",
+          "title": "Starry Night"
+        },
+        {
+          "title": "The Persistence of Memory",
+          "itemId": 3,
+          "bidAmount": 4000,
+          "bidId": 3,
+          "image": "https://source.unsplash.com/random/800x600/?surrealism"
         }
       ],
       "savedAuctions": [
@@ -187,7 +201,7 @@
           "title": "Starry Night",
           "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
         }
-      ]      
+      ]
     },
     {
       "id": "4d32",
