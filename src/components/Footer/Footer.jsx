@@ -18,7 +18,7 @@ function Footer() {
     { to: '#', text: 'Register account' },
   ];
   const policyLinks = [
-    { to: '#', text: 'Terms of user' },
+    { to: '#', text: 'Terms of use' },
     { to: '#', text: 'Cookie Policy' },
     { to: '#', text: 'Data Protection and Privacy Notice' },
     { to: '#', text: 'Other Policies' },
