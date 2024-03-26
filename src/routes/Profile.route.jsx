@@ -35,7 +35,28 @@ export default function Profile() {
         const match = users.find((user) => user.email === currentUser)
         if (match === undefined) {redirect("/")}  // reloads the home page if no-one is logged in
         setUserInfo(match)
-        setBids(match.ongoingBids)
+        // filters out all except the highest current bid for each object
+        const allBids = match.ongoingBids
+        const itemIdArray = []
+        allBids.forEach(element => {
+            const elementID = element.itemId
+            !itemIdArray.includes(elementID) && itemIdArray.push(elementID)
+        });
+        const highestBids = []
+        itemIdArray.forEach(id => {
+            const itemBids = allBids.filter((bid) => bid.itemId === id)
+            let highest = []
+            itemBids.forEach(bid => {
+                if (highest.length === 0 || bid.bidAmount > highest[0].bidAmount) {
+                    highest.length = 0;
+                    highest.push(bid)
+                }
+            })
+            highest.forEach(bid => highestBids.push(bid))
+        })
+
+        // sets user information to be rendered
+        setBids(highestBids)
         setSavedAuctions(match.savedAuctions)
         setMyAuctions(match.myAuctions)
         };
@@ -103,7 +124,7 @@ export default function Profile() {
     return <>
     <div className="container">
         <h1>Welcome {userInfo.name}</h1>
-        <button className="btn btn-primary" onClick={()=>setShowEditForm(true)}>Edit account info</button>
+        <button className="btn btn-primary mx-2" onClick={()=>setShowEditForm(true)}>Edit account info</button>
         <button className="btn btn-secondary" onClick={()=>{setLogin(null); redirect("/")}}>Logout</button>
         <div className="row">
         <div className="col">
