@@ -105,8 +105,8 @@ export default function FAQ({ faqData }) {
       {faqData.map((item, index) => (
         <div className="accordion-item" key={index}>
           <h2 className="accordion-header">
-            <button
-              className="accordion-button"
+            <button  
+              className="accordion-button collapsed"
               type="button"
               onClick={() => toggleAccordion(index)}
               aria-expanded={activeIndex === index ? "true" : "false"}
