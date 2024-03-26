@@ -7,7 +7,6 @@ function HomeFilterProvider({ children }) {
 
   const addFilter = (filter) => {
     setChosenFilters([...chosenFilters, filter]);
-    console.log(chosenFilters);
   };
 
   const removeFilter = (filter) => {
