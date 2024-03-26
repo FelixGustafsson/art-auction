@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import SuccessModal from './SuccessModal';
+import InfoModal from './InfoModal';
 
 export default function Loginbutton() {
   // various states needed for functionality:
@@ -153,7 +153,7 @@ export default function Loginbutton() {
           </Modal.Footer>
         </Modal>
       }
-      <SuccessModal showSuccessModal={showSuccessModal} successText={successText} dismiss={dismiss}/> 
+      <InfoModal showInfoModal={showSuccessModal} title="Success!" infoText={successText} dismiss={dismiss}/> 
     </>
   );
 }
