@@ -7,8 +7,8 @@
       "artist": "Vincent van Gogh",
       "startingBid": 5000,
       "highestBid": {
-        "userId": 1,
-        "amount": 5500
+        "userId": "",
+        "amount": ""
       },
       "allBids": [
         {
@@ -26,7 +26,9 @@
       ],
       "image": "https://source.unsplash.com/random/800x600/?art",
       "auctionEnds": "2024-05-15",
-      "filters": ["Modern"]
+      "filters": [
+        "Modern"
+      ]
     },
     {
       "id": "2",
@@ -41,7 +43,9 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?portrait",
       "auctionEnds": "2024-06-20",
-      "filters": ["Modern"]
+      "filters": [
+        "Modern"
+      ]
     },
     {
       "id": "3",
@@ -56,7 +60,9 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?surrealism",
       "auctionEnds": "2024-07-25",
-      "filters": ["Modern"]
+      "filters": [
+        "Modern"
+      ]
     },
     {
       "id": "4",
@@ -71,7 +77,9 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
       "auctionEnds": "2024-08-30",
-      "filters": ["1800s"]
+      "filters": [
+        "1800s"
+      ]
     },
     {
       "id": "5",
@@ -86,7 +94,24 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?night,painting",
       "auctionEnds": "2024-09-15",
-      "filters": ["1700s"]
+      "filters": [
+        "1700s"
+      ]
+    },
+    {
+      "id": "eeac",
+      "title": "Rhinoceros",
+      "description": "\"Rhinoceros is the name commonly given to a woodcut executed by German artist Albrecht Dürer in 1515.[a] Dürer never saw the actual rhinoceros, which was the first living example seen in Europe since Roman times. Instead the image is based on an anonymous written description and brief sketch of an Indian rhinoceros brought to Lisbon in 1515. It was regarded as a true representation of a rhinoceros into the late 18th century, and it has been said of Dürer's woodcut that \"probably no animal picture has exerted such a profound influence on the arts\".",
+      "artist": "Albrecht Durer",
+      "startingBid": "5000000",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/The_Rhinoceros_%28NGA_1964.8.697%29_enhanced.png/1024px-The_Rhinoceros_%28NGA_1964.8.697%29_enhanced.png",
+      "auctionEnds": "2024-04-07T10:16",
+      "seller": "d446",
+      "filters": [
+        "Print",
+        "Renaissance",
+        "Europe"
+      ]
     }
   ],
   "users": [
@@ -109,8 +134,8 @@
     {
       "id": "2",
       "username": "user2",
-      "name": "Jane",
-      "lastname": "Smith",
+      "name": "John",
+      "lastname": "Doe",
       "email": "user2@example.com",
       "password": "password2",
       "ongoingBids": [],
@@ -138,6 +163,46 @@
       "ongoingBids": [],
       "wonItems": [],
       "lostItems": []
+    },
+    {
+      "id": "d446",
+      "email": "e@e",
+      "password": "e",
+      "username": "Fred",
+      "name": "Fred",
+      "lastname": "Fred",
+      "ongoingBids": [
+        {
+          "itemId": 1,
+          "bidAmount": 4000,
+          "bidId": 1,
+          "image": "https://source.unsplash.com/random/800x600/?art",
+          "title": "Starry Night"
+        }
+      ],
+      "savedAuctions": [
+        {
+          "itemId": 1,
+          "image": "https://source.unsplash.com/random/800x600/?art",
+          "title": "Starry Night",
+          "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
+        }
+      ]      
+    },
+    {
+      "id": "4d32",
+      "email": "dsf@sdsa",
+      "password": "fsgsf",
+      "startingBid": "5000000"
+    }
+  ],
+  "bids": [
+    {
+      "id": "1",
+      "bidder": "d446",
+      "item": "1",
+      "amount": 4000,
+      "date": "x"
     }
   ]
 }

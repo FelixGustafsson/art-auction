@@ -1,6 +1,13 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuctionListItem = ({ auction }) => {
+  const navigate = useNavigate();
+  const handleMoreInfo = (id) => {
+    navigate(`/info/${id}`);
+  };
+  const handleBidNow = (id) => {
+    navigate(`/bid/${id}`);
+  };
   return (
     <li className='d-flex justify-content-between shadow rounded-5 p-5'>
       <div className='me-5'>
@@ -9,12 +16,22 @@ const AuctionListItem = ({ auction }) => {
         <div className='d-flex flex-column'>
           <span>Other information:</span>
           <span>Starting price: £{auction.startingBid}</span>
-          <span>Current bid: £{auction.highestBid.amount}</span>
+          {auction.highestBid && <span>Current bid: £{auction.highestBid.amount}</span>}
           <span>Auction ends: {auction.auctionEnds}</span>
           <div className='my-3 d-flex gap-2'>
-            <button className='btn btn-dark'>More info</button>
+            <button
+              onClick={() => handleMoreInfo(auction.id)}
+              className='btn btn-dark'
+            >
+              More info
+            </button>
             <button className='btn btn-primary'>Add to favourites</button>
-            <button className='btn btn-success'>Bid now</button>
+            <button
+              onClick={() => handleBidNow(auction.id)}
+              className='btn btn-success'
+            >
+              Bid now
+            </button>
           </div>
         </div>
       </div>
