@@ -18,15 +18,14 @@ function App() {
       <GlobalProvider>
         <ListingProvider>
           <BrowserRouter>
-            
             <Navbar />
-            
+
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/profile' element={<Profile />} />
               <Route path='/info/:id' element={<ArtInfo />} />
               <Route path='/bid/:id' element={<BidPage />} />
-              <Route path='/helpcenter'  element={<HelpCenter/>}/>
+              <Route path='/helpcenter' element={<HelpCenter />} />
             </Routes>
             <Footer />
           </BrowserRouter>
