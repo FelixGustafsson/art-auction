@@ -6,27 +6,34 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SuccessModal from "../components/SuccessModal";
 import ProfilePageItem from "../components/ProfilePageItem";
+import Dropdown from "../components/Dropdown";
+import { periodTags, typeTags, locationTags } from "../../data/FilterNames";
 
 
 export default function Profile() {
-    const {login, setLogin} = useContext(GlobalContext)  // global login status
-    const [userInfo, setUserInfo] = useState([])
-    const [showEditForm, setShowEditForm] = useState(false)
-    const [showSuccessModal, setShowSuccessModal] = useState(false)
-    const [showAuctionForm, setShowAuctionForm] = useState(false)
-    const [successText, setSuccessText] = useState("")
-    const [bids, setBids] = useState([])
-    const [savedAuctions, setSavedAuctions] = useState([])
-    const [myAuctions, setMyAuctions] = useState([])
-    const currentUser = login
+    const {login, setLogin} = useContext(GlobalContext) // login status
+    const [userInfo, setUserInfo] = useState([])  // user data from fetch
+    const [showEditForm, setShowEditForm] = useState(false) // switches edit account form on and off
+    const [showAuctionForm, setShowAuctionForm] = useState(false) //switches create auction form on and off
+    const [showSuccessModal, setShowSuccessModal] = useState(false) // handles message after succesful form submission
+    const [successText, setSuccessText] = useState("") // provides message text
+    const [bids, setBids] = useState([]) // sets and stores user's bids
+    const [savedAuctions, setSavedAuctions] = useState([]) // sets and stores user's saved auctions
+    const [myAuctions, setMyAuctions] = useState([]) // sets and stores user's active auctions
+    const [type, setType] = useState("") // handles type filters in create auctiosn form
+    const [period, setPeriod] = useState("") // handles period filters in create auctiosn form
+    const [location, setLocation] = useState("") // handles location filters in create auctiosn form
+    const currentUser = login // n.b. this is the user's email address
     const redirect = useNavigate()
-    
+
+    const dismiss = () => setShowSuccessModal(false)
+
     useEffect(() => {
         const fetchUser = async () => {
         const response = await fetch('http://localhost:8000/users');
         const users = await response.json();
         const match = users.find((user) => user.email === currentUser)
-        if (match === undefined) {console.log("error with profile - user not found")}
+        if (match === undefined) {redirect("/")}  // reloads the home page if no-one is logged in
         setUserInfo(match)
         setBids(match.ongoingBids)
         setSavedAuctions(match.savedAuctions)
@@ -34,8 +41,6 @@ export default function Profile() {
         };
         fetchUser();
       }, []);
-
-    
 
     const handleSubmitInfo = async (event) => {
         event.preventDefault()
@@ -56,17 +61,18 @@ export default function Profile() {
         })
         if (response.status === 200) {
             setShowEditForm(false)
-            setSuccessText("User information updated.")
-            setShowSuccessModal(true)
             const updatedUser = await fetch (`http://localhost:8000/users/${userInfo.id}`)
             const updatedUserInfo = await updatedUser.json()
             setUserInfo(updatedUserInfo)
+            setSuccessText("User information updated.")
+            setShowSuccessModal(true)
         }
     }
 
     const handleSubmitAuction = async(event) => {
         event.preventDefault()
         const form = event.currentTarget.elements
+        const filters = [type, period, location]
         const newAuctionInfo = {
             title: form.title.value,
             description: form.description.value,
@@ -74,7 +80,8 @@ export default function Profile() {
             startingBid: form.startingBid.value,
             image: form.image.value,
             auctionEnds: form.auctionEnds.value,
-            seller: userInfo.id
+            seller: userInfo.id,
+            filters: filters
         }
         const response = await fetch("http://localhost:8000/items", {
             method: "POST",
@@ -89,7 +96,7 @@ export default function Profile() {
             setShowSuccessModal(true)
         }
         else{
-        console.log(response.status)
+        console.log("Something went wrong")
         }
     }
 
@@ -101,15 +108,15 @@ export default function Profile() {
         <div className="row">
         <div className="col">
             <h2>Your bids</h2>
-            {bids && bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.bidId}/> )}
+            {bids ? bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.bidId}/> ) : <p>You haven't placed any bids!</p>}
         </div>
         <div className="col">
             <h2>Saved auctions</h2>
-            {savedAuctions && savedAuctions.map((auction) => <ProfilePageItem {...auction} key={auction.itemId}/> )}
+            {savedAuctions ? savedAuctions.map((auction) => <ProfilePageItem {...auction} key={auction.itemId}/>) : <p>You have no saved auctions!</p> }
         </div>
         <div className="col">
             <h2>Your auctions</h2>
-            {myAuctions && myAuctions.map((auction) => <ProfilePageItem {...auction} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: " } bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction.itemId}/> )}
+            {myAuctions ? myAuctions.map((auction) => <ProfilePageItem {...auction} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: " } bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction.itemId}/> ) : <p>You have no active auctions!</p>}
             <div className="d-flex justify-content-center my-4">
             <button type="button" className="btn btn-success" onClick={()=>setShowAuctionForm(true)}>Create new auction</button>
             </div>
@@ -151,6 +158,15 @@ export default function Profile() {
                 <input type="number" name="startingBid" className="form-control mb-2" placeholder="Starting price" aria-label="startingBid" required/>
                 <input type="text" name="image" className="form-control mb-2" placeholder="Image link" aria-label="image" required/>
                 <input type="datetime-local" name="auctionEnds" className="form-control mb-2" placeholder="End date" aria-label="auctionEnds" required/>
+                <div className='mb-3'>Period tag: <br/> 
+                <Dropdown optionArray={periodTags} setVariable={setPeriod}/>
+                </div>
+                <div className='mb-3'>Type tag:  <br/>
+                <Dropdown optionArray={typeTags} setVariable={setType}/>
+                </div>
+                <div className='mb-3'>Location tag:  <br/>
+                <Dropdown optionArray={locationTags} setVariable={setLocation}/>
+                </div>
             <Button variant="secondary" className="my-3" onClick={()=>setShowAuctionForm(false)}>
             Cancel
             </Button>
@@ -163,7 +179,7 @@ export default function Profile() {
             </Modal.Footer>
           </Modal>     
 
-        <SuccessModal showSuccessModal={showSuccessModal} successText={successText} dismiss={()=>setShowSuccessModal(false)}/> 
+        <SuccessModal showSuccessModal={showSuccessModal} successText={successText} dismiss={dismiss}/> 
     </div>
     </>
 }
