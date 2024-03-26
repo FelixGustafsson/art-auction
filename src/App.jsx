@@ -1,7 +1,7 @@
 // App.js
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer.jsx';
+import Footer from './components/Footer/Footer.jsx';
 import Home from './routes/Home.route.jsx';
 import Profile from './routes/Profile.route.jsx';
 import Loginbutton from './components/Loginbutton.jsx';
@@ -18,15 +18,14 @@ function App() {
       <GlobalProvider>
         <ListingProvider>
           <BrowserRouter>
-            
             <Navbar />
-            
+
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/profile' element={<Profile />} />
               <Route path='/info/:id' element={<ArtInfo />} />
               <Route path='/bid/:id' element={<BidPage />} />
-              <Route path='/helpcenter'  element={<HelpCenter/>}/>
+              <Route path='/helpcenter' element={<HelpCenter />} />
             </Routes>
             <Footer />
           </BrowserRouter>
