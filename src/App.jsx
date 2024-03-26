@@ -10,6 +10,7 @@ import { GlobalProvider } from './contexts/GlobalContext.jsx';
 import { ListingProvider } from './contexts/ListingContext.jsx';
 import AuctionSearch from './components/Search/AuctionSearch.jsx';
 import BidPage from './routes/Bid.route.jsx';
+import HelpCenter from './routes/HelpCenter.route.jsx';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path='/profile' element={<Profile />} />
               <Route path='/info/:id' element={<ArtInfo />} />
               <Route path='/bid/:id' element={<BidPage />} />
+              <Route path='/helpcenter'  element={<HelpCenter/>}/>
             </Routes>
             <Footer />
           </BrowserRouter>
