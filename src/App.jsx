@@ -17,7 +17,7 @@ function App() {
       <GlobalProvider>
         <ListingProvider>
           <BrowserRouter>
-            <AuctionSearch />
+            
             <Navbar />
             
             <Routes>
