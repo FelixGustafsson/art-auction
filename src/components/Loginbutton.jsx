@@ -1,6 +1,7 @@
 import { GlobalContext } from '../contexts/GlobalContext';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FetchContext } from '../contexts/FetchContext';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -8,6 +9,7 @@ import InfoModal from './InfoModal';
 
 export default function Loginbutton() {
   // various states needed for functionality:
+  const { getFetchGeneral, fetchGeneral } = useContext(FetchContext);  // handles fetch requests
   const { login, setLogin } = useContext(GlobalContext); // global login status
   const [showModal, setShowModal] = useState(false); // show & hide login & register modal
   const [selectedValue, setSelectedValue] = useState('login'); //login & register radio buttons: default=login
@@ -38,8 +40,7 @@ export default function Loginbutton() {
       email: form.elements.email.value,
       password: form.elements.password.value,
     };
-    const response = await fetch('http://localhost:8000/users');
-    const users = await response.json();
+    const users = await getFetchGeneral('/users');
     const match = users.find((user) => user.email === userCredentials.email);
     if (purpose === 'login') {
       if (match === undefined) {
@@ -57,12 +58,9 @@ export default function Loginbutton() {
       }
     } else if (purpose === 'register') {
       if (match === undefined) {
-        let response = await fetch('http://localhost:8000/users', {
-          method: 'post',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(userCredentials),
-        });
+        const response = await fetchGeneral('/users', 'POST', userCredentials);
         if (response.status === 201) {
+          console.log("It worked")
           setSuccessText('Registration successful.');
           setShowModal(false);
           setShowSuccessModal(true);

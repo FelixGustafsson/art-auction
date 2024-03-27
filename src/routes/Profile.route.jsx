@@ -1,4 +1,5 @@
 import { GlobalContext } from "../contexts/GlobalContext"
+import { FetchContext } from '../contexts/FetchContext';
 import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Modal from 'react-bootstrap/Modal';
@@ -23,15 +24,15 @@ export default function Profile() {
     const [type, setType] = useState("") // handles type filters in create auctiosn form
     const [period, setPeriod] = useState("") // handles period filters in create auctiosn form
     const [location, setLocation] = useState("") // handles location filters in create auctiosn form
-    const currentUser = login // n.b. this is the user's email address
+    const currentUser = login // n.b. this is the current user
+    const { getFetchGeneral, fetchGeneral } = useContext(FetchContext);  // handles fetch requests
     const redirect = useNavigate()
 
     const dismiss = () => setShowSuccessModal(false)
 
     useEffect(() => {
         const fetchUser = async () => {
-        const response = await fetch('http://localhost:8000/users');
-        const users = await response.json();
+        const users = await getFetchGeneral('/users');
         const match = users.find((user) => user.email === currentUser)
         if (match === undefined) {redirect("/")}  // reloads the home page if no-one is logged in
         setUserInfo(match)
@@ -73,17 +74,10 @@ export default function Profile() {
             email: form.email.value,
             password: form.password.value
         }
-        const response = await fetch(`http://localhost:8000/users/${userInfo.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newUserInfo)
-        })
+        const response = await fetchGeneral(`/users/${userInfo.id}`, 'PATCH', newUserInfo)
         if (response.status === 200) {
             setShowEditForm(false)
-            const updatedUser = await fetch (`http://localhost:8000/users/${userInfo.id}`)
-            const updatedUserInfo = await updatedUser.json()
+            const updatedUserInfo = await getFetchGeneral(`/users/${userInfo.id}`)
             setUserInfo(updatedUserInfo)
             setSuccessText("User information updated.")
             setShowSuccessModal(true)
@@ -104,13 +98,7 @@ export default function Profile() {
             seller: userInfo.id,
             filters: filters
         }
-        const response = await fetch("http://localhost:8000/items", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newAuctionInfo)
-        })
+        const response = await fetchGeneral('/items', 'POST', newAuctionInfo)
         if (response.status === 201) {
             setShowAuctionForm(false)
             setSuccessText("New auction created.")
