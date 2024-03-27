@@ -26,10 +26,8 @@ export default function Navbar() {
           <li className='nav-item'>
             <Loginbutton />
           </li>
-          <li className='nav-item'>
-            <a className='nav-link btn' onClick={() => navigate('/')}>
-              Help
-            </a>
+          <li className="nav-item">
+            <a className="nav-link btn" onClick={() => navigate("/helpcenter")}>Help</a>
           </li>
         </ul>
       </div>

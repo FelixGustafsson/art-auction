@@ -8,27 +8,31 @@ import ArtInfo from './routes/ArtInfo.route.jsx';
 import { GlobalProvider } from './contexts/GlobalContext.jsx';
 import { ListingProvider } from './contexts/ListingContext.jsx';
 import BidPage from './routes/Bid.route.jsx';
+import { FetchProvider } from './contexts/FetchContext.jsx';
 import HelpCenter from './routes/HelpCenter.route.jsx';
 
 function App() {
   return (
     <>
-      <GlobalProvider>
-        <ListingProvider>
-          <BrowserRouter>
-            <Navbar />
+      <FetchProvider>
+        <GlobalProvider>
+          <ListingProvider>
+            <BrowserRouter>
 
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/profile' element={<Profile />} />
-              <Route path='/info/:id' element={<ArtInfo />} />
-              <Route path='/bid/:id' element={<BidPage />} />
-              <Route path='/helpcenter' element={<HelpCenter />} />
-            </Routes>
-            <Footer />
-          </BrowserRouter>
-        </ListingProvider>
-      </GlobalProvider>
+              <Navbar />
+
+              <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/profile' element={<Profile />} />
+                <Route path='/info/:id' element={<ArtInfo />} />
+                <Route path='/bid/:id' element={<BidPage />} />
+                <Route path='/helpcenter' element={<HelpCenter />} />
+              </Routes>
+              <Footer />
+            </BrowserRouter>
+          </ListingProvider>
+        </GlobalProvider>
+      </FetchProvider>
     </>
   );
 }
