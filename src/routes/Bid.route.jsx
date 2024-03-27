@@ -61,7 +61,7 @@ const BidPageContent = () => {
   return (
     <div className='d-flex row container p-5'>
       <div className='col w-25'>
-        <img className='img-fluid' src={auction.image} alt={auction.title} />
+        <img className='img-fluid rounded-5 shadow-lg' src={auction.image} alt={auction.title} />
       </div>
       <div className='col '>
         <h2>{auction.title}</h2>
@@ -79,7 +79,7 @@ const BidPageContent = () => {
         </div>
         <p>Or enter your bid below</p>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='w-50'>
           <input
             className='form-control'
             type='number'
@@ -98,7 +98,7 @@ const BidPageContent = () => {
             : ''}
         </p>
         <p>
-          <strong>Ends:</strong>
+          <strong>Ends: </strong>
           {new Date(auction.auctionEnds).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'short',
