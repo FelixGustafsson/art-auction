@@ -22,7 +22,7 @@ export default function Navbar() {
             <Loginbutton />
           </li>
           <li className="nav-item">
-            <a className="nav-link btn" onClick={() => navigate("/")}>Help</a>
+            <a className="nav-link btn" onClick={() => navigate("/helpcenter")}>Help</a>
           </li>
         </ul>
       </div>
