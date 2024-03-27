@@ -4,19 +4,23 @@ const FetchContext = createContext();
 
 const FetchProvider = ({ children }) => {
   const getFetchGeneral = async (endpoint) => {
-    const res = await fetch(`http://localhost:8000${endpoint}`);
-    const result = await res.json();
-    return result;
+    if (endpoint) {
+      const res = await fetch(`http://localhost:8000${endpoint}`);
+      const result = await res.json();
+      return result;
+    }
   };
 
   const fetchGeneral = async (endpoint, method, body) => {
-    const res = fetch(`htpp://localhost:8000${endpoint}`, {
-      method: `${method}`,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-    const result = res.json();
-    return result;
+    if (endpoint && method && body) {
+      const res = fetch(`htpp://localhost:8000${endpoint}`, {
+        method: `${method}`,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const result = res.json();
+      return result;
+    }
   };
   return (
     <FetchContext.Provider value={{ getFetchGeneral, fetchGeneral }}>
