@@ -2,16 +2,15 @@ import LinkList from './LinkList';
 
 function Footer() {
   const aboutLinks = [
-    { to: '#', text: 'About' },
-    { to: '#', text: 'Carrier' },
+    { to: '/', text: 'Home' },
   ];
   const buyLinks = [
-    { to: '#', text: 'How to buy' },
-    { to: '#', text: 'Purchase Terms' },
+    { to: '/helpcenter', text: 'How to buy' },
+    { to: '/helpcenter', text: 'Purchase Terms' },
   ];
   const sellLinks = [
-    { to: '#', text: 'How to sell' },
-    { to: '#', text: 'Sales Terms' },
+    { to: '/helpcenter', text: 'How to sell' },
+    { to: '/helpcenter', text: 'Sales Terms' },
   ];
   const accountLinks = [
     { to: '#', text: 'Log in' },
