@@ -1,7 +1,9 @@
 import { createContext, useState } from 'react';
-import auctionItems from '../../data/db.json';
+import { FetchContext } from './FetchContext';
 
+const getFetchGeneral = FetchContext()
 const ListingContext = createContext();
+const auctionItems = await getFetchGeneral('/items')
 
 const ListingProvider = ({ children }) => {
   const [listings, setListings] = useState(auctionItems.items);
