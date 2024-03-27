@@ -9,7 +9,7 @@ function AuctionList({ searchResult }) {
   console.log(searchResult);
   return (
     <div className='container-s d-flex p-4 position-absolute bg-dark z-3 mt-5'>
-      {searchResult.slice(0, 5).map((auction) => (
+      {searchResult.slice(0, 4).map((auction) => (
         <div key={auction.id} onClick={() => handleAuctionClick(auction.id)}>
           <AuctionSearchListItem auction={auction} />
         </div>
