@@ -6,8 +6,28 @@ const ListingContext = createContext();
 const ListingProvider = ({ children }) => {
   const [listings, setListings] = useState(auctionItems.items);
 
+  const placeBid = (auctionId, newBidAmount) => {
+    console.log(auctionId);
+    setListings((prevListings) => {
+      console.log(prevListings);
+      console.log(auctionId, newBidAmount);
+      return prevListings.map((auction) => {
+        if (auction.id === auctionId) {
+          return {
+            ...auction,
+            highestBid: {
+              amount: newBidAmount,
+            },
+          };
+        } else {
+          return auction;
+        }
+      });
+    });
+  };
+
   return (
-    <ListingContext.Provider value={{ listings, setListings }}>
+    <ListingContext.Provider value={{ listings, setListings, placeBid }}>
       {children}
     </ListingContext.Provider>
   );

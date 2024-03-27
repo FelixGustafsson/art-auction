@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import SuccessModal from "../components/SuccessModal";
+import InfoModal from "../components/InfoModal";
 import ProfilePageItem from "../components/ProfilePageItem";
 import Dropdown from "../components/Dropdown";
 import { periodTags, typeTags, locationTags } from "../../data/FilterNames";
@@ -200,7 +200,7 @@ export default function Profile() {
             </Modal.Footer>
           </Modal>     
 
-        <SuccessModal showSuccessModal={showSuccessModal} successText={successText} dismiss={dismiss}/> 
+        <InfoModal showInfoModal={showSuccessModal} title="Success!" infoText={successText} dismiss={dismiss}/> 
     </div>
     </>
 }

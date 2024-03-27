@@ -1,18 +1,62 @@
-import { useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import BidForm from '../components/Bidding/BidForm';
-import { ListingContext } from '../contexts/ListingContext'; // Importera ListingContext
+import { useState, useContext } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { ListingContext } from '../contexts/ListingContext';
 
 const BidPageContent = () => {
   const { id } = useParams();
-  const { listings } = useContext(ListingContext); // Använd useContext för att hämta kontexten
-
-  // Hitta den specifika auktionen med hjälp av id från params
+  const { listings, placeBid } = useContext(ListingContext);
   const auction = listings.find((auction) => auction.id === id);
 
+  const [inputBid, setInputBid] = useState('');
+
+  const handleInputChange = (event) => {
+    setInputBid(event.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const currentBid = parseInt(inputBid);
+
+    if (isNaN(currentBid) || currentBid <= 0) {
+      alert('Please enter a valid bid amount.');
+      return;
+    }
+
+    const highestBidAmount = auction.highestBid
+      ? parseInt(auction.highestBid.amount)
+      : 0;
+    if (currentBid <= highestBidAmount) {
+      alert('Your bid must be higher than the current highest bid.');
+      return;
+    }
+
+    handleBid(auction.id, currentBid);
+  };
+  const handleBid = (auctionId, amount) => {
+    placeBid(auctionId, amount);
+  };
   if (!auction) {
-    return <div>Auction not found.</div>;
+    return (
+      <div className='container text-center mt-5'>
+        <h3>Auction not found.</h3>
+        <Link to='/' className='btn btn-primary mt-3 mb-5'>
+          Back to Auctions
+        </Link>
+      </div>
+    );
   }
+  const calculateBidAmount = () => {
+    if (auction.highestBid && auction.highestBid.amount) {
+      return parseInt(auction.highestBid.amount) + 500;
+    } else {
+      return auction.startingBid;
+    }
+  };
+  const handleBidClick = () => {
+    const bidAmount = calculateBidAmount();
+    handleBid(auction.id, bidAmount);
+  };
 
   return (
     <div className='d-flex row container p-5'>
@@ -23,15 +67,31 @@ const BidPageContent = () => {
         <h2>{auction.title}</h2>
         <p>{auction.artist}</p>
         <div>
-          <button type='button' className='btn btn-danger w-50 '>
+          <button
+            type='button'
+            className='btn btn-danger w-50'
+            onClick={handleBidClick}
+          >
             {auction.highestBid && auction.highestBid.amount
-              ? `Place ${parseInt(auction.highestBid.amount) + 500} $`
+              ? `Place ${calculateBidAmount()} $`
               : `Place starting bid at ${auction.startingBid} $`}
           </button>
         </div>
         <p>Or enter your bid below</p>
 
-        <BidForm auction={auction} />
+        <form onSubmit={handleSubmit}>
+          <input
+            className='form-control'
+            type='number'
+            value={inputBid}
+            onChange={handleInputChange}
+            placeholder='Place your bid...'
+          />
+          <button className='btn btn-success w-100 mt-2' type='submit'>
+            Bid
+          </button>
+        </form>
+
         <p>
           {auction.highestBid && auction.highestBid.amount
             ? `Highest bid: ${parseInt(auction.highestBid.amount)} $`
@@ -45,11 +105,6 @@ const BidPageContent = () => {
             day: 'numeric',
           })}
         </p>
-        <div className='d-flex gap-4'>
-          <button type='button' className='btn btn-success '>
-            Bid Now
-          </button>
-        </div>
       </div>
     </div>
   );
