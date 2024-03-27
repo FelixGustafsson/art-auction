@@ -1,14 +1,12 @@
 // App.js
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer.jsx';
+import Footer from './components/Footer/Footer.jsx';
 import Home from './routes/Home.route.jsx';
 import Profile from './routes/Profile.route.jsx';
-import Loginbutton from './components/Loginbutton.jsx';
 import ArtInfo from './routes/ArtInfo.route.jsx';
 import { GlobalProvider } from './contexts/GlobalContext.jsx';
 import { ListingProvider } from './contexts/ListingContext.jsx';
-import AuctionSearch from './components/Search/AuctionSearch.jsx';
 import BidPage from './routes/Bid.route.jsx';
 import HelpCenter from './routes/HelpCenter.route.jsx';
 
