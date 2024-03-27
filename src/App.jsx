@@ -14,23 +14,25 @@ import HelpCenter from './routes/HelpCenter.route.jsx';
 function App() {
   return (
     <>
-      <GlobalProvider>
-        <ListingProvider>
-          <BrowserRouter>
+      <FetchProvider>
+        <GlobalProvider>
+          <ListingProvider>
+            <BrowserRouter>
 
-            <Navbar />
+              <Navbar />
 
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/profile' element={<Profile />} />
-              <Route path='/info/:id' element={<ArtInfo />} />
-              <Route path='/bid/:id' element={<BidPage />} />
-              <Route path='/helpcenter' element={<HelpCenter />} />
-            </Routes>
-            <Footer />
-          </BrowserRouter>
-        </ListingProvider>
-      </GlobalProvider>
+              <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/profile' element={<Profile />} />
+                <Route path='/info/:id' element={<ArtInfo />} />
+                <Route path='/bid/:id' element={<BidPage />} />
+                <Route path='/helpcenter' element={<HelpCenter />} />
+              </Routes>
+              <Footer />
+            </BrowserRouter>
+          </ListingProvider>
+        </GlobalProvider>
+      </FetchProvider>
     </>
   );
 }
