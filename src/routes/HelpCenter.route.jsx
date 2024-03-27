@@ -20,39 +20,35 @@ const HelpCenter = () => {
 export default HelpCenter; */
 
 import React from "react";
-import FAQ from "../components/Accordion"; 
+import Accordion from "../components/Accordion"
 
-const HelpCenter = () => {
-    // Anta att du har din faqData här eller hämtar den från någonstans
-
-    // Exempel på faqData
+function HelpCenter() {
     const faqData = [
-        {
-            question: "Question #1",
-            answer: "Answer #1",
-        },
-        {
-            question: "Question #2",
-            answer: "Answer #2",
-        },
-        {
-            question: "Question #3",
-            answer: "Answer #3",
-        },
+      {
+        question: "Question #1",
+        answer:
+          "Here is the first answer."
+      },
+      {
+        question: "Question #2",
+        answer:
+          "Here comes answer number two."
+      },
+      {
+        question: "Question #3",
+        answer:
+          "Last but not least, here's the third answer."
+      }
     ];
 
     return (
         <div className="d-flex flex-column mx-4">
             <h1 className="mt-4 mb-6 mx-4">Help Center</h1>
-            <div className="d-flex justify-content-around mt-4 mb-4">
-                <button type='button' className='btn btn-secondary btn-lg mr-1'>Buying</button>
-                <button type='button' className='btn btn-secondary btn-lg mr-1'>Selling</button>
-            </div>
             <h3 className="mx-4">FAQ</h3>
             <div className='d-flex mx-4 mb-4 mr'>
                 <div className="w-50">
                     {/* Skicka in faqData som props till FAQ */}
-                    <FAQ faqData={faqData} />
+                    <Accordion faqData={faqData} />
                 </div>
             </div>
         </div>
