@@ -36,10 +36,11 @@ export default function Profile() {
         const match = users.find((user) => user.email === currentUser)
         if (match === undefined) {redirect("/")}  // reloads the home page if no-one is logged in
         setUserInfo(match)
+    
         // filters out all except the highest current bid for each object
-        const allBids = match.ongoingBids
+        const allBids = match.ongoingBids ? match.ongoingBids : null
         const itemIdArray = []
-        allBids.forEach(element => {
+        allBids && allBids.forEach(element => {
             const elementID = element.itemId
             !itemIdArray.includes(elementID) && itemIdArray.push(elementID)
         });
@@ -117,7 +118,7 @@ export default function Profile() {
         <div className="row">
         <div className="col">
             <h2>Your bids</h2>
-            {bids ? bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.bidId}/> ) : <p>You haven't placed any bids!</p>}
+            {bids.length > 0 ? bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.bidId}/> ) : <p>You haven't placed any bids!</p>}
         </div>
         <div className="col">
             <h2>Saved auctions</h2>
