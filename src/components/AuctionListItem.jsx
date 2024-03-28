@@ -1,6 +1,12 @@
 import { useNavigate } from 'react-router-dom';
+import { FetchContext } from '../contexts/FetchContext';
+import { useContext, useState } from 'react';
+import { GlobalContext } from '../contexts/GlobalContext';
 
 const AuctionListItem = ({ auction }) => {
+  const { fetchGeneral } = useContext(FetchContext)
+  const { login } = useContext(GlobalContext)
+  const [tempFavoriteAuction, setTempFavoriteAuction] = useState([])
   const navigate = useNavigate();
   const handleMoreInfo = (id) => {
     navigate(`/info/${id}`);
@@ -8,6 +14,31 @@ const AuctionListItem = ({ auction }) => {
   const handleBidNow = (id) => {
     navigate(`/bid/${id}`);
   };
+
+
+
+  const renderFavoriteAuctions = (currentAuction) => {
+    let result = false;
+    if (login) {
+      for (const savedAuction of login.savedAuctions) {
+        if (parseInt(savedAuction.itemId) === parseInt(currentAuction.id) | tempFavoriteAuction.includes(parseInt(savedAuction.itemId))) {
+          result = true;
+          break;
+        }
+      }
+    }
+    return result
+  }
+
+
+  const addToFavorites = async (body, auction) => {
+    setTempFavoriteAuction([...tempFavoriteAuction, parseInt(auction.id)])
+    let newBody = body;
+    newBody.savedAuctions.push({ itemId: auction.id, title: auction.title, image: auction.image, description: auction.description })
+    const result = await fetchGeneral(`/users/${newBody.id}`, "PUT", body)
+  }
+
+
   return (
     <li className='d-flex justify-content-between shadow rounded-5 p-5'>
       <div className='me-5'>
@@ -25,7 +56,14 @@ const AuctionListItem = ({ auction }) => {
             >
               More info
             </button>
-            <button className='btn btn-primary'>Add to favourites</button>
+            {
+              login && (renderFavoriteAuctions(auction)) ?
+                <button className='btn btn-primary'>Saved auction</button>
+                :
+                <button onClick={() => login && addToFavorites(login, auction)} className='btn btn-primary'>Add to favourites</button>
+
+            }
+
             <button
               onClick={() => handleBidNow(auction.id)}
               className='btn btn-success'

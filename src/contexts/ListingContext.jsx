@@ -1,12 +1,18 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { FetchContext } from './FetchContext';
 
-const getFetchGeneral = FetchContext()
 const ListingContext = createContext();
-const auctionItems = await getFetchGeneral('/items')
+
 
 const ListingProvider = ({ children }) => {
-  const [listings, setListings] = useState(auctionItems.items);
+  const { getFetchGeneral } = useContext(FetchContext)
+
+  const [listings, setListings] = useState();
+
+  useEffect(() => {
+    const getAuctionItems = async () => { setListings(await getFetchGeneral('/items')) }
+    getAuctionItems()
+  }, [])
 
   const placeBid = (auctionId, newBidAmount) => {
     console.log(auctionId);

@@ -112,51 +112,6 @@
         "Renaissance",
         "Europe"
       ]
-    },
-    {
-      "id": "0ec6",
-      "title": "sdsa",
-      "description": "szda",
-      "artist": "zscszc",
-      "startingBid": "1",
-      "image": "sdcz",
-      "auctionEnds": "2024-04-06T13:30",
-      "seller": "d446",
-      "filters": [
-        "Acrylic",
-        "Medieval",
-        "Asia"
-      ]
-    },
-    {
-      "id": "1882",
-      "title": "sf",
-      "description": "hgi",
-      "artist": "gg",
-      "startingBid": "2",
-      "image": "ug",
-      "auctionEnds": "2024-03-31T13:34",
-      "seller": "d446",
-      "filters": [
-        "Acrylic",
-        "Medieval",
-        "America"
-      ]
-    },
-    {
-      "id": "a5f4",
-      "title": "gh",
-      "description": "gh",
-      "artist": "gh",
-      "startingBid": "2",
-      "image": "hj",
-      "auctionEnds": "2024-03-30T13:40",
-      "seller": "d446",
-      "filters": [
-        "Acrylic",
-        "Renaissance",
-        "Asia"
-      ]
     }
   ],
   "users": [
@@ -213,9 +168,9 @@
       "id": "d446",
       "email": "e@e",
       "password": "e",
-      "username": "gh",
-      "name": "gh",
-      "lastname": "gh",
+      "username": "George",
+      "name": "George",
+      "lastname": "G",
       "ongoingBids": [
         {
           "itemId": 1,
@@ -245,48 +200,32 @@
           "image": "https://source.unsplash.com/random/800x600/?art",
           "title": "Starry Night",
           "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
+        },
+        {
+          "itemId": "1",
+          "title": "Starry Night",
+          "image": "https://source.unsplash.com/random/800x600/?art",
+          "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
+        },
+        {
+          "itemId": "2",
+          "title": "Mona Lisa",
+          "image": "https://source.unsplash.com/random/800x600/?portrait",
+          "description": "Leonardo da Vinci's masterpiece depicting a woman with an enigmatic smile."
+        },
+        {
+          "itemId": "4",
+          "title": "Girl with a Pearl Earring",
+          "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
+          "description": "Johannes Vermeer's iconic painting of a girl wearing a pearl earring."
         }
       ]
     },
     {
-      "id": "70be",
-      "email": "p@p",
-      "password": "p"
-    },
-    {
-      "id": "c7ee",
-      "email": "j@j",
-      "password": "j"
-    },
-    {
-      "id": "b5a3",
-      "email": "z@z",
-      "password": "z"
-    },
-    {
-      "id": "cb91",
-      "email": "q@q",
-      "password": "q"
-    },
-    {
-      "id": "9f4d",
-      "email": "f@f",
-      "password": "f"
-    },
-    {
-      "id": "5da1",
-      "email": "r@r",
-      "password": "r"
-    },
-    {
-      "id": "c3c4",
-      "email": "f@fg",
-      "password": "sdf"
-    },
-    {
-      "id": "15e2",
-      "email": "d@d",
-      "password": "d"
+      "id": "4d32",
+      "email": "dsf@sdsa",
+      "password": "fsgsf",
+      "startingBid": "5000000"
     }
   ],
   "bids": [

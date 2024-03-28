@@ -47,7 +47,7 @@ export default function Loginbutton() {
         setLoginError('User not found. Select register to create an account.');
       } else if (match.password === userCredentials.password) {
         setSuccessText('Login successful.');
-        setLogin(userCredentials.email);
+        setLogin(match);
         setShowModal(false);
         setShowSuccessModal(true);
         setLoginError(null);
@@ -151,7 +151,7 @@ export default function Loginbutton() {
           </Modal.Footer>
         </Modal>
       }
-      <InfoModal showInfoModal={showSuccessModal} title="Success!" infoText={successText} dismiss={dismiss}/> 
+      <InfoModal showInfoModal={showSuccessModal} title="Success!" infoText={successText} dismiss={dismiss} />
     </>
   );
 }
