@@ -1,22 +1,30 @@
 import { useState, useContext, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ListingContext } from '../contexts/ListingContext';
+import { FetchContext } from '../contexts/FetchContext';
 
 const BidPageContent = () => {
   const { id } = useParams();
-  const { listings, placeBid } = useContext(ListingContext);
+  const { placeBid, setListings } = useContext(ListingContext);
+  const { getFetchGeneral } = useContext(FetchContext)
   const [auction, setAuction] = useState({})
 
   useEffect(() => {
-    const findAuction = async () => {
-      for (const listing of listings) {
-        if (parseInt(listing.id) == parseInt(id)) {
-          setAuction(listing)
+    const fetchListingsAndAuction = async () => {
+      const res = await getFetchGeneral("/items");
+      setListings(res);
+
+      // Find the auction after listings are fetched
+      for (const listing of res) {
+        if (parseInt(listing.id) === parseInt(id)) {
+          setAuction(listing);
+          break; // Once auction is found, exit the loop
         }
       }
-    }
-    findAuction()
-  }, [])
+    };
+
+    fetchListingsAndAuction();
+  }, []);
 
   const [inputBid, setInputBid] = useState('');
 
@@ -44,9 +52,24 @@ const BidPageContent = () => {
 
     handleBid(auction.id, currentBid);
   };
+
   const handleBid = (auctionId, amount) => {
     placeBid(auctionId, amount);
   };
+
+  const calculateBidAmount = () => {
+    if (auction.highestBid && auction.highestBid.amount) {
+      return parseInt(auction.highestBid.amount) + 500;
+    } else {
+      return auction.startingBid;
+    }
+  };
+
+  const handleBidClick = () => {
+    const bidAmount = calculateBidAmount();
+    handleBid(auction.id, bidAmount);
+  };
+
   if (!auction) {
     return (
       <div className='container text-center mt-5'>
@@ -57,17 +80,6 @@ const BidPageContent = () => {
       </div>
     );
   }
-  const calculateBidAmount = () => {
-    if (auction.highestBid && auction.highestBid.amount) {
-      return parseInt(auction.highestBid.amount) + 500;
-    } else {
-      return auction.startingBid;
-    }
-  };
-  const handleBidClick = () => {
-    const bidAmount = calculateBidAmount();
-    handleBid(auction.id, bidAmount);
-  };
 
   return (
     <div className='d-flex row container p-5'>

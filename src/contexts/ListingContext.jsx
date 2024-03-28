@@ -7,7 +7,7 @@ const ListingContext = createContext();
 const ListingProvider = ({ children }) => {
   const { getFetchGeneral } = useContext(FetchContext)
 
-  const [listings, setListings] = useState();
+  const [listings, setListings] = useState([]);
 
   useEffect(() => {
     const getAuctionItems = async () => { setListings(await getFetchGeneral('/items')) }
@@ -15,10 +15,9 @@ const ListingProvider = ({ children }) => {
   }, [])
 
   const placeBid = (auctionId, newBidAmount) => {
-    console.log(auctionId);
+
     setListings((prevListings) => {
-      console.log(prevListings);
-      console.log(auctionId, newBidAmount);
+
       return prevListings.map((auction) => {
         if (auction.id === auctionId) {
           return {
