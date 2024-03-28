@@ -24,24 +24,23 @@ export default function Profile() {
     const [type, setType] = useState("") // handles type filters in create auctiosn form
     const [period, setPeriod] = useState("") // handles period filters in create auctiosn form
     const [location, setLocation] = useState("") // handles location filters in create auctiosn form
+    const { fetchGeneral } = useContext(FetchContext);  // handles fetch requests
     const redirect = useNavigate()
 
     const dismiss = () => setShowSuccessModal(false)
 
     useEffect(() => {
         const fetchUser = async () => {
-            const response = await fetch('http://localhost:8000/users');
-            const users = await response.json();
-            const match = login
-            if (match === undefined) { redirect("/") }  // reloads the home page if no-one is logged in
-            setUserInfo(match)
+            login === null && redirect("/")   // reloads the home page if no-one is logged in
+            const currentUser = login
+            setUserInfo(currentUser)
             // filters out all except the highest current bid for each object
-            const allBids = match.ongoingBids
+            const allBids = currentUser.ongoingBids ? currentUser.ongoingBids : null
             const itemIdArray = []
-            allBids.forEach(element => {
+            if (allBids !== null) {allBids.forEach(element => {
                 const elementID = element.itemId
                 !itemIdArray.includes(elementID) && itemIdArray.push(elementID)
-            });
+            })};
             const highestBids = []
             itemIdArray.forEach(id => {
                 const itemBids = allBids.filter((bid) => bid.itemId === id)
@@ -52,13 +51,13 @@ export default function Profile() {
                         highest.push(bid)
                     }
                 })
-                highest.forEach(bid => highestBids.push(bid))
+                highest && highest.forEach(bid => highestBids.push(bid))
             })
 
             // sets user information to be rendered
             setBids(highestBids)
-            setSavedAuctions(match.savedAuctions)
-            setMyAuctions(match.myAuctions)
+            setSavedAuctions(currentUser.savedAuctions)
+            setMyAuctions(currentUser.myAuctions)
         };
         fetchUser();
     }, []);
@@ -117,7 +116,7 @@ export default function Profile() {
             <div className="row">
                 <div className="col">
                     <h2>Your bids</h2>
-                    {bids ? bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.bidId} />) : <p>You haven't placed any bids!</p>}
+                    {bids.length > 0 ? bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.bidId} />) : <p>You haven't placed any bids!</p>}
                 </div>
                 <div className="col">
                     <h2>Saved auctions</h2>
