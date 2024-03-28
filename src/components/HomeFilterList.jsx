@@ -20,19 +20,19 @@ const HomeFilterList = () => {
         <div className='mb-3'>
           <h4>Periods</h4>
           <ul className='list-group'>
-            {periodTags.map((tag) => <Checkbox value={tag} onChange={(e) => handleChange(e.target.value)}/>)}
+            {periodTags.map((tag) => <Checkbox value={tag} key={tag} onChange={(e) => handleChange(e.target.value)}/>)}
           </ul>
         </div>
         <div className='mb-3'>
           <h4>Type</h4>
           <ul className='list-group'>
-            {typeTags.map((tag) => <Checkbox value={tag} onChange={(e) => handleChange(e.target.value)}/>)}            
+            {typeTags.map((tag) => <Checkbox value={tag} key={tag} onChange={(e) => handleChange(e.target.value)}/>)}            
           </ul>
         </div>
         <div>
           <h4>Location</h4>
           <ul className='list-group'>
-            {locationTags.map((tag) => <Checkbox value={tag} onChange={(e) => handleChange(e.target.value)}/>)}                        
+            {locationTags.map((tag) => <Checkbox value={tag} key={tag} onChange={(e) => handleChange(e.target.value)}/>)}                        
           </ul>
         </div>
       </ul>

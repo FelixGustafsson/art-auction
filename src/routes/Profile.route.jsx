@@ -1,4 +1,5 @@
 import { GlobalContext } from "../contexts/GlobalContext"
+import { FetchContext } from '../contexts/FetchContext';
 import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Modal from 'react-bootstrap/Modal';
@@ -31,7 +32,7 @@ export default function Profile() {
         const fetchUser = async () => {
             const response = await fetch('http://localhost:8000/users');
             const users = await response.json();
-            const match = login
+            const match = users.find((user) => user.email === currentUser)
             if (match === undefined) { redirect("/") }  // reloads the home page if no-one is logged in
             setUserInfo(match)
             // filters out all except the highest current bid for each object
@@ -72,13 +73,7 @@ export default function Profile() {
             email: form.email.value,
             password: form.password.value
         }
-        const response = await fetch(`http://localhost:8000/users/${userInfo.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newUserInfo)
-        })
+        const response = await fetchGeneral(`/users/${userInfo.id}`, 'PATCH', newUserInfo)
         if (response.status === 200) {
             setShowEditForm(false)
             const updatedUser = await fetch(`http://localhost:8000/users/${userInfo.id}`)
@@ -103,13 +98,7 @@ export default function Profile() {
             seller: userInfo.id,
             filters: filters
         }
-        const response = await fetch("http://localhost:8000/items", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newAuctionInfo)
-        })
+        const response = await fetchGeneral('/items', 'POST', newAuctionInfo)
         if (response.status === 201) {
             setShowAuctionForm(false)
             setSuccessText("New auction created.")

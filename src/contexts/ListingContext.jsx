@@ -1,10 +1,18 @@
-import { createContext, useState } from 'react';
-import auctionItems from '../../data/db.json';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { FetchContext } from './FetchContext';
 
 const ListingContext = createContext();
 
+
 const ListingProvider = ({ children }) => {
+  const { getFetchGeneral } = useContext(FetchContext)
+  const [auctionItems, setAuctionItems] = useState([])
   const [listings, setListings] = useState(auctionItems.items);
+
+  useEffect(() => {
+    const getAuctionItems = async () => { setAuctionItems(await getFetchGeneral('/items')) }
+    getAuctionItems()
+  }, [])
 
   const placeBid = (auctionId, newBidAmount) => {
     console.log(auctionId);

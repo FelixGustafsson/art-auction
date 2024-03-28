@@ -14,10 +14,11 @@ const InfoTextContainer = () => {
   return (
     <div className='d-flex row container p-5'>
       <div className='col'>
-        <h2>{auction.title}</h2>
-        <img src={auction.image} alt={auction.title} />
+
+        <img src={auction.image} alt={auction.title} className='rounded-5 shadow-lg' />
       </div>
-      <div className='col align-self-center'>
+      <div className='col mx-5'>
+        <h2>{auction.title}</h2>
         <p>
           <strong>Description:</strong> {auction.description}
         </p>
