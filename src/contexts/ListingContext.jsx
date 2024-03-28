@@ -1,36 +1,60 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { FetchContext } from './FetchContext';
-
+import { GlobalContext } from './GlobalContext';
 const ListingContext = createContext();
 
-
 const ListingProvider = ({ children }) => {
-  const { getFetchGeneral } = useContext(FetchContext)
-
+  const { fetchGeneral } = useContext(FetchContext);
+  const { login } = useContext(GlobalContext);
   const [listings, setListings] = useState([]);
-
+  const loggedInUser = login;
   useEffect(() => {
-    const getAuctionItems = async () => { setListings(await getFetchGeneral('/items')) }
-    getAuctionItems()
-  }, [])
+    const getAuctionItems = async () => {
+      setListings(await fetchGeneral('/items'));
+    };
+    getAuctionItems();
+  }, [fetchGeneral]);
 
-  const placeBid = (auctionId, newBidAmount) => {
+  const placeBid = async (auctionId, newBidAmount) => {
+    try {
+      const existingAuction = listings.find((item) => item.id === auctionId);
+      const updatedAuction = {
+        ...existingAuction,
+        highestBid: { amount: newBidAmount },
+      };
 
-    setListings((prevListings) => {
+      const response = await fetchGeneral(
+        `/items/${auctionId}`,
+        'PUT',
+        updatedAuction
+      );
 
-      return prevListings.map((auction) => {
-        if (auction.id === auctionId) {
-          return {
-            ...auction,
-            highestBid: {
-              amount: newBidAmount,
-            },
-          };
-        } else {
-          return auction;
-        }
-      });
-    });
+      if (response.ok) {
+        const updatedItem = await response.json();
+        setListings((prevListings) => {
+          return prevListings.map((item) => {
+            if (item.id === auctionId) {
+              return updatedItem;
+            }
+            return item;
+          });
+        });
+
+        const bidObject = {
+          time: 'bidTime',
+          bidder: loggedInUser,
+          item: auctionId,
+          amount: newBidAmount,
+        };
+
+        // Utför fetch för att spara budobjektet
+        await fetchGeneral('/bids', 'POST', bidObject);
+      } else {
+        throw new Error('Failed to update bid on server.');
+      }
+    } catch (error) {
+      console.error('Error placing bid:', error);
+    }
   };
 
   return (
@@ -41,5 +65,3 @@ const ListingProvider = ({ children }) => {
 };
 
 export { ListingContext, ListingProvider };
-
-//Is this file deprecated?

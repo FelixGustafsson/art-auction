@@ -7,8 +7,7 @@
       "artist": "Vincent van Gogh",
       "startingBid": 5000,
       "highestBid": {
-        "userId": "",
-        "amount": ""
+        "amount": 9500
       },
       "allBids": [
         {
@@ -26,26 +25,13 @@
       ],
       "image": "https://source.unsplash.com/random/800x600/?art",
       "auctionEnds": "2024-05-15",
-      "filters": [
-        "Modern"
-      ]
+      "filters": ["Modern"]
     },
     {
-      "id": "2",
-      "title": "Mona Lisa",
-      "description": "Leonardo da Vinci's masterpiece depicting a woman with an enigmatic smile.",
-      "artist": "Leonardo da Vinci",
-      "startingBid": 7000,
       "highestBid": {
-        "id": 2,
-        "amount": 4200
+        "amount": 4700
       },
-      "allBids": [],
-      "image": "https://source.unsplash.com/random/800x600/?portrait",
-      "auctionEnds": "2024-06-20",
-      "filters": [
-        "Modern"
-      ]
+      "id": "2"
     },
     {
       "id": "3",
@@ -60,9 +46,7 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?surrealism",
       "auctionEnds": "2024-07-25",
-      "filters": [
-        "Modern"
-      ]
+      "filters": ["Modern"]
     },
     {
       "id": "4",
@@ -77,9 +61,7 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
       "auctionEnds": "2024-08-30",
-      "filters": [
-        "1800s"
-      ]
+      "filters": ["1800s"]
     },
     {
       "id": "5",
@@ -94,9 +76,7 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?night,painting",
       "auctionEnds": "2024-09-15",
-      "filters": [
-        "1700s"
-      ]
+      "filters": ["1700s"]
     },
     {
       "id": "eeac",
@@ -107,11 +87,7 @@
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/The_Rhinoceros_%28NGA_1964.8.697%29_enhanced.png/1024px-The_Rhinoceros_%28NGA_1964.8.697%29_enhanced.png",
       "auctionEnds": "2024-04-07T10:16",
       "seller": "d446",
-      "filters": [
-        "Print",
-        "Renaissance",
-        "Europe"
-      ]
+      "filters": ["Print", "Renaissance", "Europe"]
     }
   ],
   "users": [
@@ -235,6 +211,37 @@
       "item": "1",
       "amount": 4000,
       "date": "x"
+    },
+    {
+      "id": "66bd",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "1",
+      "amount": 8500
+    },
+    {
+      "id": "076a",
+      "time": "bidTime",
+      "bidder": {
+        "id": "4d32",
+        "email": "dsf@sdsa",
+        "password": "fsgsf",
+        "startingBid": "5000000"
+      },
+      "item": "1",
+      "amount": 9000
+    },
+    {
+      "id": "0f2f",
+      "time": "bidTime",
+      "bidder": {
+        "id": "4d32",
+        "email": "dsf@sdsa",
+        "password": "fsgsf",
+        "startingBid": "5000000"
+      },
+      "item": "1",
+      "amount": 9500
     }
   ]
 }

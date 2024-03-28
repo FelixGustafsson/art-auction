@@ -6,25 +6,24 @@ import { FetchContext } from '../contexts/FetchContext';
 const BidPageContent = () => {
   const { id } = useParams();
   const { placeBid, setListings } = useContext(ListingContext);
-  const { getFetchGeneral } = useContext(FetchContext)
-  const [auction, setAuction] = useState({})
+  const { getFetchGeneral } = useContext(FetchContext);
+  const [auction, setAuction] = useState({});
 
   useEffect(() => {
     const fetchListingsAndAuction = async () => {
-      const res = await getFetchGeneral("/items");
+      const res = await getFetchGeneral('/items');
       setListings(res);
 
-      // Find the auction after listings are fetched
       for (const listing of res) {
         if (parseInt(listing.id) === parseInt(id)) {
           setAuction(listing);
-          break; // Once auction is found, exit the loop
+          break;
         }
       }
     };
 
     fetchListingsAndAuction();
-  }, []);
+  }, [placeBid, getFetchGeneral, setListings, id]);
 
   const [inputBid, setInputBid] = useState('');
 
@@ -51,10 +50,12 @@ const BidPageContent = () => {
     }
 
     handleBid(auction.id, currentBid);
+    setInputBid('');
   };
 
   const handleBid = (auctionId, amount) => {
     placeBid(auctionId, amount);
+    window.alert('Your bid has been successfully placed!');
   };
 
   const calculateBidAmount = () => {
@@ -84,7 +85,11 @@ const BidPageContent = () => {
   return (
     <div className='d-flex row container p-5'>
       <div className='col w-25'>
-        <img className='img-fluid rounded-5 shadow-lg' src={auction.image} alt={auction.title} />
+        <img
+          className='img-fluid rounded-5 shadow-lg'
+          src={auction.image}
+          alt={auction.title}
+        />
       </div>
       <div className='col '>
         <h2>{auction.title}</h2>
