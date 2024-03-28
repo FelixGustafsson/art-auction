@@ -32,7 +32,7 @@ export default function Profile() {
         const fetchUser = async () => {
             const response = await fetch('http://localhost:8000/users');
             const users = await response.json();
-            const match = users.find((user) => user.email === currentUser)
+            const match = login
             if (match === undefined) { redirect("/") }  // reloads the home page if no-one is logged in
             setUserInfo(match)
             // filters out all except the highest current bid for each object

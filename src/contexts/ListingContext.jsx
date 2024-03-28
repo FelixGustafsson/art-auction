@@ -6,11 +6,11 @@ const ListingContext = createContext();
 
 const ListingProvider = ({ children }) => {
   const { getFetchGeneral } = useContext(FetchContext)
-  const [auctionItems, setAuctionItems] = useState([])
-  const [listings, setListings] = useState(auctionItems.items);
+
+  const [listings, setListings] = useState();
 
   useEffect(() => {
-    const getAuctionItems = async () => { setAuctionItems(await getFetchGeneral('/items')) }
+    const getAuctionItems = async () => { setListings(await getFetchGeneral('/items')) }
     getAuctionItems()
   }, [])
 

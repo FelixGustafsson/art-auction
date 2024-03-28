@@ -1,11 +1,22 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ListingContext } from '../contexts/ListingContext';
 
 const BidPageContent = () => {
   const { id } = useParams();
   const { listings, placeBid } = useContext(ListingContext);
-  const auction = listings.find((auction) => auction.id === id);
+  const [auction, setAuction] = useState({})
+
+  useEffect(() => {
+    const findAuction = async () => {
+      for (const listing of listings) {
+        if (parseInt(listing.id) == parseInt(id)) {
+          setAuction(listing)
+        }
+      }
+    }
+    findAuction()
+  }, [])
 
   const [inputBid, setInputBid] = useState('');
 
