@@ -13,12 +13,12 @@ const FetchProvider = ({ children }) => {
 
   const fetchGeneral = async (endpoint, method, body) => {
     if (endpoint && method && body) {
-      const res = fetch(`htpp://localhost:8000${endpoint}`, {
+      const res = await fetch(`http://localhost:8000${endpoint}`, {
         method: `${method}`,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      const result = res.json();
+      const result = await res.json();
       return result;
     }
   };
