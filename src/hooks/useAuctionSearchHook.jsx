@@ -7,9 +7,11 @@ function useAuctionSearchHook() {
 
   useEffect(() => {
     const filteredAuctions = items.items.filter((auction) => {
+      const title = auction.title || '';
+      const filters = auction.filters || [];
       return (
-        auction.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        auction.filters.some((filter) =>
+        title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        filters.some((filter) =>
           filter.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );

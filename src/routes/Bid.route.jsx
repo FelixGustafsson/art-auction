@@ -1,22 +1,31 @@
 import { useState, useContext, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ListingContext } from '../contexts/ListingContext';
+import { FetchContext } from '../contexts/FetchContext';
+import { GlobalContext } from '../contexts/GlobalContext';
 
 const BidPageContent = () => {
   const { id } = useParams();
-  const { listings, placeBid } = useContext(ListingContext);
-  const [auction, setAuction] = useState({})
-
+  const { placeBid, setListings } = useContext(ListingContext);
+  const { getFetchGeneral } = useContext(FetchContext);
+  const [auction, setAuction] = useState({});
+  const { login } = useContext(GlobalContext);
+  const navigate = useNavigate();
   useEffect(() => {
-    const findAuction = async () => {
-      for (const listing of listings) {
-        if (parseInt(listing.id) == parseInt(id)) {
-          setAuction(listing)
+    const fetchListingsAndAuction = async () => {
+      const res = await getFetchGeneral('/items');
+      setListings(res);
+
+      for (const listing of res) {
+        if (parseInt(listing.id) === parseInt(id)) {
+          setAuction(listing);
+          break;
         }
       }
-    }
-    findAuction()
-  }, [])
+    };
+
+    fetchListingsAndAuction();
+  }, [placeBid, getFetchGeneral, setListings, id]);
 
   const [inputBid, setInputBid] = useState('');
 
@@ -28,6 +37,12 @@ const BidPageContent = () => {
     e.preventDefault();
 
     const currentBid = parseInt(inputBid);
+
+    if (login === null) {
+      alert('You have to log in');
+      navigate('/');
+      return;
+    }
 
     if (isNaN(currentBid) || currentBid <= 0) {
       alert('Please enter a valid bid amount.');
@@ -43,10 +58,32 @@ const BidPageContent = () => {
     }
 
     handleBid(auction.id, currentBid);
+    setInputBid('');
   };
+
   const handleBid = (auctionId, amount) => {
     placeBid(auctionId, amount);
+    window.alert('Your bid has been successfully placed!');
   };
+
+  const calculateBidAmount = () => {
+    if (auction.highestBid && auction.highestBid.amount) {
+      return parseInt(auction.highestBid.amount) + 500;
+    } else {
+      return auction.startingBid;
+    }
+  };
+
+  const handleBidClick = () => {
+    if (login === null) {
+      alert('You have to log in');
+      navigate('/');
+      return;
+    }
+    const bidAmount = calculateBidAmount();
+    handleBid(auction.id, bidAmount);
+  };
+
   if (!auction) {
     return (
       <div className='container text-center mt-5'>
@@ -57,22 +94,15 @@ const BidPageContent = () => {
       </div>
     );
   }
-  const calculateBidAmount = () => {
-    if (auction.highestBid && auction.highestBid.amount) {
-      return parseInt(auction.highestBid.amount) + 500;
-    } else {
-      return auction.startingBid;
-    }
-  };
-  const handleBidClick = () => {
-    const bidAmount = calculateBidAmount();
-    handleBid(auction.id, bidAmount);
-  };
 
   return (
     <div className='d-flex row container p-5'>
       <div className='col w-25'>
-        <img className='img-fluid rounded-5 shadow-lg' src={auction.image} alt={auction.title} />
+        <img
+          className='img-fluid rounded-5 shadow-lg'
+          src={auction.image}
+          alt={auction.title}
+        />
       </div>
       <div className='col '>
         <h2>{auction.title}</h2>

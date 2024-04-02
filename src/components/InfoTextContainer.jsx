@@ -1,7 +1,8 @@
 import useAuctionSearchHook from '../hooks/useAuctionSearchHook';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const InfoTextContainer = () => {
+  const navigate = useNavigate()
   const { filteredAuctions } = useAuctionSearchHook();
   let { id } = useParams();
   if (!filteredAuctions) {
@@ -38,10 +39,10 @@ const InfoTextContainer = () => {
         </p>
 
         <div className='d-flex gap-4'>
-          <button type='button' className='btn btn-danger '>
+          <button type='button' className='btn btn-danger ' onClick={() => navigate(-1)}>
             Back
           </button>
-          <button type='button' className='btn btn-success '>
+          <button type='button' className='btn btn-success ' onClick={() => navigate(`/bid/${auction.id}`)}>
             Bid Now
           </button>
         </div>

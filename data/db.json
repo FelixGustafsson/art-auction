@@ -7,42 +7,20 @@
       "artist": "Vincent van Gogh",
       "startingBid": 5000,
       "highestBid": {
-        "userId": "",
-        "amount": ""
+        "amount": 244500
       },
       "allBids": [
         {
-          "userId": 1,
-          "amount": 5000
+          "userId": "d446",
+          "amount": 244000
         },
         {
-          "userId": 2,
-          "amount": 5200
-        },
-        {
-          "userId": 1,
-          "amount": 5500
+          "userId": "d446",
+          "amount": 244500
         }
       ],
       "image": "https://source.unsplash.com/random/800x600/?art",
       "auctionEnds": "2024-05-15",
-      "filters": [
-        "Modern"
-      ]
-    },
-    {
-      "id": "2",
-      "title": "Mona Lisa",
-      "description": "Leonardo da Vinci's masterpiece depicting a woman with an enigmatic smile.",
-      "artist": "Leonardo da Vinci",
-      "startingBid": 7000,
-      "highestBid": {
-        "id": 2,
-        "amount": 4200
-      },
-      "allBids": [],
-      "image": "https://source.unsplash.com/random/800x600/?portrait",
-      "auctionEnds": "2024-06-20",
       "filters": [
         "Modern"
       ]
@@ -54,10 +32,14 @@
       "artist": "Salvador Dalí",
       "startingBid": 6000,
       "highestBid": {
-        "id": 3,
-        "amount": 300
+        "amount": 854
       },
-      "allBids": [],
+      "allBids": [
+        {
+          "userId": "d446",
+          "amount": 854
+        }
+      ],
       "image": "https://source.unsplash.com/random/800x600/?surrealism",
       "auctionEnds": "2024-07-25",
       "filters": [
@@ -71,8 +53,7 @@
       "artist": "Johannes Vermeer",
       "startingBid": 4500,
       "highestBid": {
-        "id": 4,
-        "amount": 4050
+        "amount": 8000
       },
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
@@ -122,12 +103,7 @@
       "lastname": "Strand",
       "email": "veronica@example.com",
       "password": "123",
-      "ongoingBids": [
-        {
-          "itemId": 1,
-          "bidAmount": 5500
-        }
-      ],
+      "ongoingBids": [],
       "wonItems": [],
       "lostItems": []
     },
@@ -171,70 +147,38 @@
       "username": "George",
       "name": "George",
       "lastname": "G",
-      "ongoingBids": [
-        {
-          "itemId": 1,
-          "bidAmount": 4000,
-          "bidId": 1,
-          "image": "https://source.unsplash.com/random/800x600/?art",
-          "title": "Starry Night"
-        },
-        {
-          "itemId": 1,
-          "bidAmount": 5000,
-          "bidId": 2,
-          "image": "https://source.unsplash.com/random/800x600/?art",
-          "title": "Starry Night"
-        },
-        {
-          "title": "The Persistence of Memory",
-          "itemId": 3,
-          "bidAmount": 4000,
-          "bidId": 3,
-          "image": "https://source.unsplash.com/random/800x600/?surrealism"
-        }
-      ],
+      "ongoingBids": [],
       "savedAuctions": [
-        {
-          "itemId": 1,
-          "image": "https://source.unsplash.com/random/800x600/?art",
-          "title": "Starry Night",
-          "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
-        },
         {
           "itemId": "1",
           "title": "Starry Night",
           "image": "https://source.unsplash.com/random/800x600/?art",
           "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
-        },
-        {
-          "itemId": "2",
-          "title": "Mona Lisa",
-          "image": "https://source.unsplash.com/random/800x600/?portrait",
-          "description": "Leonardo da Vinci's masterpiece depicting a woman with an enigmatic smile."
-        },
-        {
-          "itemId": "4",
-          "title": "Girl with a Pearl Earring",
-          "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
-          "description": "Johannes Vermeer's iconic painting of a girl wearing a pearl earring."
         }
       ]
-    },
-    {
-      "id": "4d32",
-      "email": "dsf@sdsa",
-      "password": "fsgsf",
-      "startingBid": "5000000"
     }
   ],
   "bids": [
     {
-      "id": "1",
+      "id": "e2d8",
+      "time": "bidTime",
       "bidder": "d446",
       "item": "1",
-      "amount": 4000,
-      "date": "x"
+      "amount": 244000
+    },
+    {
+      "id": "ddd3",
+      "time": "bidTime",
+      "bidder": "d446",
+      "item": "3",
+      "amount": 854
+    },
+    {
+      "id": "71ff",
+      "time": "bidTime",
+      "bidder": "d446",
+      "item": "1",
+      "amount": 244500
     }
   ]
 }
