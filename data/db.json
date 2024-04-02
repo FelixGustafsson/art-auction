@@ -7,12 +7,16 @@
       "artist": "Vincent van Gogh",
       "startingBid": 5000,
       "highestBid": {
-        "amount": 244000
+        "amount": 244500
       },
       "allBids": [
         {
           "userId": "d446",
           "amount": 244000
+        },
+        {
+          "userId": "d446",
+          "amount": 244500
         }
       ],
       "image": "https://source.unsplash.com/random/800x600/?art",
@@ -144,7 +148,14 @@
       "name": "George",
       "lastname": "G",
       "ongoingBids": [],
-      "savedAuctions": []
+      "savedAuctions": [
+        {
+          "itemId": "1",
+          "title": "Starry Night",
+          "image": "https://source.unsplash.com/random/800x600/?art",
+          "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
+        }
+      ]
     }
   ],
   "bids": [
@@ -161,6 +172,13 @@
       "bidder": "d446",
       "item": "3",
       "amount": 854
+    },
+    {
+      "id": "71ff",
+      "time": "bidTime",
+      "bidder": "d446",
+      "item": "1",
+      "amount": 244500
     }
   ]
 }
