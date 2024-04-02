@@ -1,29 +1,26 @@
 import { useState, useContext, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { ListingContext } from '../contexts/ListingContext';
 import { FetchContext } from '../contexts/FetchContext';
 import { GlobalContext } from '../contexts/GlobalContext';
+import InfoModal from '../components/InfoModal';
 
 const BidPageContent = () => {
   const { id } = useParams();
   const { placeBid, setListings } = useContext(ListingContext);
   const { getFetchGeneral } = useContext(FetchContext);
   const [auction, setAuction] = useState({});
+  const [showInfoModal, setShowInfoModal] = useState(false)
+  const [infoText, setInfoText] = useState('')
+  const [title, setTitle] = useState('')
+  const dismiss = () => setShowInfoModal(false)
   const { login } = useContext(GlobalContext);
-  const navigate = useNavigate();
+  
   useEffect(() => {
     const fetchListingsAndAuction = async () => {
-      const res = await getFetchGeneral('/items');
-      setListings(res);
-
-      for (const listing of res) {
-        if (parseInt(listing.id) === parseInt(id)) {
-          setAuction(listing);
-          break;
-        }
-      }
-    };
-
+      const res = await getFetchGeneral(`/items/${id}`);
+      setAuction(res)
+    }
     fetchListingsAndAuction();
   }, [placeBid, getFetchGeneral, setListings, id]);
 
@@ -39,13 +36,16 @@ const BidPageContent = () => {
     const currentBid = parseInt(inputBid);
 
     if (login === null) {
-      alert('You have to log in');
-      navigate('/');
+      setTitle('Unable to place bid')
+      setInfoText('Please log in first.');
+      setShowInfoModal(true)
       return;
     }
 
     if (isNaN(currentBid) || currentBid <= 0) {
-      alert('Please enter a valid bid amount.');
+      setTitle('Unable to place bid')
+      setInfoText('Please enter a valid bid.');
+      setShowInfoModal(true)
       return;
     }
 
@@ -53,7 +53,9 @@ const BidPageContent = () => {
       ? parseInt(auction.highestBid.amount)
       : 0;
     if (currentBid <= highestBidAmount) {
-      alert('Your bid must be higher than the current highest bid.');
+      setTitle('Unable to place bid')
+      setInfoText('Your bid must be higher than the current highest bid.');
+      setShowInfoModal(true)
       return;
     }
 
@@ -63,7 +65,9 @@ const BidPageContent = () => {
 
   const handleBid = (auctionId, amount) => {
     placeBid(auctionId, amount);
-    window.alert('Your bid has been successfully placed!');
+    setTitle('Bid placed!')
+    setInfoText('Your bid has been successfully placed!')
+    setShowInfoModal(true)
   };
 
   const calculateBidAmount = () => {
@@ -76,8 +80,9 @@ const BidPageContent = () => {
 
   const handleBidClick = () => {
     if (login === null) {
-      alert('You have to log in');
-      navigate('/');
+      setTitle('Unable to place bid')
+      setInfoText('Please log in first.');
+      setShowInfoModal(true)
       return;
     }
     const bidAmount = calculateBidAmount();
@@ -147,6 +152,7 @@ const BidPageContent = () => {
           })}
         </p>
       </div>
+      <InfoModal showInfoModal={showInfoModal} title={title} infoText={infoText} dismiss={dismiss}/>
     </div>
   );
 };
