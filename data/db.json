@@ -7,7 +7,7 @@
       "artist": "Vincent van Gogh",
       "startingBid": 5000,
       "highestBid": {
-        "amount": 9500
+        "amount": 243500
       },
       "allBids": [
         {
@@ -21,11 +21,42 @@
         {
           "userId": 1,
           "amount": 5500
+        },
+        {
+          "userId": null,
+          "amount": 241000
+        },
+        {
+          "userId": null,
+          "amount": 241500
+        },
+        {
+          "userId": null,
+          "amount": 242000
+        },
+        {
+          "userId": "",
+          "amount": 242500
+        },
+        {
+          "userId": "",
+          "amount": 243000
+        },
+        {
+          "userId": {
+            "id": "4d32",
+            "email": "dsf@sdsa",
+            "password": "fsgsf",
+            "startingBid": "5000000"
+          },
+          "amount": 243500
         }
       ],
       "image": "https://source.unsplash.com/random/800x600/?art",
       "auctionEnds": "2024-05-15",
-      "filters": ["Modern"]
+      "filters": [
+        "Modern"
+      ]
     },
     {
       "highestBid": {
@@ -46,7 +77,9 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?surrealism",
       "auctionEnds": "2024-07-25",
-      "filters": ["Modern"]
+      "filters": [
+        "Modern"
+      ]
     },
     {
       "id": "4",
@@ -61,7 +94,9 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
       "auctionEnds": "2024-08-30",
-      "filters": ["1800s"]
+      "filters": [
+        "1800s"
+      ]
     },
     {
       "id": "5",
@@ -76,7 +111,9 @@
       "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?night,painting",
       "auctionEnds": "2024-09-15",
-      "filters": ["1700s"]
+      "filters": [
+        "1700s"
+      ]
     },
     {
       "id": "eeac",
@@ -87,7 +124,11 @@
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/The_Rhinoceros_%28NGA_1964.8.697%29_enhanced.png/1024px-The_Rhinoceros_%28NGA_1964.8.697%29_enhanced.png",
       "auctionEnds": "2024-04-07T10:16",
       "seller": "d446",
-      "filters": ["Print", "Renaissance", "Europe"]
+      "filters": [
+        "Print",
+        "Renaissance",
+        "Europe"
+      ]
     }
   ],
   "users": [
@@ -242,6 +283,74 @@
       },
       "item": "1",
       "amount": 9500
+    },
+    {
+      "id": "a453",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "1",
+      "amount": 10000
+    },
+    {
+      "id": "5b08",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "1",
+      "amount": 240000
+    },
+    {
+      "id": "95de",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "1",
+      "amount": 240500
+    },
+    {
+      "id": "1d06",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "1",
+      "amount": 241000
+    },
+    {
+      "id": "a722",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "1",
+      "amount": 241500
+    },
+    {
+      "id": "c15d",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "1",
+      "amount": 242000
+    },
+    {
+      "id": "dd40",
+      "time": "bidTime",
+      "bidder": "",
+      "item": "1",
+      "amount": 242500
+    },
+    {
+      "id": "b027",
+      "time": "bidTime",
+      "bidder": "",
+      "item": "1",
+      "amount": 243000
+    },
+    {
+      "id": "913d",
+      "time": "bidTime",
+      "bidder": {
+        "id": "4d32",
+        "email": "dsf@sdsa",
+        "password": "fsgsf",
+        "startingBid": "5000000"
+      },
+      "item": "1",
+      "amount": 243500
     }
   ]
 }
