@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { ListingContext } from '../contexts/ListingContext';
 import { FetchContext } from '../contexts/FetchContext';
 import { GlobalContext } from '../contexts/GlobalContext';
@@ -15,20 +15,12 @@ const BidPageContent = () => {
   const [title, setTitle] = useState('')
   const dismiss = () => setShowInfoModal(false)
   const { login } = useContext(GlobalContext);
-  const navigate = useNavigate();
+  
   useEffect(() => {
     const fetchListingsAndAuction = async () => {
-      const res = await getFetchGeneral('/items');
-      setListings(res);
-
-      for (const listing of res) {
-        if (parseInt(listing.id) === parseInt(id)) {
-          setAuction(listing);
-          break;
-        }
-      }
-    };
-
+      const res = await getFetchGeneral(`/items/${id}`);
+      setAuction(res)
+    }
     fetchListingsAndAuction();
   }, [placeBid, getFetchGeneral, setListings, id]);
 
