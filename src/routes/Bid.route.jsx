@@ -1,14 +1,16 @@
 import { useState, useContext, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ListingContext } from '../contexts/ListingContext';
 import { FetchContext } from '../contexts/FetchContext';
+import { GlobalContext } from '../contexts/GlobalContext';
 
 const BidPageContent = () => {
   const { id } = useParams();
   const { placeBid, setListings } = useContext(ListingContext);
   const { getFetchGeneral } = useContext(FetchContext);
   const [auction, setAuction] = useState({});
-
+  const { login } = useContext(GlobalContext);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchListingsAndAuction = async () => {
       const res = await getFetchGeneral('/items');
@@ -35,6 +37,12 @@ const BidPageContent = () => {
     e.preventDefault();
 
     const currentBid = parseInt(inputBid);
+
+    if (login === null) {
+      alert('You have to log in');
+      navigate('/');
+      return;
+    }
 
     if (isNaN(currentBid) || currentBid <= 0) {
       alert('Please enter a valid bid amount.');
@@ -67,6 +75,11 @@ const BidPageContent = () => {
   };
 
   const handleBidClick = () => {
+    if (login === null) {
+      alert('You have to log in');
+      navigate('/');
+      return;
+    }
     const bidAmount = calculateBidAmount();
     handleBid(auction.id, bidAmount);
   };

@@ -7,7 +7,7 @@
       "artist": "Vincent van Gogh",
       "startingBid": 5000,
       "highestBid": {
-        "amount": 243500
+        "amount": 245000
       },
       "allBids": [
         {
@@ -50,6 +50,18 @@
             "startingBid": "5000000"
           },
           "amount": 243500
+        },
+        {
+          "userId": null,
+          "amount": 244000
+        },
+        {
+          "userId": null,
+          "amount": 244500
+        },
+        {
+          "userId": null,
+          "amount": 245000
         }
       ],
       "image": "https://source.unsplash.com/random/800x600/?art",
@@ -109,10 +121,43 @@
       "artist": "Vincent van Gogh",
       "startingBid": 5500,
       "highestBid": {
-        "id": 4,
-        "amount": 4395
+        "amount": 7895
       },
-      "allBids": [],
+      "allBids": [
+        {
+          "userId": null,
+          "amount": 4895
+        },
+        {
+          "userId": null,
+          "amount": 5395
+        },
+        {
+          "userId": null,
+          "amount": 5895
+        },
+        {
+          "userId": {
+            "id": "4d32",
+            "email": "dsf@sdsa",
+            "password": "fsgsf",
+            "startingBid": "5000000"
+          },
+          "amount": 6395
+        },
+        {
+          "userId": null,
+          "amount": 6895
+        },
+        {
+          "userId": null,
+          "amount": 7395
+        },
+        {
+          "userId": null,
+          "amount": 7895
+        }
+      ],
       "image": "https://source.unsplash.com/random/800x600/?night,painting",
       "auctionEnds": "2024-09-15",
       "filters": [
@@ -383,6 +428,81 @@
       "bidder": null,
       "item": "4",
       "amount": 6500
+    },
+    {
+      "id": "f967",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "5",
+      "amount": 4895
+    },
+    {
+      "id": "c7ee",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "5",
+      "amount": 5395
+    },
+    {
+      "id": "bfc5",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "5",
+      "amount": 5895
+    },
+    {
+      "id": "b933",
+      "time": "bidTime",
+      "bidder": {
+        "id": "4d32",
+        "email": "dsf@sdsa",
+        "password": "fsgsf",
+        "startingBid": "5000000"
+      },
+      "item": "5",
+      "amount": 6395
+    },
+    {
+      "id": "0541",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "5",
+      "amount": 6895
+    },
+    {
+      "id": "af65",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "5",
+      "amount": 7395
+    },
+    {
+      "id": "17d7",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "5",
+      "amount": 7895
+    },
+    {
+      "id": "5ea3",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "1",
+      "amount": 244000
+    },
+    {
+      "id": "409f",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "1",
+      "amount": 244500
+    },
+    {
+      "id": "32f6",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "1",
+      "amount": 245000
     }
   ]
 }
