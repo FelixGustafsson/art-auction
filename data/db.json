@@ -88,10 +88,14 @@
       "artist": "Johannes Vermeer",
       "startingBid": 4500,
       "highestBid": {
-        "id": 4,
-        "amount": 4050
+        "amount": 6500
       },
-      "allBids": [],
+      "allBids": [
+        {
+          "userId": null,
+          "amount": 6500
+        }
+      ],
       "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
       "auctionEnds": "2024-08-30",
       "filters": [
@@ -351,6 +355,34 @@
       },
       "item": "1",
       "amount": 243500
+    },
+    {
+      "id": "70f1",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "4",
+      "amount": 4550
+    },
+    {
+      "id": "62d6",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "4",
+      "amount": 5050
+    },
+    {
+      "id": "b032",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "4",
+      "amount": 6000
+    },
+    {
+      "id": "d559",
+      "time": "bidTime",
+      "bidder": null,
+      "item": "4",
+      "amount": 6500
     }
   ]
 }

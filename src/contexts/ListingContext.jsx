@@ -21,6 +21,13 @@ const ListingProvider = ({ children }) => {
       const updatedAuction = {
         ...existingAuction,
         highestBid: { amount: newBidAmount },
+        allBids: [
+          ...existingAuction.allBids,
+          {
+            userId: loggedInUser,
+            amount: newBidAmount,
+          },
+        ],
       };
 
       const response = await fetchGeneral(
