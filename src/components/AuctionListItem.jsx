@@ -19,7 +19,7 @@ const AuctionListItem = ({ auction }) => {
 
   const renderFavoriteAuctions = (currentAuction) => {
     let result = false;
-    if (login) {
+    if (login.savedAuctions) {
       for (const savedAuction of login.savedAuctions) {
         if (parseInt(savedAuction.itemId) === parseInt(currentAuction.id) | tempFavoriteAuction.includes(parseInt(savedAuction.itemId))) {
           result = true;
