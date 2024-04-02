@@ -10,17 +10,17 @@ const BidPageContent = () => {
   const { placeBid, setListings } = useContext(ListingContext);
   const { getFetchGeneral } = useContext(FetchContext);
   const [auction, setAuction] = useState({});
-  const [showInfoModal, setShowInfoModal] = useState(false)
-  const [infoText, setInfoText] = useState('')
-  const [title, setTitle] = useState('')
-  const dismiss = () => setShowInfoModal(false)
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [infoText, setInfoText] = useState('');
+  const [title, setTitle] = useState('');
+  const dismiss = () => setShowInfoModal(false);
   const { login } = useContext(GlobalContext);
-  
+
   useEffect(() => {
     const fetchListingsAndAuction = async () => {
       const res = await getFetchGeneral(`/items/${id}`);
-      setAuction(res)
-    }
+      setAuction(res);
+    };
     fetchListingsAndAuction();
   }, [placeBid, getFetchGeneral, setListings, id]);
 
@@ -36,16 +36,16 @@ const BidPageContent = () => {
     const currentBid = parseInt(inputBid);
 
     if (login === null) {
-      setTitle('Unable to place bid')
+      setTitle('Unable to place bid');
       setInfoText('Please log in first.');
-      setShowInfoModal(true)
+      setShowInfoModal(true);
       return;
     }
 
     if (isNaN(currentBid) || currentBid <= 0) {
-      setTitle('Unable to place bid')
+      setTitle('Unable to place bid');
       setInfoText('Please enter a valid bid.');
-      setShowInfoModal(true)
+      setShowInfoModal(true);
       return;
     }
 
@@ -53,9 +53,9 @@ const BidPageContent = () => {
       ? parseInt(auction.highestBid.amount)
       : 0;
     if (currentBid <= highestBidAmount) {
-      setTitle('Unable to place bid')
+      setTitle('Unable to place bid');
       setInfoText('Your bid must be higher than the current highest bid.');
-      setShowInfoModal(true)
+      setShowInfoModal(true);
       return;
     }
 
@@ -65,9 +65,9 @@ const BidPageContent = () => {
 
   const handleBid = (auctionId, amount) => {
     placeBid(auctionId, amount);
-    setTitle('Bid placed!')
-    setInfoText('Your bid has been successfully placed!')
-    setShowInfoModal(true)
+    setTitle('Bid placed!');
+    setInfoText('Your bid has been successfully placed!');
+    setShowInfoModal(true);
   };
 
   const calculateBidAmount = () => {
@@ -80,9 +80,9 @@ const BidPageContent = () => {
 
   const handleBidClick = () => {
     if (login === null) {
-      setTitle('Unable to place bid')
+      setTitle('Unable to place bid');
       setInfoText('Please log in first.');
-      setShowInfoModal(true)
+      setShowInfoModal(true);
       return;
     }
     const bidAmount = calculateBidAmount();
@@ -152,7 +152,12 @@ const BidPageContent = () => {
           })}
         </p>
       </div>
-      <InfoModal showInfoModal={showInfoModal} title={title} infoText={infoText} dismiss={dismiss}/>
+      <InfoModal
+        showInfoModal={showInfoModal}
+        title={title}
+        infoText={infoText}
+        dismiss={dismiss}
+      />
     </div>
   );
 };
