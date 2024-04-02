@@ -24,7 +24,7 @@ const ListingProvider = ({ children }) => {
         allBids: [
           ...existingAuction.allBids,
           {
-            userId: loggedInUser,
+            userId: loggedInUser.id,
             amount: newBidAmount,
           },
         ],
@@ -49,7 +49,7 @@ const ListingProvider = ({ children }) => {
 
         const bidObject = {
           time: 'bidTime',
-          bidder: loggedInUser,
+          bidder: loggedInUser.id,
           item: auctionId,
           amount: newBidAmount,
         };

@@ -7,61 +7,12 @@
       "artist": "Vincent van Gogh",
       "startingBid": 5000,
       "highestBid": {
-        "amount": 245000
+        "amount": 244000
       },
       "allBids": [
         {
-          "userId": 1,
-          "amount": 5000
-        },
-        {
-          "userId": 2,
-          "amount": 5200
-        },
-        {
-          "userId": 1,
-          "amount": 5500
-        },
-        {
-          "userId": null,
-          "amount": 241000
-        },
-        {
-          "userId": null,
-          "amount": 241500
-        },
-        {
-          "userId": null,
-          "amount": 242000
-        },
-        {
-          "userId": "",
-          "amount": 242500
-        },
-        {
-          "userId": "",
-          "amount": 243000
-        },
-        {
-          "userId": {
-            "id": "4d32",
-            "email": "dsf@sdsa",
-            "password": "fsgsf",
-            "startingBid": "5000000"
-          },
-          "amount": 243500
-        },
-        {
-          "userId": null,
+          "userId": "d446",
           "amount": 244000
-        },
-        {
-          "userId": null,
-          "amount": 244500
-        },
-        {
-          "userId": null,
-          "amount": 245000
         }
       ],
       "image": "https://source.unsplash.com/random/800x600/?art",
@@ -71,22 +22,20 @@
       ]
     },
     {
-      "highestBid": {
-        "amount": 4700
-      },
-      "id": "2"
-    },
-    {
       "id": "3",
       "title": "The Persistence of Memory",
       "description": "Salvador Dalí's famous painting featuring melting clocks in a dreamlike landscape.",
       "artist": "Salvador Dalí",
       "startingBid": 6000,
       "highestBid": {
-        "id": 3,
-        "amount": 300
+        "amount": 854
       },
-      "allBids": [],
+      "allBids": [
+        {
+          "userId": "d446",
+          "amount": 854
+        }
+      ],
       "image": "https://source.unsplash.com/random/800x600/?surrealism",
       "auctionEnds": "2024-07-25",
       "filters": [
@@ -100,14 +49,9 @@
       "artist": "Johannes Vermeer",
       "startingBid": 4500,
       "highestBid": {
-        "amount": 6500
+        "amount": 8000
       },
-      "allBids": [
-        {
-          "userId": null,
-          "amount": 6500
-        }
-      ],
+      "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
       "auctionEnds": "2024-08-30",
       "filters": [
@@ -121,43 +65,10 @@
       "artist": "Vincent van Gogh",
       "startingBid": 5500,
       "highestBid": {
-        "amount": 7895
+        "id": 4,
+        "amount": 4395
       },
-      "allBids": [
-        {
-          "userId": null,
-          "amount": 4895
-        },
-        {
-          "userId": null,
-          "amount": 5395
-        },
-        {
-          "userId": null,
-          "amount": 5895
-        },
-        {
-          "userId": {
-            "id": "4d32",
-            "email": "dsf@sdsa",
-            "password": "fsgsf",
-            "startingBid": "5000000"
-          },
-          "amount": 6395
-        },
-        {
-          "userId": null,
-          "amount": 6895
-        },
-        {
-          "userId": null,
-          "amount": 7395
-        },
-        {
-          "userId": null,
-          "amount": 7895
-        }
-      ],
+      "allBids": [],
       "image": "https://source.unsplash.com/random/800x600/?night,painting",
       "auctionEnds": "2024-09-15",
       "filters": [
@@ -188,12 +99,7 @@
       "lastname": "Strand",
       "email": "veronica@example.com",
       "password": "123",
-      "ongoingBids": [
-        {
-          "itemId": 1,
-          "bidAmount": 5500
-        }
-      ],
+      "ongoingBids": [],
       "wonItems": [],
       "lostItems": []
     },
@@ -237,272 +143,24 @@
       "username": "George",
       "name": "George",
       "lastname": "G",
-      "ongoingBids": [
-        {
-          "itemId": 1,
-          "bidAmount": 4000,
-          "bidId": 1,
-          "image": "https://source.unsplash.com/random/800x600/?art",
-          "title": "Starry Night"
-        },
-        {
-          "itemId": 1,
-          "bidAmount": 5000,
-          "bidId": 2,
-          "image": "https://source.unsplash.com/random/800x600/?art",
-          "title": "Starry Night"
-        },
-        {
-          "title": "The Persistence of Memory",
-          "itemId": 3,
-          "bidAmount": 4000,
-          "bidId": 3,
-          "image": "https://source.unsplash.com/random/800x600/?surrealism"
-        }
-      ],
-      "savedAuctions": [
-        {
-          "itemId": 1,
-          "image": "https://source.unsplash.com/random/800x600/?art",
-          "title": "Starry Night",
-          "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
-        },
-        {
-          "itemId": "1",
-          "title": "Starry Night",
-          "image": "https://source.unsplash.com/random/800x600/?art",
-          "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
-        },
-        {
-          "itemId": "2",
-          "title": "Mona Lisa",
-          "image": "https://source.unsplash.com/random/800x600/?portrait",
-          "description": "Leonardo da Vinci's masterpiece depicting a woman with an enigmatic smile."
-        },
-        {
-          "itemId": "4",
-          "title": "Girl with a Pearl Earring",
-          "image": "https://source.unsplash.com/random/800x600/?portrait,painting",
-          "description": "Johannes Vermeer's iconic painting of a girl wearing a pearl earring."
-        }
-      ]
-    },
-    {
-      "id": "4d32",
-      "email": "dsf@sdsa",
-      "password": "fsgsf",
-      "startingBid": "5000000"
+      "ongoingBids": [],
+      "savedAuctions": []
     }
   ],
   "bids": [
     {
-      "id": "1",
+      "id": "e2d8",
+      "time": "bidTime",
       "bidder": "d446",
-      "item": "1",
-      "amount": 4000,
-      "date": "x"
-    },
-    {
-      "id": "66bd",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "1",
-      "amount": 8500
-    },
-    {
-      "id": "076a",
-      "time": "bidTime",
-      "bidder": {
-        "id": "4d32",
-        "email": "dsf@sdsa",
-        "password": "fsgsf",
-        "startingBid": "5000000"
-      },
-      "item": "1",
-      "amount": 9000
-    },
-    {
-      "id": "0f2f",
-      "time": "bidTime",
-      "bidder": {
-        "id": "4d32",
-        "email": "dsf@sdsa",
-        "password": "fsgsf",
-        "startingBid": "5000000"
-      },
-      "item": "1",
-      "amount": 9500
-    },
-    {
-      "id": "a453",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "1",
-      "amount": 10000
-    },
-    {
-      "id": "5b08",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "1",
-      "amount": 240000
-    },
-    {
-      "id": "95de",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "1",
-      "amount": 240500
-    },
-    {
-      "id": "1d06",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "1",
-      "amount": 241000
-    },
-    {
-      "id": "a722",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "1",
-      "amount": 241500
-    },
-    {
-      "id": "c15d",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "1",
-      "amount": 242000
-    },
-    {
-      "id": "dd40",
-      "time": "bidTime",
-      "bidder": "",
-      "item": "1",
-      "amount": 242500
-    },
-    {
-      "id": "b027",
-      "time": "bidTime",
-      "bidder": "",
-      "item": "1",
-      "amount": 243000
-    },
-    {
-      "id": "913d",
-      "time": "bidTime",
-      "bidder": {
-        "id": "4d32",
-        "email": "dsf@sdsa",
-        "password": "fsgsf",
-        "startingBid": "5000000"
-      },
-      "item": "1",
-      "amount": 243500
-    },
-    {
-      "id": "70f1",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "4",
-      "amount": 4550
-    },
-    {
-      "id": "62d6",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "4",
-      "amount": 5050
-    },
-    {
-      "id": "b032",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "4",
-      "amount": 6000
-    },
-    {
-      "id": "d559",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "4",
-      "amount": 6500
-    },
-    {
-      "id": "f967",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "5",
-      "amount": 4895
-    },
-    {
-      "id": "c7ee",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "5",
-      "amount": 5395
-    },
-    {
-      "id": "bfc5",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "5",
-      "amount": 5895
-    },
-    {
-      "id": "b933",
-      "time": "bidTime",
-      "bidder": {
-        "id": "4d32",
-        "email": "dsf@sdsa",
-        "password": "fsgsf",
-        "startingBid": "5000000"
-      },
-      "item": "5",
-      "amount": 6395
-    },
-    {
-      "id": "0541",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "5",
-      "amount": 6895
-    },
-    {
-      "id": "af65",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "5",
-      "amount": 7395
-    },
-    {
-      "id": "17d7",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "5",
-      "amount": 7895
-    },
-    {
-      "id": "5ea3",
-      "time": "bidTime",
-      "bidder": null,
       "item": "1",
       "amount": 244000
     },
     {
-      "id": "409f",
+      "id": "ddd3",
       "time": "bidTime",
-      "bidder": null,
-      "item": "1",
-      "amount": 244500
-    },
-    {
-      "id": "32f6",
-      "time": "bidTime",
-      "bidder": null,
-      "item": "1",
-      "amount": 245000
+      "bidder": "d446",
+      "item": "3",
+      "amount": 854
     }
   ]
 }
