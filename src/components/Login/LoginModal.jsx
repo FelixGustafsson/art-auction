@@ -1,9 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { useState, useContext, useEffect } from 'react';
-import { FetchContext } from '../contexts/FetchContext';
-import { GlobalContext } from '../contexts/GlobalContext';
+import { useState, useContext } from 'react';
+import { FetchContext } from '../../contexts/FetchContext';
+import { GlobalContext } from '../../contexts/GlobalContext';
 
 
 export default function LoginModal({ showModal, setShowModal, setSuccessText, setShowSuccessModal, purpose }) {
@@ -12,9 +12,6 @@ const { setLogin } = useContext(GlobalContext); // create a global login
 const { getFetchGeneral, fetchGeneral } = useContext(FetchContext);  // handles fetch requests
 const [selectedValue, setSelectedValue] = useState(purpose); //login & register radio buttons: default=login
 const [loginError, setLoginError] = useState(null); //controls error messages
-
-// resets default radio button for login modal (i.e. login)
-//useEffect(() => setSelectedValue('login'), [showModal]);
 
 // function for closing the modal window 
 const handleClose = () => {

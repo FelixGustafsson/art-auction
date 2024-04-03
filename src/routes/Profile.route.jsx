@@ -6,8 +6,9 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InfoModal from "../components/InfoModal";
-import ProfilePageItem from "../components/ProfilePageItem";
+import ProfilePageItem from "../components/Profile/ProfilePageItem";
 import Dropdown from "../components/Dropdown";
+import EditInfoForm from "../components/Profile/EditInfoForm";
 import { periodTags, typeTags, locationTags } from "../../data/FilterNames";
 
 
@@ -21,9 +22,9 @@ export default function Profile() {
     const [bids, setBids] = useState([]) // sets and stores user's bids
     const [savedAuctions, setSavedAuctions] = useState([]) // sets and stores user's saved auctions
     const [myAuctions, setMyAuctions] = useState([]) // sets and stores user's active auctions
-    const [type, setType] = useState("") // handles type filters in create auctiosn form
-    const [period, setPeriod] = useState("") // handles period filters in create auctiosn form
-    const [location, setLocation] = useState("") // handles location filters in create auctiosn form
+    const [type, setType] = useState("") // handles type filters in create auction form
+    const [period, setPeriod] = useState("") // handles period filters in create auction form
+    const [location, setLocation] = useState("") // handles location filters in create auction form
     const { fetchGeneral } = useContext(FetchContext);  // handles fetch requests
     const redirect = useNavigate()
 
@@ -62,27 +63,7 @@ export default function Profile() {
         fetchUser();
     }, []);
 
-    const handleSubmitInfo = async (event) => {
-        event.preventDefault()
-        const form = event.currentTarget.elements
-        const newUserInfo = {
-            username: form.username.value,
-            name: form.name.value,
-            lastname: form.lastname.value,
-            email: form.email.value,
-            password: form.password.value
-        }
-        const response = await fetchGeneral(`/users/${userInfo.id}`, 'PATCH', newUserInfo)
-        if (response.status === 200) {
-            setShowEditForm(false)
-            const updatedUser = await fetch(`http://localhost:8000/users/${userInfo.id}`)
-            const updatedUserInfo = await updatedUser.json()
-            setUserInfo(updatedUserInfo)
-            setSuccessText("User information updated.")
-            setShowSuccessModal(true)
-        }
-    }
-
+    
     const handleSubmitAuction = async (event) => {
         event.preventDefault()
         const form = event.currentTarget.elements
@@ -131,28 +112,7 @@ export default function Profile() {
                 </div>
             </div>
 
-            <Modal show={showEditForm} onHide={() => setShowEditForm(false)} animation={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit account information</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form onSubmit={handleSubmitInfo} return="false">
-                        <input type="text" name="username" className="form-control mb-2" placeholder="Username" aria-label="username" required />
-                        <input type="text" name="name" className="form-control mb-2" placeholder="Name" aria-label="name" required />
-                        <input type="text" name="lastname" className="form-control mb-2" placeholder="Surname" aria-label="lastname" required />
-                        <input type="email" name="email" autoComplete="email" className="form-control mb-2" placeholder="Email" aria-label="email" required />
-                        <input type="text" name="password" className="form-control mb-2" placeholder="Password" aria-label="password" required />
-                        <Button variant="secondary" className="my-3" onClick={() => setShowEditForm(false)}>
-                            Cancel
-                        </Button>
-                        <Button variant="primary" className="my-3 ms-2" type="submit">
-                            Update your information
-                        </Button>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                </Modal.Footer>
-            </Modal>
+        <EditInfoForm setSuccessText={setSuccessText} userInfo={userInfo} setUserInfo={setUserInfo} setShowSuccessModal={setShowSuccessModal} showEditForm={showEditForm} setShowEditForm={setShowEditForm} />
 
             <Modal show={showAuctionForm} onHide={() => setShowAuctionForm(false)} animation={false}>
                 <Modal.Header closeButton>

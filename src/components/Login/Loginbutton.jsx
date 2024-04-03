@@ -1,7 +1,7 @@
-import { GlobalContext } from '../contexts/GlobalContext';
+import { GlobalContext } from '../../contexts/GlobalContext';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import InfoModal from './InfoModal';
+import InfoModal from '../InfoModal';
 import LoginModal from './LoginModal';
 
 export default function Loginbutton() {
@@ -18,8 +18,6 @@ export default function Loginbutton() {
 
   // for redirecting to profile page when user logs in & clicks profile button
   const redirect = useNavigate();
-
-  
 
   return (
     <>
