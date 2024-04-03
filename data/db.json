@@ -7,7 +7,7 @@
       "artist": "Vincent van Gogh",
       "startingBid": 5000,
       "highestBid": {
-        "amount": 244500
+        "amount": 750000
       },
       "allBids": [
         {
@@ -17,6 +17,22 @@
         {
           "userId": "d446",
           "amount": 244500
+        },
+        {
+          "userId": "1",
+          "amount": 245000
+        },
+        {
+          "userId": "1",
+          "amount": 245500
+        },
+        {
+          "userId": "1",
+          "amount": 246000
+        },
+        {
+          "userId": "1",
+          "amount": 750000
         }
       ],
       "image": "https://source.unsplash.com/random/800x600/?art",
@@ -156,6 +172,11 @@
           "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
         }
       ]
+    },
+    {
+      "id": "27ba",
+      "email": "veronica@gmail.com",
+      "password": "123"
     }
   ],
   "bids": [
@@ -179,6 +200,34 @@
       "bidder": "d446",
       "item": "1",
       "amount": 244500
+    },
+    {
+      "id": "c201",
+      "time": "bidTime",
+      "bidder": "1",
+      "item": "1",
+      "amount": 245000
+    },
+    {
+      "id": "7f6a",
+      "time": "bidTime",
+      "bidder": "1",
+      "item": "1",
+      "amount": 245500
+    },
+    {
+      "id": "3a56",
+      "time": "bidTime",
+      "bidder": "1",
+      "item": "1",
+      "amount": 246000
+    },
+    {
+      "id": "573d",
+      "time": "bidTime",
+      "bidder": "1",
+      "item": "1",
+      "amount": 750000
     }
   ]
 }

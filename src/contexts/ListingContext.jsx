@@ -4,20 +4,33 @@ import { GlobalContext } from './GlobalContext';
 const ListingContext = createContext();
 
 const ListingProvider = ({ children }) => {
-  const { fetchGeneral } = useContext(FetchContext);
+  const { getFetchGeneral, fetchGeneral } = useContext(FetchContext);
+
   const { login } = useContext(GlobalContext);
   const [listings, setListings] = useState([]);
   const loggedInUser = login;
   useEffect(() => {
     const getAuctionItems = async () => {
-      setListings(await fetchGeneral('/items'));
+      console.log('Fetching auction items...');
+      const data = await getFetchGeneral('/items');
+      console.log('Fetched data:', data);
+      setListings(data);
     };
+
     getAuctionItems();
-  }, [fetchGeneral]);
+  }, [getFetchGeneral]);
 
   const placeBid = async (auctionId, newBidAmount) => {
     try {
+      if (!listings || listings.length === 0) {
+        console.error('Listings state is empty or null');
+        return;
+      }
       const existingAuction = listings.find((item) => item.id === auctionId);
+      if (!existingAuction) {
+        console.error(`Auction with ID ${auctionId} not found`);
+        return;
+      }
       const updatedAuction = {
         ...existingAuction,
         highestBid: { amount: newBidAmount },
