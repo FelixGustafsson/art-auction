@@ -101,7 +101,7 @@ export default function Profile() {
                 </div>
                 <div className="col">
                     <h2>Saved auctions</h2>
-                    {savedAuctions ? savedAuctions.map((auction) => <ProfilePageItem {...auction} key={auction.itemId} />) : <p>You have no saved auctions!</p>}
+                    {savedAuctions.length > 0 ? savedAuctions.map((auction) => <ProfilePageItem {...auction} setSavedAuctions={setSavedAuctions} key={auction.itemId} deleteButton/>) : <p>You have no saved auctions!</p>}
                 </div>
                 <div className="col">
                     <h2>Your auctions</h2>
