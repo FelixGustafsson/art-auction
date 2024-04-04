@@ -36,7 +36,7 @@ export default function Profile() {
             const currentUser = login
             setUserInfo(currentUser)
             // filters out all except the highest current bid for each object
-            const allBids = currentUser.ongoingBids ? currentUser.ongoingBids : null
+            const allBids = currentUser && currentUser.ongoingBids ? currentUser.ongoingBids : null
             const itemIdArray = []
             if (allBids !== null) {allBids.forEach(element => {
                 const elementID = element.itemId
@@ -57,8 +57,8 @@ export default function Profile() {
 
             // sets user information to be rendered
             setBids(highestBids)
-            setSavedAuctions(currentUser.savedAuctions)
-            setMyAuctions(currentUser.myAuctions)
+            currentUser && setSavedAuctions(currentUser.savedAuctions)
+            currentUser && setMyAuctions(currentUser.myAuctions)
         };
         fetchUser();
     }, []);
@@ -101,7 +101,7 @@ export default function Profile() {
                 </div>
                 <div className="col">
                     <h2>Saved auctions</h2>
-                    {savedAuctions ? savedAuctions.map((auction) => <ProfilePageItem {...auction} key={auction.itemId} />) : <p>You have no saved auctions!</p>}
+                    {savedAuctions.length > 0 ? savedAuctions.map((auction) => <ProfilePageItem {...auction} setSavedAuctions={setSavedAuctions} key={auction.itemId} deleteButton/>) : <p>You have no saved auctions!</p>}
                 </div>
                 <div className="col">
                     <h2>Your auctions</h2>
