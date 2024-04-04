@@ -19,9 +19,14 @@ const AuctionList = () => {
     if (filters.length === 0) {
       return listings;
     } else {
-      return listings.filter((listing) =>
-        filters.some((filterTitle) => listing.filters.includes(filterTitle))
-      );
+      let tempFilteredAuctions = []
+      for (const listing of listings) {
+        if (filters.every(cur => listing.filters.includes(cur))) {
+          tempFilteredAuctions.push(listing)
+        }
+
+      }
+      return tempFilteredAuctions
     }
   };
 
