@@ -17,6 +17,7 @@ const [loginError, setLoginError] = useState(null); //controls error messages
 const handleClose = () => {
     setShowModal(false);
     setLoginError(null);
+    setSelectedValue('login')
   };
 
 async function handleSubmit(event) {
