@@ -36,7 +36,7 @@ export default function Profile() {
             const currentUser = login
             setUserInfo(currentUser)
             // filters out all except the highest current bid for each object
-            const allBids = currentUser.ongoingBids ? currentUser.ongoingBids : null
+            const allBids = currentUser && currentUser.ongoingBids ? currentUser.ongoingBids : null
             const itemIdArray = []
             if (allBids !== null) {allBids.forEach(element => {
                 const elementID = element.itemId
@@ -57,8 +57,8 @@ export default function Profile() {
 
             // sets user information to be rendered
             setBids(highestBids)
-            setSavedAuctions(currentUser.savedAuctions)
-            setMyAuctions(currentUser.myAuctions)
+            currentUser && setSavedAuctions(currentUser.savedAuctions)
+            currentUser && setMyAuctions(currentUser.myAuctions)
         };
         fetchUser();
     }, []);
