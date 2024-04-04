@@ -6,9 +6,9 @@ function AuctionList({ searchResult }) {
   const handleAuctionClick = (id) => {
     navigate(`/info/${id}`);
   };
-  console.log(searchResult);
+
   return (
-    <div className='container-s d-flex p-4 position-absolute bg-dark z-3 mt-5'>
+    <div className='d-flex p-4 position-absolute start-0 w-100 justify-content-between bg-body-tertiary z-3 mt-4'>
       {searchResult.slice(0, 4).map((auction) => (
         <div key={auction.id} onClick={() => handleAuctionClick(auction.id)}>
           <AuctionSearchListItem auction={auction} />
