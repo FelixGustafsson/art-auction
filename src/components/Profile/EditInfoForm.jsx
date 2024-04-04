@@ -17,7 +17,6 @@ export default function EditInfoForm({setSuccessText, userInfo, setUserInfo, set
             username: form.username.value,
             name: form.name.value,
             lastname: form.lastname.value,
-            email: form.email.value,
             password: form.password.value
         }
         const response = await fetchGeneral(`/users/${userInfo.id}`, 'PATCH', newUserInfo)
@@ -40,7 +39,6 @@ return <>
                         <input type="text" name="username" className="form-control mb-2" placeholder="Username" aria-label="username" required />
                         <input type="text" name="name" className="form-control mb-2" placeholder="Name" aria-label="name" required />
                         <input type="text" name="lastname" className="form-control mb-2" placeholder="Surname" aria-label="lastname" required />
-                        <input type="email" name="email" autoComplete="email" className="form-control mb-2" placeholder="Email" aria-label="email" required />
                         <input type="text" name="password" className="form-control mb-2" placeholder="Password" aria-label="password" required />
                         <Button variant="secondary" className="my-3" onClick={() => setShowEditForm(false)}>
                             Cancel
