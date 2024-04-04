@@ -1,5 +1,5 @@
 import AuctionSearch from './Search/AuctionSearch';
-import Loginbutton from './Loginbutton';
+import Loginbutton from './Login/Loginbutton.jsx';
 import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
