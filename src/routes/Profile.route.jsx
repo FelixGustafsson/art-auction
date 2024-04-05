@@ -91,21 +91,21 @@ export default function Profile() {
 
     return <>
         <div className="container">
-            <h1>Welcome {userInfo.name}</h1>
+            <h1 className="mb-4">Welcome {userInfo.name}</h1>
             <button className="btn btn-primary mx-2" onClick={() => setShowEditForm(true)}>Edit account info</button>
             <button className="btn btn-secondary" onClick={() => { setLogin(null); redirect("/") }}>Logout</button>
-            <div className="row">
+            <div className="row my-4">
                 <div className="col">
-                    <h2>Your bids</h2>
+                    <h2 className="mb-4">Your bids</h2>
                     {bids.length > 0 ? bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.bidId} />) : <p>You haven't placed any bids!</p>}
                 </div>
                 <div className="col">
-                    <h2>Saved auctions</h2>
+                    <h2 className="mb-4">Saved auctions</h2>
                     {savedAuctions.length > 0 ? savedAuctions.map((auction) => <ProfilePageItem {...auction} setSavedAuctions={setSavedAuctions} key={auction.itemId} deleteButton/>) : <p>You have no saved auctions!</p>}
                 </div>
                 <div className="col">
-                    <h2>Your auctions</h2>
-                    {myAuctions ? myAuctions.map((auction) => <ProfilePageItem {...auction} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: "} bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction.itemId} />) : <p>You have no active auctions!</p>}
+                    <h2 className="mb-4">Your auctions</h2>
+                    {myAuctions ? myAuctions.map((auction) => <ProfilePageItem {...auction} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: "} editButton bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction.itemId} />) : <p>You have no active auctions!</p>}
                     <div className="d-flex justify-content-center my-4">
                         <button type="button" className="btn btn-success" onClick={() => setShowAuctionForm(true)}>Create new auction</button>
                     </div>
