@@ -24,6 +24,7 @@ export default function ProfilePageItem({title, bidText, bidAmount, description,
         const newDescription = {'description': e.currentTarget.elements.description.value}
         console.log(newDescription)
         // fetch request needed here    
+        setShowEditAuction(false)
     }
 
     return <>
