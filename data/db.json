@@ -172,6 +172,9 @@
           "image": "https://source.unsplash.com/random/800x600/?art",
           "description": "A beautiful painting depicting the night sky with swirling stars, created by Vincent van Gogh."
         }
+      ],
+      "myAuctions": [
+        {"id": "1", "startingBid": 5000, "description": "a shitty painting"}
       ]
     },
     {
