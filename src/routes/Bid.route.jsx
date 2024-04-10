@@ -15,6 +15,7 @@ const BidPageContent = () => {
   const [title, setTitle] = useState('');
   const dismiss = () => setShowInfoModal(false);
   const { login } = useContext(GlobalContext);
+  const [showHistoryModal, setShowHistoryModal] = useState(false)
 
   useEffect(() => {
     const fetchListingsAndAuction = async () => {
@@ -151,6 +152,7 @@ const BidPageContent = () => {
             day: 'numeric',
           })}
         </p>
+        <button className='btn btn-success' onClick={() => setShowHistoryModal(true)}>See bidding history</button>
       </div>
       <InfoModal
         showInfoModal={showInfoModal}
@@ -158,6 +160,16 @@ const BidPageContent = () => {
         infoText={infoText}
         dismiss={dismiss}
       />
+      <InfoModal showInfoModal={showHistoryModal} title="Bids" dismiss={() => setShowHistoryModal(false)}>
+        <ul>
+          {auction.allBids && auction.allBids.map((currentBid) => {
+            return <li key={currentBid.amount} className='d-flex justify-content-between'>
+              <h5>User: {currentBid.userId}</h5>
+              <span>£{currentBid.amount}</span>
+            </li>
+          })}
+        </ul>
+      </InfoModal>
     </div>
   );
 };
