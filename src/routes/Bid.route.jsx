@@ -16,8 +16,9 @@ const BidPageContent = () => {
   const dismiss = () => setShowInfoModal(false);
   const { login } = useContext(GlobalContext);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
+
   const userHasHighestBid =
-    auction.highestBid && auction.highestBid.userId === login.userId;
+    login && auction.highestBid && auction.highestBid.userId === login.userId;
 
   useEffect(() => {
     const fetchListingsAndAuction = async () => {
@@ -146,7 +147,7 @@ const BidPageContent = () => {
             ? `Highest bid: ${parseInt(auction.highestBid.amount)} $`
             : ''}
         </p>
-        {userHasHighestBid && (
+        {login && userHasHighestBid && (
           <p style={{ color: 'green' }}>You have the highest bid.</p>
         )}
         <p>
