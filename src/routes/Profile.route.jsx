@@ -38,10 +38,12 @@ export default function Profile() {
             // filters out all except the highest current bid for each object
             const allBids = currentUser && currentUser.ongoingBids ? currentUser.ongoingBids : null
             const itemIdArray = []
-            if (allBids !== null) {allBids.forEach(element => {
-                const elementID = element.itemId
-                !itemIdArray.includes(elementID) && itemIdArray.push(elementID)
-            })};
+            if (allBids !== null) {
+                allBids.forEach(element => {
+                    const elementID = element.itemId
+                    !itemIdArray.includes(elementID) && itemIdArray.push(elementID)
+                })
+            };
             const highestBids = []
             itemIdArray.forEach(id => {
                 const itemBids = allBids.filter((bid) => bid.itemId === id)
@@ -63,7 +65,7 @@ export default function Profile() {
         fetchUser();
     }, []);
 
-    
+
     const handleSubmitAuction = async (event) => {
         event.preventDefault()
         const form = event.currentTarget.elements
@@ -78,7 +80,7 @@ export default function Profile() {
             seller: userInfo.id,
             filters: filters
         }
-        const response = await fetchGeneral('/items', 'POST', newAuctionInfo)
+        const response = await fetchGeneral('/api/item', 'POST', newAuctionInfo)
         if (response.status === 201) {
             setShowAuctionForm(false)
             setSuccessText("New auction created.")
@@ -101,7 +103,7 @@ export default function Profile() {
                 </div>
                 <div className="col">
                     <h2 className="mb-4">Saved auctions</h2>
-                    {savedAuctions.length > 0 ? savedAuctions.map((auction) => <ProfilePageItem {...auction} setSavedAuctions={setSavedAuctions} key={auction.itemId} deleteButton/>) : <p>You have no saved auctions!</p>}
+                    {savedAuctions.length > 0 ? savedAuctions.map((auction) => <ProfilePageItem {...auction} setSavedAuctions={setSavedAuctions} key={auction.itemId} deleteButton />) : <p>You have no saved auctions!</p>}
                 </div>
                 <div className="col">
                     <h2 className="mb-4">Your auctions</h2>
@@ -112,7 +114,7 @@ export default function Profile() {
                 </div>
             </div>
 
-        <EditInfoForm setSuccessText={setSuccessText} userInfo={userInfo} setUserInfo={setUserInfo} setShowSuccessModal={setShowSuccessModal} showEditForm={showEditForm} setShowEditForm={setShowEditForm} />
+            <EditInfoForm setSuccessText={setSuccessText} userInfo={userInfo} setUserInfo={setUserInfo} setShowSuccessModal={setShowSuccessModal} showEditForm={showEditForm} setShowEditForm={setShowEditForm} />
 
             <Modal show={showAuctionForm} onHide={() => setShowAuctionForm(false)} animation={false}>
                 <Modal.Header closeButton>

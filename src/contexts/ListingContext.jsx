@@ -11,9 +11,9 @@ const ListingProvider = ({ children }) => {
   const loggedInUser = login;
   useEffect(() => {
     const getAuctionItems = async () => {
-      console.log('Fetching auction items...');
+
       const data = await getFetchGeneral('/api/items');
-      console.log('Fetched data:', data);
+
       setListings(data);
     };
 

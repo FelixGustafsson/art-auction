@@ -14,7 +14,7 @@ export default function ProfilePageItem({title, bidText, bidAmount, description,
         const oldSavedAuctions = login.savedAuctions
         const newAuctionList = oldSavedAuctions.filter((auction) => auction.itemId !== id)
         const body = {'savedAuctions': newAuctionList}
-        const result = await fetchGeneral(`/users/${login.id}`, 'PATCH', body)
+        const result = await fetchGeneral(`/api/users/${login.id}`, 'PATCH', body)
         result.ok && setLogin(await getFetchGeneral(`/users/${login.id}`))
         result.ok && setSavedAuctions(newAuctionList)
     }

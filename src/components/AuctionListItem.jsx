@@ -7,6 +7,7 @@ import moment from "moment"
 
 const AuctionListItem = ({ auction }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [isAuctionFavorite, setIsAuctionFavorite] = useState(false)
   const { fetchGeneral, getFetchGeneral } = useContext(FetchContext)
   const { login } = useContext(GlobalContext)
   const [tempFavoriteAuction, setTempFavoriteAuction] = useState([])
@@ -28,7 +29,6 @@ const AuctionListItem = ({ auction }) => {
       let highestBid = 0;
       const result = await getFetchGeneral(`/api/bids/${id}`)
 
-      console.log("ALL BIDS:", result)
       for (const bid of result.objectBids) {
         if (bid.amount > highestBid) {
           highestBid = bid.amount
@@ -42,34 +42,37 @@ const AuctionListItem = ({ auction }) => {
 
 
 
-  const renderFavoriteAuctions = (currentAuction) => {
-    let result = false;
-    if (login.savedAuctions) {
-      for (const savedAuction of login.savedAuctions) {
-        if (parseInt(savedAuction.itemId) === parseInt(currentAuction._id) | tempFavoriteAuction.includes(parseInt(savedAuction.itemId))) {
-          result = true;
-          break;
-        }
+  const renderFavoriteAuctions = async (currentAuction) => {
+
+    const res = await getFetchGeneral(`/api/favorites/${login}`)
+
+    for (const auction of res) {
+
+      if (auction._id === currentAuction) {
+        setIsAuctionFavorite(true)
       }
     }
-    return result
+
   }
 
 
-  const addToFavorites = async (body, auction) => {
+  const addToFavorites = async (auctionId) => {
     if (!login) {
       dismiss()
     } else {
-      setTempFavoriteAuction([...tempFavoriteAuction, parseInt(auction._id)])
-      let newBody = body;
-      newBody.savedAuctions.push({ itemId: auction._id, title: auction.title, image: auction.image, description: auction.description })
-      const result = await fetchGeneral(`/api/users/${newBody._id}`, "PUT", body)
+
+
+
+      setTempFavoriteAuction([...tempFavoriteAuction, auctionId])
+      const res = await fetchGeneral(`/api/favorite`, "POST", { item: auctionId, user: login })
     }
   }
 
   useEffect(() => {
     fetchHighestBid(auction._id)
-  }, [])
+    if (login) { renderFavoriteAuctions(auction._id) }
+
+  }, [login, tempFavoriteAuction])
 
   return (
     <>
@@ -90,10 +93,10 @@ const AuctionListItem = ({ auction }) => {
                 More info
               </button>
               {
-                login && (renderFavoriteAuctions(auction)) ?
+                login && isAuctionFavorite | tempFavoriteAuction.includes(auction._id) ?
                   <button className='btn btn-primary'>Saved auction</button>
                   :
-                  <button onClick={() => addToFavorites(login, auction)} className='btn btn-primary'>Add to favourites</button>
+                  <button onClick={() => addToFavorites(auction._id)} className='btn btn-primary'>Add to favourites</button>
 
               }
 

@@ -33,7 +33,7 @@ export default function LoginModal({ showModal, setShowModal, setSuccessText, se
 
       if (match.ok) {
         setSuccessText('Login successful.');
-        setLogin(match);
+        setLogin(await match.json());
         setShowModal(false);
         setShowSuccessModal(true);
         setLoginError(null);
