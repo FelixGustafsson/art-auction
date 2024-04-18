@@ -8,19 +8,19 @@ import { GlobalContext } from '../../contexts/GlobalContext';
 
 export default function LoginModal({ showModal, setShowModal, setSuccessText, setShowSuccessModal, purpose }) {
 
-const { setLogin } = useContext(GlobalContext); // create a global login 
-const { getFetchGeneral, fetchGeneral } = useContext(FetchContext);  // handles fetch requests
-const [selectedValue, setSelectedValue] = useState(purpose); //login & register radio buttons: default=login
-const [loginError, setLoginError] = useState(null); //controls error messages
+  const { setLogin } = useContext(GlobalContext); // create a global login 
+  const { getFetchGeneral, fetchGeneral } = useContext(FetchContext);  // handles fetch requests
+  const [selectedValue, setSelectedValue] = useState(purpose); //login & register radio buttons: default=login
+  const [loginError, setLoginError] = useState(null); //controls error messages
 
-// function for closing the modal window 
-const handleClose = () => {
+  // function for closing the modal window 
+  const handleClose = () => {
     setShowModal(false);
     setLoginError(null);
     setSelectedValue('login')
   };
 
-async function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
     const purpose = form.elements.login.checked ? 'login' : 'register';
@@ -28,42 +28,36 @@ async function handleSubmit(event) {
       email: form.elements.email.value,
       password: form.elements.password.value,
     };
-    const users = await getFetchGeneral('/users');
-    const match = users.find((user) => user.email === userCredentials.email);
     if (purpose === 'login') {
-      if (match === undefined) {
-        setLoginError('User not found. Select register to create an account.');
-      } else if (match.password === userCredentials.password) {
+      const match = await fetchGeneral(`/api/login`, "POST", userCredentials);
+
+      if (match.ok) {
         setSuccessText('Login successful.');
         setLogin(match);
         setShowModal(false);
         setShowSuccessModal(true);
         setLoginError(null);
-      } else if (match.password !== userCredentials.password) {
-        setLoginError('Incorrect password - please try again.');
       } else {
-        console.log('Unknown error with login has occurred');
-      }
-    } 
-    else if (purpose === 'register') {
-      if (match === undefined) {
-        const response = await fetchGeneral('/users', 'POST', userCredentials);
-        if (response.status === 201) {
-          console.log("It worked")
-          setSuccessText('Registration successful.');
-          setShowModal(false);
-          setShowSuccessModal(true);
-          setLoginError(null);
-        } else {
-          setLoginError('Unable to register new user.');
-        }
-      } else {
-        setLoginError('This email address already has an account!');
+        const message = await match.json();
+        setLoginError(message.message);
       }
     }
+    else if (purpose === 'register') {
+      const response = await fetchGeneral('/api/users', 'POST', userCredentials);
+      if (response.status === 201) {
+        setSuccessText('Registration successful.');
+        setShowModal(false);
+        setShowSuccessModal(true);
+        setLoginError(null);
+      } else {
+        const message = await response.json();
+        setLoginError(message.message);
+      }
+    }
+
   }
 
-return <>
+  return <>
     <Modal show={showModal} onHide={handleClose} animation={false}>
       <Modal.Header closeButton>
         <Modal.Title>
@@ -129,5 +123,5 @@ return <>
         )}
       </Modal.Footer>
     </Modal>
-</>
+  </>
 }

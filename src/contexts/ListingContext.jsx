@@ -12,7 +12,7 @@ const ListingProvider = ({ children }) => {
   useEffect(() => {
     const getAuctionItems = async () => {
       console.log('Fetching auction items...');
-      const data = await getFetchGeneral('/items');
+      const data = await getFetchGeneral('/api/items');
       console.log('Fetched data:', data);
       setListings(data);
     };
@@ -43,8 +43,9 @@ const ListingProvider = ({ children }) => {
         ],
       };
 
+      //THIS ENDPOINT DOES NOT EXIST YET
       const response = await fetchGeneral(
-        `/items/${auctionId}`,
+        `/api/item/${auctionId}`,
         'PUT',
         updatedAuction
       );

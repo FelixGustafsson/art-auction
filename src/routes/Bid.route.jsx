@@ -22,7 +22,7 @@ const BidPageContent = () => {
 
   useEffect(() => {
     const fetchListingsAndAuction = async () => {
-      const res = await getFetchGeneral(`/items/${id}`);
+      const res = await getFetchGeneral(`/api/item/${id}`);
       setAuction(res);
     };
     fetchListingsAndAuction();
@@ -63,7 +63,7 @@ const BidPageContent = () => {
       return;
     }
 
-    handleBid(auction.id, currentBid);
+    handleBid(auction._id, currentBid);
     setInputBid('');
   };
 
@@ -90,7 +90,7 @@ const BidPageContent = () => {
       return;
     }
     const bidAmount = calculateBidAmount();
-    handleBid(auction.id, bidAmount);
+    handleBid(auction._id, bidAmount);
   };
 
   if (!auction) {

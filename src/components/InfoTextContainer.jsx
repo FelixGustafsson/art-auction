@@ -1,17 +1,30 @@
 import useAuctionSearchHook from '../hooks/useAuctionSearchHook';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { FetchContext } from '../contexts/FetchContext';
 
 const InfoTextContainer = () => {
   const navigate = useNavigate()
-  const { filteredAuctions } = useAuctionSearchHook();
+  const { getFetchGeneral } = useContext(FetchContext)
+  const [auction, setAuction] = useState({})
   let { id } = useParams();
-  if (!filteredAuctions) {
-    return <div>Loading...</div>;
-  }
-  const auction = filteredAuctions.find((auction) => auction.id === id);
-  if (!auction) {
-    return <div>The auction could not be found.</div>;
-  }
+
+
+  useEffect(() => {
+    const getAuction = async () => {
+      try {
+        const result = await getFetchGeneral(`/api/item/${id}`)
+
+
+        setAuction(result)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAuction()
+
+  }, [])
+
   return (
     <div className='d-flex row container p-5'>
       <div className='col'>
@@ -31,7 +44,7 @@ const InfoTextContainer = () => {
         </p>
         <p>
           <strong>Highest Bid:</strong>{' '}
-          {auction.highestBid ? auction.highestBid.amount + ' $' : 'No bid yet'}
+          {/*auction.highestBid ? auction.highestBid.amount + ' $' : 'No bid yet'*/}
         </p>
         <p>
           <strong>Ends:</strong>{' '}
@@ -42,7 +55,7 @@ const InfoTextContainer = () => {
           <button type='button' className='btn btn-danger ' onClick={() => navigate(-1)}>
             Back
           </button>
-          <button type='button' className='btn btn-success ' onClick={() => navigate(`/bid/${auction.id}`)}>
+          <button type='button' className='btn btn-success ' onClick={() => navigate(`/bid/${auction._id}`)}>
             Bid Now
           </button>
         </div>

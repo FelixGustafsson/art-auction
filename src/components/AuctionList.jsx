@@ -10,7 +10,7 @@ const AuctionList = () => {
 
   useEffect(() => {
     const fetchListings = async () => {
-      setListings(await getFetchGeneral('/items'));
+      setListings(await getFetchGeneral('/api/items'));
     };
     fetchListings();
   }, []);
@@ -35,7 +35,7 @@ const AuctionList = () => {
   return (
     <ul className='d-flex flex-column gap-5'>
       {filteredAuctions.map((auction) => (
-        <AuctionListItem auction={auction} key={auction.id} />
+        <AuctionListItem auction={auction} key={auction._id} />
       ))}
     </ul>
   );

@@ -1,14 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { FetchContext } from '../contexts/FetchContext';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../contexts/GlobalContext';
 import InfoModal from "./InfoModal"
+import moment from "moment"
 
 const AuctionListItem = ({ auction }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false)
-  const { fetchGeneral } = useContext(FetchContext)
+  const { fetchGeneral, getFetchGeneral } = useContext(FetchContext)
   const { login } = useContext(GlobalContext)
   const [tempFavoriteAuction, setTempFavoriteAuction] = useState([])
+  const [highestBid, setHighestBid] = useState('No bids yet')
   const navigate = useNavigate();
   const handleMoreInfo = (id) => {
     navigate(`/info/${id}`);
@@ -21,13 +23,30 @@ const AuctionListItem = ({ auction }) => {
     setShowSuccessModal(!showSuccessModal)
   }
 
+  const fetchHighestBid = async (id) => {
+    try {
+      let highestBid = 0;
+      const result = await getFetchGeneral(`/api/bids/${id}`)
+
+      console.log("ALL BIDS:", result)
+      for (const bid of result.objectBids) {
+        if (bid.amount > highestBid) {
+          highestBid = bid.amount
+        }
+      }
+      setHighestBid(highestBid > 0 ? highestBid : "No bids yet")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
 
   const renderFavoriteAuctions = (currentAuction) => {
     let result = false;
     if (login.savedAuctions) {
       for (const savedAuction of login.savedAuctions) {
-        if (parseInt(savedAuction.itemId) === parseInt(currentAuction.id) | tempFavoriteAuction.includes(parseInt(savedAuction.itemId))) {
+        if (parseInt(savedAuction.itemId) === parseInt(currentAuction._id) | tempFavoriteAuction.includes(parseInt(savedAuction.itemId))) {
           result = true;
           break;
         }
@@ -41,13 +60,16 @@ const AuctionListItem = ({ auction }) => {
     if (!login) {
       dismiss()
     } else {
-      setTempFavoriteAuction([...tempFavoriteAuction, parseInt(auction.id)])
+      setTempFavoriteAuction([...tempFavoriteAuction, parseInt(auction._id)])
       let newBody = body;
-      newBody.savedAuctions.push({ itemId: auction.id, title: auction.title, image: auction.image, description: auction.description })
-      const result = await fetchGeneral(`/users/${newBody.id}`, "PUT", body)
+      newBody.savedAuctions.push({ itemId: auction._id, title: auction.title, image: auction.image, description: auction.description })
+      const result = await fetchGeneral(`/api/users/${newBody._id}`, "PUT", body)
     }
   }
 
+  useEffect(() => {
+    fetchHighestBid(auction._id)
+  }, [])
 
   return (
     <>
@@ -58,11 +80,11 @@ const AuctionListItem = ({ auction }) => {
           <div className='d-flex flex-column'>
             <span>Other information:</span>
             <span>Starting price: £{auction.startingBid}</span>
-            {auction.highestBid && <span>Current bid: £{auction.highestBid.amount}</span>}
-            <span>Auction ends: {auction.auctionEnds}</span>
+            <span>Highest bid: {highestBid}</span>
+            <span>Auction ends: {moment(auction.auctionEnds).utc().format("YYYY-MM-DD HH:MM")}</span>
             <div className='my-3 d-flex gap-2'>
               <button
-                onClick={() => handleMoreInfo(auction.id)}
+                onClick={() => handleMoreInfo(auction._id)}
                 className='btn btn-dark'
               >
                 More info
@@ -76,7 +98,7 @@ const AuctionListItem = ({ auction }) => {
               }
 
               <button
-                onClick={() => handleBidNow(auction.id)}
+                onClick={() => handleBidNow(auction._id)}
                 className='btn btn-success'
               >
                 Bid now
