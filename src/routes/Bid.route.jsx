@@ -15,7 +15,10 @@ const BidPageContent = () => {
   const [title, setTitle] = useState('');
   const dismiss = () => setShowInfoModal(false);
   const { login } = useContext(GlobalContext);
-  const [showHistoryModal, setShowHistoryModal] = useState(false)
+  const [showHistoryModal, setShowHistoryModal] = useState(false);
+
+  const userHasHighestBid =
+    login && auction.highestBid && auction.highestBid.userId === login.userId;
 
   useEffect(() => {
     const fetchListingsAndAuction = async () => {
@@ -144,6 +147,9 @@ const BidPageContent = () => {
             ? `Highest bid: ${parseInt(auction.highestBid.amount)} $`
             : ''}
         </p>
+        {login && userHasHighestBid && (
+          <p style={{ color: 'green' }}>You have the highest bid.</p>
+        )}
         <p>
           <strong>Ends: </strong>
           {new Date(auction.auctionEnds).toLocaleDateString('en-US', {
@@ -152,7 +158,12 @@ const BidPageContent = () => {
             day: 'numeric',
           })}
         </p>
-        <button className='btn btn-success' onClick={() => setShowHistoryModal(true)}>See bidding history</button>
+        <button
+          className='btn btn-success'
+          onClick={() => setShowHistoryModal(true)}
+        >
+          See bidding history
+        </button>
       </div>
       <InfoModal
         showInfoModal={showInfoModal}
@@ -160,14 +171,24 @@ const BidPageContent = () => {
         infoText={infoText}
         dismiss={dismiss}
       />
-      <InfoModal showInfoModal={showHistoryModal} title="Bids" dismiss={() => setShowHistoryModal(false)}>
+      <InfoModal
+        showInfoModal={showHistoryModal}
+        title='Bids'
+        dismiss={() => setShowHistoryModal(false)}
+      >
         <ul>
-          {auction.allBids && auction.allBids.map((currentBid) => {
-            return <li key={currentBid.amount} className='d-flex justify-content-between'>
-              <h5>User: {currentBid.userId}</h5>
-              <span>£{currentBid.amount}</span>
-            </li>
-          })}
+          {auction.allBids &&
+            auction.allBids.map((currentBid) => {
+              return (
+                <li
+                  key={currentBid.amount}
+                  className='d-flex justify-content-between'
+                >
+                  <h5>User: {currentBid.userId}</h5>
+                  <span>£{currentBid.amount}</span>
+                </li>
+              );
+            })}
         </ul>
       </InfoModal>
     </div>
