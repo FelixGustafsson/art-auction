@@ -35,17 +35,14 @@ export default function Profile() {
             login === null && redirect("/")   // reloads the home page if no-one is logged in
             // fetch user bids
             const allBids = await getFetchGeneral(`/api/bids/user/${login}`);
-            console.log(allBids)
             // fetch user saved auctions
             const favorites = await getFetchGeneral(`/api/favorites/${login}`);
-            console.log(favorites)
             // fetch user auctions
             const auctions = await getFetchGeneral(`/api/items/user/${login}`);
-            console.log(auctions)
             // filters out all except the highest current bid for each object
             
             const itemIdArray = [];
-            /*allBids !== null && */allBids.forEach(element => {
+            allBids !== null && allBids.forEach(element => {
                     const elementID = element.itemId
                     !itemIdArray.includes(elementID) && itemIdArray.push(elementID)
                 });
@@ -65,7 +62,9 @@ export default function Profile() {
             // sets user information to be rendered
             setBids(highestBids)
             setSavedAuctions(favorites)
-            setMyAuctions(auctions)}
+            setMyAuctions(auctions)
+            console.log(login)
+        }
         fetchUser();
     }, []);
 
@@ -73,7 +72,7 @@ export default function Profile() {
     const handleSubmitAuction = async (event) => {
         event.preventDefault()
         const form = event.currentTarget.elements
-        const filters = [type, period, location]
+        
         const newAuctionInfo = {
             title: form.title.value,
             description: form.description.value,
@@ -82,17 +81,20 @@ export default function Profile() {
             image: form.image.value,
             auctionEnds: form.auctionEnds.value,
             seller: userInfo.id,
-            filters: filters
+            location: location,
+            period: period,
+            type: type
         }
-        const response = await fetchGeneral('/api/item', 'POST', newAuctionInfo)
-        if (response.status === 201) {
-            setShowAuctionForm(false)
-            setSuccessText("New auction created.")
-            setShowSuccessModal(true)
-        }
-        else {
-            console.log("Something went wrong")
-        }
+        
+            const response = await fetchGeneral('/api/item', 'POST', newAuctionInfo)
+            if (response.status === 201) {
+                setShowAuctionForm(false)
+                setSuccessText("New auction created.")
+                setShowSuccessModal(true)
+            }
+       else {
+                console.log(response)
+            }
     }
 
     return <>
