@@ -4,6 +4,7 @@ import { ListingContext } from '../contexts/ListingContext';
 import { FetchContext } from '../contexts/FetchContext';
 import { GlobalContext } from '../contexts/GlobalContext';
 import InfoModal from '../components/InfoModal';
+import moment from 'moment';
 
 const BidPageContent = () => {
   const { id } = useParams();
@@ -17,9 +18,12 @@ const BidPageContent = () => {
   const { login } = useContext(GlobalContext);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [inputBid, setInputBid] = useState('');
+  const [highestBid, setHighestBid] = useState(0);
+  const [allBids, setAllBids] = useState([]);
+  const [userHasHighestBid, setUserHasHighestBid] = useState(false);
 
-  const userHasHighestBid =
-    login && auction.highestBid && auction.highestBid.userId === login.userId;
+  // const userHasHighestBid =
+  // login && auction.highestBid && auction.highestBid.userId === login.userId;
 
   useEffect(() => {
     const fetchListingsAndAuction = async () => {
@@ -27,6 +31,27 @@ const BidPageContent = () => {
       setAuction(res);
     };
     fetchListingsAndAuction();
+
+
+
+    const getBidsInfo = async (auctionId) => {
+      let highestBid = 0;
+      const res = await getFetchGeneral(`/api/bids/${auctionId}`);
+      setAllBids(res.objectBids);
+
+      let highestBidder = null
+      for (const bid of res.objectBids) {
+        if (bid.amount > highestBid) {
+          highestBid = bid.amount;
+          highestBidder = bid.bidder;
+        }
+        if (login === highestBidder) {
+          setUserHasHighestBid(true);
+        }
+      }
+      setHighestBid(highestBid);
+    };
+    getBidsInfo(id)
   }, [getFetchGeneral, setListings, id]);
 
 
@@ -54,10 +79,8 @@ const BidPageContent = () => {
       return;
     }
 
-    const highestBidAmount = auction.highestBid
-      ? parseInt(auction.highestBid.amount)
-      : 0;
-    if (currentBid <= highestBidAmount) {
+
+    if (currentBid <= highestBid + 499) {
       setTitle('Unable to place bid');
       setInfoText('Your bid must be higher than the current highest bid.');
       setShowInfoModal(true);
@@ -69,15 +92,25 @@ const BidPageContent = () => {
   };
 
   const handleBid = (auctionId, amount) => {
-    const res = fetchGeneral(`/api/bids`, "POST", { amount: amount, item: auctionId })
-    setTitle('Bid placed!');
-    setInfoText('Your bid has been successfully placed!');
-    setShowInfoModal(true);
+
+    if (amount <= highestBid + 499) {
+      setTitle('Unable to place bid');
+      setInfoText('Your bid must be higher than the current highest bid.');
+      setShowInfoModal(true);
+      return;
+    } else {
+      const res = fetchGeneral(`/api/bids`, "POST", { amount: amount, item: auctionId })
+      setTitle('Bid placed!');
+      setInfoText('Your bid has been successfully placed!');
+      setShowInfoModal(true);
+    }
   };
 
   const calculateBidAmount = () => {
-    if (auction.highestBid && auction.highestBid.amount) {
-      return parseInt(auction.highestBid.amount) + 500;
+    if (highestBid > 0) {
+      console.log(highestBid)
+      return parseInt(highestBid) + 500;
+
     } else {
       return auction.startingBid;
     }
@@ -123,10 +156,9 @@ const BidPageContent = () => {
             type='button'
             className='btn btn-danger w-50'
             onClick={handleBidClick}
+            disabled={login === auction.seller}
           >
-            {auction.highestBid && auction.highestBid.amount
-              ? `Place ${calculateBidAmount()} $`
-              : `Place starting bid at ${auction.startingBid} $`}
+            Place lowest bid at {highestBid === 0 ? auction.startingBid : highestBid + 500} $
           </button>
         </div>
         <p>Or enter your bid below</p>
@@ -138,15 +170,18 @@ const BidPageContent = () => {
             value={inputBid}
             onChange={handleInputChange}
             placeholder='Place your bid...'
+            disabled={login === auction.seller}
+
           />
-          <button className='btn btn-success w-100 mt-2' type='submit'>
+
+          <button className='btn btn-success w-100 mt-2' type='submit' disabled={login === auction.seller}>
             Bid
           </button>
         </form>
 
         <p>
-          {auction.highestBid && auction.highestBid.amount
-            ? `Highest bid: ${parseInt(auction.highestBid.amount)} $`
+          {highestBid
+            ? `Highest bid: ${parseInt(highestBid)} $`
             : ''}
         </p>
         {login && userHasHighestBid && (
@@ -179,14 +214,14 @@ const BidPageContent = () => {
         dismiss={() => setShowHistoryModal(false)}
       >
         <ul>
-          {auction.allBids &&
-            auction.allBids.map((currentBid) => {
+          {allBids &&
+            allBids.map((currentBid) => {
               return (
                 <li
                   key={currentBid.amount}
                   className='d-flex justify-content-between'
                 >
-                  <h5>User: {currentBid.userId}</h5>
+                  <h5>{moment(currentBid.date).utc().format("YYYY-MM-DD HH:MM")}</h5>
                   <span>£{currentBid.amount}</span>
                 </li>
               );
