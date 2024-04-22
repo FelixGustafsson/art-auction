@@ -27,8 +27,22 @@ export default function Profile() {
     const [location, setLocation] = useState("") // handles location filters in create auction form
     const { fetchGeneral, getFetchGeneral } = useContext(FetchContext);  // handles fetch requests
     const redirect = useNavigate()
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
 
     const dismiss = () => setShowSuccessModal(false)
+
+    const handleDelete = async (id) => {
+        const response = await fetch(`/api/favorite/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        //if (response.ok) {
+        setShowDeleteModal(true)
+        //}
+
+    }
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -43,9 +57,9 @@ export default function Profile() {
             // filters out all except the highest current bid for each object
             const itemIdArray = [];
             allBids !== null && allBids.forEach(element => {
-                    const elementID = element.itemId
-                    !itemIdArray.includes(elementID) && itemIdArray.push(elementID)
-                });
+                const elementID = element.itemId
+                !itemIdArray.includes(elementID) && itemIdArray.push(elementID)
+            });
             const highestBids = []
             itemIdArray.forEach(id => {
                 const itemBids = allBids.filter((bid) => bid.itemId === id)
@@ -63,16 +77,15 @@ export default function Profile() {
             setBids(highestBids)
             setSavedAuctions(favorites)
             setMyAuctions(auctions)
-            console.log(login)
         }
         fetchUser();
-    }, []);
+    }, [showDeleteModal]);
 
 
     const handleSubmitAuction = async (event) => {
         event.preventDefault()
         const form = event.currentTarget.elements
-        
+
         const newAuctionInfo = {
             title: form.title.value,
             description: form.description.value,
@@ -85,17 +98,15 @@ export default function Profile() {
             period: period,
             type: type
         }
-        
-            const response = await fetchGeneral('/api/item', 'POST', newAuctionInfo)
-            console.log(response)
-            if (response.status === 201) {
-                setShowAuctionForm(false)
-                setSuccessText("New auction created.")
-                setShowSuccessModal(true)
-            }
-       else {
-                console.log(response)
-            }
+
+        const response = await fetchGeneral('/api/item', 'POST', newAuctionInfo)
+
+        if (response.status === 201) {
+            setShowAuctionForm(false)
+            setSuccessText("New auction created.")
+            setShowSuccessModal(true)
+        }
+
     }
 
     return <>
@@ -106,15 +117,15 @@ export default function Profile() {
             <div className="row my-4">
                 <div className="col">
                     <h2 className="mb-4">Your bids</h2>
-                    {bids.length > 0 ? bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.bidId} />) : <p>You haven't placed any bids!</p>}
+                    {bids.length > 0 ? bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.itemId} />) : <p>You haven't placed any bids!</p>}
                 </div>
                 <div className="col">
                     <h2 className="mb-4">Saved auctions</h2>
-                    {savedAuctions.length > 0 ? savedAuctions.map((auction) => <ProfilePageItem {...auction} setSavedAuctions={setSavedAuctions} key={auction.itemId} deleteButton />) : <p>You have no saved auctions!</p>}
+                    {savedAuctions.length > 0 ? savedAuctions.map((auction) => <ProfilePageItem {...auction} setSavedAuctions={setSavedAuctions} key={auction._id} handleDelete={handleDelete} deleteButton itemId={auction._id} />) : <p>You have no saved auctions!</p>}
                 </div>
                 <div className="col">
                     <h2 className="mb-4">Your auctions</h2>
-                    {myAuctions ? myAuctions.map((auction) => <ProfilePageItem {...auction} itemId={auction._id} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: "} editButton bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction.itemId} />) : <p>You have no active auctions!</p>}
+                    {myAuctions ? myAuctions.map((auction) => <ProfilePageItem {...auction} itemId={auction._id} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: "} editButton bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction._id} />) : <p>You have no active auctions!</p>}
                     <div className="d-flex justify-content-center my-4">
                         <button type="button" className="btn btn-success" onClick={() => setShowAuctionForm(true)}>Create new auction</button>
                     </div>
@@ -157,6 +168,7 @@ export default function Profile() {
             </Modal>
 
             <InfoModal showInfoModal={showSuccessModal} title="Success!" infoText={successText} dismiss={dismiss} />
+            <InfoModal showInfoModal={showDeleteModal} title="Success" infoText="You've successfully your favorite auction. Shame on you!" dismiss={() => setShowDeleteModal(false)} />
         </div>
     </>
 }

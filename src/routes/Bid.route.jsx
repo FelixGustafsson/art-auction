@@ -52,7 +52,7 @@ const BidPageContent = () => {
       setHighestBid(highestBid);
     };
     getBidsInfo(id)
-  }, [getFetchGeneral, setListings, id]);
+  }, [getFetchGeneral, setListings, id, showInfoModal]);
 
 
 
