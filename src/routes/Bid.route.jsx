@@ -7,8 +7,8 @@ import InfoModal from '../components/InfoModal';
 
 const BidPageContent = () => {
   const { id } = useParams();
-  const { placeBid, setListings } = useContext(ListingContext);
-  const { getFetchGeneral } = useContext(FetchContext);
+  const { setListings } = useContext(ListingContext);
+  const { getFetchGeneral, fetchGeneral } = useContext(FetchContext);
   const [auction, setAuction] = useState({});
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [infoText, setInfoText] = useState('');
@@ -16,6 +16,7 @@ const BidPageContent = () => {
   const dismiss = () => setShowInfoModal(false);
   const { login } = useContext(GlobalContext);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
+  const [inputBid, setInputBid] = useState('');
 
   const userHasHighestBid =
     login && auction.highestBid && auction.highestBid.userId === login.userId;
@@ -26,9 +27,9 @@ const BidPageContent = () => {
       setAuction(res);
     };
     fetchListingsAndAuction();
-  }, [placeBid, getFetchGeneral, setListings, id]);
+  }, [getFetchGeneral, setListings, id]);
 
-  const [inputBid, setInputBid] = useState('');
+
 
   const handleInputChange = (event) => {
     setInputBid(event.target.value);
@@ -68,7 +69,7 @@ const BidPageContent = () => {
   };
 
   const handleBid = (auctionId, amount) => {
-    placeBid(auctionId, amount);
+    const res = fetchGeneral(`/api/bids`, "POST", { amount: amount, item: auctionId })
     setTitle('Bid placed!');
     setInfoText('Your bid has been successfully placed!');
     setShowInfoModal(true);
@@ -82,7 +83,7 @@ const BidPageContent = () => {
     }
   };
 
-  const handleBidClick = () => {
+  const handleBidClick = async () => {
     if (login === null) {
       setTitle('Unable to place bid');
       setInfoText('Please log in first.');
@@ -91,6 +92,7 @@ const BidPageContent = () => {
     }
     const bidAmount = calculateBidAmount();
     handleBid(auction._id, bidAmount);
+
   };
 
   if (!auction) {
