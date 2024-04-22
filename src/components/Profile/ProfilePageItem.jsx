@@ -14,6 +14,7 @@ export default function ProfilePageItem({title, bidText, bidAmount, description,
         const oldSavedAuctions = login.savedAuctions
         const newAuctionList = oldSavedAuctions.filter((auction) => auction.itemId !== id)
         const body = {'savedAuctions': newAuctionList}
+        // needs changes - alter favorite objects instead
         const result = await fetchGeneral(`/api/users/${login.id}`, 'PATCH', body)
         result.ok && setLogin(await getFetchGeneral(`/users/${login.id}`))
         result.ok && setSavedAuctions(newAuctionList)
@@ -22,8 +23,7 @@ export default function ProfilePageItem({title, bidText, bidAmount, description,
     const handleEdit = async (e) => {
         e.preventDefault()
         const newDescription = {'description': e.currentTarget.elements.description.value}
-        console.log(newDescription)
-        // fetch request needed here    
+        fetchGeneral(`/api/item/${itemId}`, 'PATCH', newDescription)
         setShowEditAuction(false)
     }
 

@@ -39,8 +39,8 @@ export default function Profile() {
             const favorites = await getFetchGeneral(`/api/favorites/${login}`);
             // fetch user auctions
             const auctions = await getFetchGeneral(`/api/items/user/${login}`);
+
             // filters out all except the highest current bid for each object
-            
             const itemIdArray = [];
             allBids !== null && allBids.forEach(element => {
                     const elementID = element.itemId
@@ -87,6 +87,7 @@ export default function Profile() {
         }
         
             const response = await fetchGeneral('/api/item', 'POST', newAuctionInfo)
+            console.log(response)
             if (response.status === 201) {
                 setShowAuctionForm(false)
                 setSuccessText("New auction created.")
@@ -113,7 +114,7 @@ export default function Profile() {
                 </div>
                 <div className="col">
                     <h2 className="mb-4">Your auctions</h2>
-                    {myAuctions ? myAuctions.map((auction) => <ProfilePageItem {...auction} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: "} editButton bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction.itemId} />) : <p>You have no active auctions!</p>}
+                    {myAuctions ? myAuctions.map((auction) => <ProfilePageItem {...auction} itemId={auction._id} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: "} editButton bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction.itemId} />) : <p>You have no active auctions!</p>}
                     <div className="d-flex justify-content-center my-4">
                         <button type="button" className="btn btn-success" onClick={() => setShowAuctionForm(true)}>Create new auction</button>
                     </div>
