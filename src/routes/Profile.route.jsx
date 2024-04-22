@@ -81,6 +81,13 @@ export default function Profile() {
         fetchUser();
     }, [showDeleteModal]);
 
+    const handleLogout = async () => {
+        const response = await fetch("/api/login", { method: 'DELETE', headers: { 'Content-Type': 'application/json' } })
+        setLogin(null)
+        console.log(response)
+        console.log(login)
+    }
+
 
     const handleSubmitAuction = async (event) => {
         event.preventDefault()
@@ -113,7 +120,7 @@ export default function Profile() {
         <div className="container">
             <h1 className="mb-4">Welcome {userInfo.name}</h1>
             <button className="btn btn-primary mx-2" onClick={() => setShowEditForm(true)}>Edit account info</button>
-            <button className="btn btn-secondary" onClick={() => { setLogin(null); redirect("/") }}>Logout</button>
+            <button className="btn btn-secondary" onClick={() => { handleLogout(); redirect("/") }}>Logout</button>
             <div className="row my-4">
                 <div className="col">
                     <h2 className="mb-4">Your bids</h2>
