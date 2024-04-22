@@ -62,14 +62,12 @@ const ListingProvider = ({ children }) => {
         });
 
         const bidObject = {
-          time: 'bidTime',
-          bidder: loggedInUser.id,
           item: auctionId,
           amount: newBidAmount,
         };
 
         // Utför fetch för att spara budobjektet
-        await fetchGeneral('/bids', 'POST', bidObject);
+        await fetchGeneral('/api/bids', 'POST', bidObject);
       } else {
         throw new Error('Failed to update bid on server.');
       }

@@ -21,9 +21,15 @@ const AuctionList = () => {
     } else {
       let tempFilteredAuctions = []
       for (const listing of listings) {
-        if (filters.every(cur => listing.filters.includes(cur))) {
+        const itemFilters = []
+        itemFilters.push(listing.location, listing.type, listing.period)
+        if (filters.every(cur => itemFilters.includes(cur))) {
           tempFilteredAuctions.push(listing)
         }
+
+        // if (filters.includes(listing.location) || filters.includes(listing.type) || filters.includes(listing.period)) {
+        //   tempFilteredAuctions.push(listing)
+        // }
 
       }
       return tempFilteredAuctions

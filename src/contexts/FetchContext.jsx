@@ -5,7 +5,7 @@ const FetchContext = createContext();
 const FetchProvider = ({ children }) => {
   const getFetchGeneral = async (endpoint) => {
     if (endpoint) {
-      const res = await fetch(`http://127.0.0.1:5173${endpoint}`);
+      const res = await fetch(`${endpoint}`);
       const result = await res.json();
       return result;
     }
@@ -13,7 +13,7 @@ const FetchProvider = ({ children }) => {
 
   const fetchGeneral = async (endpoint, method, body) => {
     if (endpoint && method && body) {
-      const res = await fetch(`http://127.0.0.1:5173${endpoint}`, {
+      const res = await fetch(`${endpoint}`, {
         method: method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
