@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ListingContext } from '../contexts/ListingContext';
 import { FetchContext } from '../contexts/FetchContext';
 import { GlobalContext } from '../contexts/GlobalContext';
 import InfoModal from '../components/InfoModal';
@@ -8,13 +7,11 @@ import moment from 'moment';
 
 const BidPageContent = () => {
   const { id } = useParams();
-  const { setListings } = useContext(ListingContext);
   const { getFetchGeneral, fetchGeneral } = useContext(FetchContext);
   const [auction, setAuction] = useState({});
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [infoText, setInfoText] = useState('');
   const [title, setTitle] = useState('');
-  const dismiss = () => setShowInfoModal(false);
   const { login } = useContext(GlobalContext);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [inputBid, setInputBid] = useState('');
@@ -22,17 +19,12 @@ const BidPageContent = () => {
   const [allBids, setAllBids] = useState([]);
   const [userHasHighestBid, setUserHasHighestBid] = useState(false);
 
-  // const userHasHighestBid =
-  // login && auction.highestBid && auction.highestBid.userId === login.userId;
-
-  useEffect(() => {
+    useEffect(() => {
     const fetchListingsAndAuction = async () => {
       const res = await getFetchGeneral(`/api/item/${id}`);
       setAuction(res);
     };
     fetchListingsAndAuction();
-
-
 
     const getBidsInfo = async (auctionId) => {
       let highestBid = 0;
@@ -52,17 +44,11 @@ const BidPageContent = () => {
       setHighestBid(highestBid);
     };
     getBidsInfo(id)
-  }, [getFetchGeneral, setListings, id, showInfoModal]);
+  }, [getFetchGeneral, id, showInfoModal]);
 
-
-
-  const handleInputChange = (event) => {
-    setInputBid(event.target.value);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const currentBid = parseInt(inputBid);
 
     if (login === null) {
@@ -78,7 +64,6 @@ const BidPageContent = () => {
       setShowInfoModal(true);
       return;
     }
-
 
     if (currentBid <= highestBid + 499) {
       setTitle('Unable to place bid');
@@ -168,7 +153,8 @@ const BidPageContent = () => {
             className='form-control'
             type='number'
             value={inputBid}
-            onChange={handleInputChange}
+            onChange={(event) => {
+              setInputBid(event.target.value)}}
             placeholder='Place your bid...'
             disabled={login === auction.seller}
 
@@ -206,7 +192,7 @@ const BidPageContent = () => {
         showInfoModal={showInfoModal}
         title={title}
         infoText={infoText}
-        dismiss={dismiss}
+        dismiss={() => setShowInfoModal(false)}
       />
       <InfoModal
         showInfoModal={showHistoryModal}

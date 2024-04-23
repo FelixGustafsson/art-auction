@@ -6,7 +6,6 @@ import Home from './routes/Home.route.jsx';
 import Profile from './routes/Profile.route.jsx';
 import ArtInfo from './routes/ArtInfo.route.jsx';
 import { GlobalProvider } from './contexts/GlobalContext.jsx';
-import { ListingProvider } from './contexts/ListingContext.jsx';
 import BidPage from './routes/Bid.route.jsx';
 import { FetchProvider } from './contexts/FetchContext.jsx';
 import HelpCenter from './routes/HelpCenter.route.jsx';
@@ -16,7 +15,6 @@ function App() {
     <>
       <FetchProvider>
         <GlobalProvider>
-          <ListingProvider>
             <BrowserRouter>
 
               <Navbar />
@@ -30,7 +28,6 @@ function App() {
               </Routes>
               <Footer />
             </BrowserRouter>
-          </ListingProvider>
         </GlobalProvider>
       </FetchProvider>
     </>
