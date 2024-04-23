@@ -1,19 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import AuctionListItem from './AuctionListItem';
 import { HomeFilterContext } from '../contexts/HomeFilterContext';
-import { FetchContext } from '../contexts/FetchContext';
+import { GlobalContext } from '../contexts/GlobalContext';
 
-const AuctionList = () => {
+export const AuctionList = () => {
   const { chosenFilters } = useContext(HomeFilterContext);
-  const { getFetchGeneral } = useContext(FetchContext);
-  const [listings, setListings] = useState([]);
-
-  useEffect(() => {
-    const fetchListings = async () => {
-      setListings(await getFetchGeneral('/api/items'));
-    };
-    fetchListings();
-  }, []);
+  const { listings } = useContext(GlobalContext);
 
   const filterAuctions = (listings, filters) => {
     if (filters.length === 0) {
@@ -26,18 +18,12 @@ const AuctionList = () => {
         if (filters.every(cur => itemFilters.includes(cur))) {
           tempFilteredAuctions.push(listing)
         }
-
-        // if (filters.includes(listing.location) || filters.includes(listing.type) || filters.includes(listing.period)) {
-        //   tempFilteredAuctions.push(listing)
-        // }
-
       }
       return tempFilteredAuctions
     }
   };
 
   const filteredAuctions = filterAuctions(listings, chosenFilters);
-
   return (
     <ul className='d-flex flex-column gap-5'>
       {filteredAuctions.map((auction) => (

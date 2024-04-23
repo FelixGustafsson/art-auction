@@ -1,4 +1,3 @@
-import useAuctionSearchHook from '../hooks/useAuctionSearchHook';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { FetchContext } from '../contexts/FetchContext';
