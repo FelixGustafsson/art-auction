@@ -9,7 +9,7 @@ import { GlobalContext } from '../../contexts/GlobalContext';
 export default function LoginModal({ showModal, setShowModal, setSuccessText, setShowSuccessModal, purpose }) {
 
   const { setLogin } = useContext(GlobalContext); // create a global login 
-  const { getFetchGeneral, fetchGeneral } = useContext(FetchContext);  // handles fetch requests
+  const { fetchGeneral } = useContext(FetchContext);  // handles fetch requests
   const [selectedValue, setSelectedValue] = useState(purpose); //login & register radio buttons: default=login
   const [loginError, setLoginError] = useState(null); //controls error messages
 

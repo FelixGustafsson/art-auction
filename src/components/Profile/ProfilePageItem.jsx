@@ -1,14 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import { FetchContext } from "../../contexts/FetchContext";
-import { GlobalContext } from "../../contexts/GlobalContext";
 import { useContext, useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
-import InfoModal from "../InfoModal";
 
 export default function ProfilePageItem({ title, bidText, bidAmount, handleDelete, description, image, itemId, deleteButton, editButton, setSavedAuctions }) {
     const redirect = useNavigate();
-    const { getFetchGeneral, fetchGeneral } = useContext(FetchContext)
-    const { login, setLogin } = useContext(GlobalContext)
+    const { fetchGeneral } = useContext(FetchContext)
     const [showEditAuction, setShowEditAuction] = useState(false)
 
 
