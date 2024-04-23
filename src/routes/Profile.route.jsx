@@ -132,7 +132,7 @@ export default function Profile() {
                 </div>
                 <div className="col">
                     <h2 className="mb-4">Your auctions</h2>
-                    {myAuctions ? myAuctions.map((auction) => <ProfilePageItem {...auction} itemId={auction._id} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: "} editButton bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction._id} />) : <p>You have no active auctions!</p>}
+                    {myAuctions ? myAuctions.map((auction) => <ProfilePageItem {...auction} itemId={auction._id} editButton key={auction._id} />) : <p>You have no active auctions!</p>}
                     <div className="d-flex justify-content-center my-4">
                         <button type="button" className="btn btn-success" onClick={() => setShowAuctionForm(true)}>Create new auction</button>
                     </div>
@@ -175,7 +175,7 @@ export default function Profile() {
             </Modal>
 
             <InfoModal showInfoModal={showSuccessModal} title="Success!" infoText={successText} dismiss={dismiss} />
-            <InfoModal showInfoModal={showDeleteModal} title="Success" infoText="You've successfully your favorite auction. Shame on you!" dismiss={() => setShowDeleteModal(false)} />
+            <InfoModal showInfoModal={showDeleteModal} title="Success" infoText="You've successfully deleted your favorite auction. Shame on you!" dismiss={() => setShowDeleteModal(false)} />
         </div>
     </>
 }
