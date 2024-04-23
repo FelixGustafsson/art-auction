@@ -14,7 +14,7 @@ import { periodTags, typeTags, locationTags } from "../../data/FilterNames";
 
 export default function Profile() {
     const { login, setLogin } = useContext(GlobalContext) // login status
-    const [userInfo, setUserInfo] = useState([])  // user data from fetch
+    const [userInfo, setUserInfo] = useState()  // user data from fetch
     const [showEditForm, setShowEditForm] = useState(false) // switches edit account form on and off
     const [showAuctionForm, setShowAuctionForm] = useState(false) //switches create auction form on and off
     const [showSuccessModal, setShowSuccessModal] = useState(false) // handles message after succesful form submission
@@ -53,6 +53,8 @@ export default function Profile() {
             const favorites = await getFetchGeneral(`/api/favorites/${login}`);
             // fetch user auctions
             const auctions = await getFetchGeneral(`/api/items/user/${login}`);
+            // fetch user info
+            const userFirstName = await getFetchGeneral(`/api/users/${login}`);
 
             // filters out all except the highest current bid for each object
             const itemIdArray = [];
@@ -77,6 +79,7 @@ export default function Profile() {
             setBids(highestBids)
             setSavedAuctions(favorites)
             setMyAuctions(auctions)
+            setUserInfo(userFirstName.name)
         }
         fetchUser();
     }, [showDeleteModal]);
@@ -100,7 +103,7 @@ export default function Profile() {
             startingBid: form.startingBid.value,
             image: form.image.value,
             auctionEnds: form.auctionEnds.value,
-            seller: userInfo.id,
+            seller: req.session.login,
             location: location,
             period: period,
             type: type
@@ -118,7 +121,7 @@ export default function Profile() {
 
     return <>
         <div className="container">
-            <h1 className="mb-4">Welcome {userInfo.name}</h1>
+            <h1 className="mb-4">Welcome {userInfo}</h1>
             <button className="btn btn-primary mx-2" onClick={() => setShowEditForm(true)}>Edit account info</button>
             <button className="btn btn-secondary" onClick={() => { handleLogout(); redirect("/") }}>Logout</button>
             <div className="row my-4">

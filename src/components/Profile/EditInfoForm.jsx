@@ -20,11 +20,10 @@ export default function EditInfoForm({setSuccessText, userInfo, setUserInfo, set
             lastname: form.lastname.value,
             password: form.password.value
         }
-        const response = await fetchGeneral(`/users/${userInfo.id}`, 'PATCH', newUserInfo)
+        const response = await fetchGeneral(`api/user/${login}`, 'PATCH', newUserInfo)
         if (response.status === 200) {
+            setUserInfo(newUserInfo.name)
             setShowEditForm(false)
-            const updatedUser = await getFetchGeneral(`/users/${userInfo.id}`)
-            setUserInfo(updatedUser)
             setSuccessText("User information updated.")
             setShowSuccessModal(true)
         }
