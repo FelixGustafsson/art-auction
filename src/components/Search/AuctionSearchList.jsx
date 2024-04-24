@@ -10,7 +10,7 @@ function AuctionList({ searchResult }) {
   return (
     <div className='d-flex p-4 position-absolute start-0 w-100 justify-content-between bg-body-tertiary z-3 mt-4'>
       {searchResult.slice(0, 4).map((auction) => (
-        <div key={auction.id} onClick={() => handleAuctionClick(auction.id)}>
+        <div key={auction.id} onClick={() => handleAuctionClick(auction._id)}>
           <AuctionSearchListItem auction={auction} />
         </div>
       ))}
