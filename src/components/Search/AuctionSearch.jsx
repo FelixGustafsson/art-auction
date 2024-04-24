@@ -4,9 +4,8 @@ import AuctionSearchList from './AuctionSearchList.jsx';
 import { GlobalContext } from '../../contexts/GlobalContext.jsx';
 
 function AuctionSearch() {
-  const [searchTerm, setSearchTerm] = useState('');
   const [filteredAuctions, setFilteredAuctions] = useState([]);
-  const { listings } = useContext(GlobalContext);
+  const { listings, searchTerm, setSearchTerm } = useContext(GlobalContext);
   
   useEffect(() => {
     const filteredAuctions = listings.filter((auction) => {

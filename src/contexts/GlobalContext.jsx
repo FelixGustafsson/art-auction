@@ -7,6 +7,8 @@ function GlobalProvider({ children }) {
   const {getFetchGeneral} = useContext(FetchContext);
   const [login, setLogin] = useState(null);
   const [listings, setListings] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
 
   useEffect(() => {
     const getAuctions = async () => {
@@ -17,7 +19,7 @@ function GlobalProvider({ children }) {
   }, []);
 
   return (
-    <GlobalContext.Provider value={{ login, setLogin, listings, setListings }}>
+    <GlobalContext.Provider value={{ login, setLogin, listings, setListings, searchTerm, setSearchTerm }}>
       {children}
     </GlobalContext.Provider>
   );
