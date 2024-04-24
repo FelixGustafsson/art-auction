@@ -93,7 +93,6 @@ const BidPageContent = () => {
 
   const calculateBidAmount = () => {
     if (highestBid > 0) {
-      console.log(highestBid)
       return parseInt(highestBid) + 500;
 
     } else {
@@ -179,6 +178,8 @@ const BidPageContent = () => {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
           })}
         </p>
         <button

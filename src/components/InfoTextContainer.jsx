@@ -8,13 +8,10 @@ const InfoTextContainer = () => {
   const [auction, setAuction] = useState({})
   let { id } = useParams();
 
-
   useEffect(() => {
     const getAuction = async () => {
       try {
         const result = await getFetchGeneral(`/api/item/${id}`)
-
-
         setAuction(result)
       } catch (error) {
         console.log(error)
@@ -23,6 +20,7 @@ const InfoTextContainer = () => {
     getAuction()
 
   }, [])
+
 
   return (
     <div className='d-flex row container p-5'>
@@ -39,15 +37,21 @@ const InfoTextContainer = () => {
           <strong>Artist:</strong> {auction.artist}
         </p>
         <p>
-          <strong>Starting Price:</strong> {auction.startingBid} $
+          <strong>Starting Price:</strong> £{auction.startingBid} 
         </p>
         <p>
-          <strong>Highest Bid:</strong>{' '}
-          {/*auction.highestBid ? auction.highestBid.amount + ' $' : 'No bid yet'*/}
+          <strong>Highest Bid: </strong>
+          {''/*(auction.highestBid) ? ' £' + auction.highestBid.amount : 'No bid yet'*/}
         </p>
         <p>
-          <strong>Ends:</strong>{' '}
-          {new Date(auction.auctionEnds).toLocaleDateString()}
+          <strong>Ends: </strong>
+          {new Date(auction.auctionEnds).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          })}
         </p>
 
         <div className='d-flex gap-4'>

@@ -25,44 +25,36 @@ const AuctionListItem = ({ auction }) => {
   }
 
   const fetchHighestBid = async (id) => {
-    try {
       let highestBid = 0;
       const result = await getFetchGeneral(`/api/bids/${id}`)
-
-      for (const bid of result.objectBids) {
-        if (bid.amount > highestBid) {
-          highestBid = bid.amount
-        }
+      if (result.status === 404) {
+        return;
       }
+      if (result.objectBids) {
+        for (const bid of result.objectBids) {
+          if (bid.amount > highestBid) {
+            highestBid = bid.amount
+          }
+        }
       setHighestBid(highestBid > 0 ? highestBid : "No bids yet")
-    } catch (error) {
-      console.log(error)
     }
   }
-
-
 
   const renderFavoriteAuctions = async (currentAuction) => {
 
     const res = await getFetchGeneral(`/api/favorites/${login}`)
 
     for (const auction of res) {
-
       if (auction._id === currentAuction) {
         setIsAuctionFavorite(true)
       }
     }
-
   }
-
 
   const addToFavorites = async (auctionId) => {
     if (!login) {
       dismiss()
     } else {
-
-
-
       setTempFavoriteAuction([...tempFavoriteAuction, auctionId])
       const res = await fetchGeneral(`/api/favorite`, "POST", { item: auctionId, user: login })
     }
@@ -97,7 +89,6 @@ const AuctionListItem = ({ auction }) => {
                   <button className='btn btn-primary'>Saved auction</button>
                   :
                   <button onClick={() => addToFavorites(auction._id)} className='btn btn-primary'>Add to favourites</button>
-
               }
 
               <button

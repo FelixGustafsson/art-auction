@@ -105,7 +105,7 @@ export default function Profile() {
             startingBid: form.startingBid.value,
             image: form.image.value,
             auctionEnds: form.auctionEnds.value,
-            seller: req.session.login,
+            seller: login,
             location: location,
             period: period,
             type: type
