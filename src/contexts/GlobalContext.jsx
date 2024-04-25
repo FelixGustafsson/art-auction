@@ -15,7 +15,12 @@ function GlobalProvider({ children }) {
       const result = await getFetchGeneral('/api/items');
       setListings(result);
     }
+    const getLogin = async () => {
+      const result = await getFetchGeneral('/api/login');
+      setLogin(result);
+    }
     getAuctions();
+    getLogin();
   }, []);
 
   return (
