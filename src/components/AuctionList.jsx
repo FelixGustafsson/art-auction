@@ -1,11 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AuctionListItem from './AuctionListItem';
 import { HomeFilterContext } from '../contexts/HomeFilterContext';
 import { GlobalContext } from '../contexts/GlobalContext';
+import { FetchContext } from '../contexts/FetchContext';
 
 export const AuctionList = () => {
   const { chosenFilters } = useContext(HomeFilterContext);
-  const { listings } = useContext(GlobalContext);
+  const { getFetchGeneral } = useContext(FetchContext);
+  //const { listings } = useContext(GlobalContext);
+  const [listings, setListings] = useState([]);
 
   const filterAuctions = (listings, filters) => {
     if (filters.length === 0) {
@@ -22,6 +25,14 @@ export const AuctionList = () => {
       return tempFilteredAuctions
     }
   };
+
+  useEffect(() => {
+    const fetchAllAuctions = async () => {
+      const result = await getFetchGeneral('/api/items');
+      setListings(result);
+    }
+    fetchAllAuctions()
+  })
 
   const filteredAuctions = filterAuctions(listings, chosenFilters);
   return (

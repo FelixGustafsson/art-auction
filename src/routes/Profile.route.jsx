@@ -45,45 +45,53 @@ export default function Profile() {
     }
 
     useEffect(() => {
+
         const fetchUser = async () => {
-            login === null && redirect("/")   // reloads the home page if no-one is logged in
+            const result = await getFetchGeneral('/api/login');
+            setLogin(result);
+            const tempLogin = await result;
+            // reloads the home page if no-one is logged in
             // fetch user bids
-            const allBids = await getFetchGeneral(`/api/bids/user/${login}`);
-            // fetch user saved auctions
-            const favorites = await getFetchGeneral(`/api/favorites/${login}`);
-            // fetch user auctions
-            const auctions = await getFetchGeneral(`/api/items/user/${login}`);
-            // fetch user info
-            const user = await getFetchGeneral(`/api/users/${login}`);
+            if (tempLogin) {
+                const allBids = await getFetchGeneral(`/api/bids/user/${tempLogin}`);
+                // fetch user saved auctions
+                const favorites = await getFetchGeneral(`/api/favorites/${tempLogin}`);
+                // fetch user auctions
+                const auctions = await getFetchGeneral(`/api/items/user/${tempLogin}`);
+                // fetch user info
+                const user = await getFetchGeneral(`/api/users/${tempLogin}`);
 
-            // filters out all except the highest current bid for each object
-            const itemIdArray = [];
-            allBids !== null && allBids.forEach(element => {
-                const elementID = element.itemId
-                !itemIdArray.includes(elementID) && itemIdArray.push(elementID)
-            });
-            const highestBids = []
-            itemIdArray.forEach(id => {
-                const itemBids = allBids.filter((bid) => bid.itemId === id)
-                let highest = []
-                itemBids.forEach(bid => {
-                    if (highest.length === 0 || bid.bidAmount > highest[0].bidAmount) {
-                        highest.length = 0;
-                        highest.push(bid)
-                    }
+                // filters out all except the highest current bid for each object
+                const itemIdArray = [];
+                allBids !== null && allBids.forEach(element => {
+                    const elementID = element.itemId
+                    !itemIdArray.includes(elementID) && itemIdArray.push(elementID)
+                });
+                const highestBids = []
+                itemIdArray.forEach(id => {
+                    const itemBids = allBids.filter((bid) => bid.itemId === id)
+                    let highest = []
+                    itemBids.forEach(bid => {
+                        if (highest.length === 0 || bid.bidAmount > highest[0].bidAmount) {
+                            highest.length = 0;
+                            highest.push(bid)
+                        }
+                    })
+                    highest && highest.forEach(bid => highestBids.push(bid))
                 })
-                highest && highest.forEach(bid => highestBids.push(bid))
-            })
 
-            // sets user information to be rendered
-            setBids(highestBids)
-            setSavedAuctions(favorites)
-            setMyAuctions(auctions)
-            setUserInfo({
-                username: user.username,
-                name: user.name,
-                lastname: user.lastname
-            })
+                // sets user information to be rendered
+                setBids(highestBids)
+                setSavedAuctions(favorites)
+                setMyAuctions(auctions)
+                setUserInfo({
+                    username: user.username,
+                    name: user.name,
+                    lastname: user.lastname
+                })
+            } else {
+                redirect("/")
+            }
         }
         fetchUser();
     }, [showDeleteModal, showEditForm]);
@@ -91,7 +99,7 @@ export default function Profile() {
     const handleLogout = async () => {
         const response = await fetch("/api/login", { method: 'DELETE', headers: { 'Content-Type': 'application/json' } })
         setLogin(null)
-        }
+    }
 
 
     const handleSubmitAuction = async (event) => {
@@ -111,6 +119,8 @@ export default function Profile() {
             type: type
         }
 
+        setMyAuctions([...myAuctions, newAuctionInfo])
+
         const response = await fetchGeneral('/api/item', 'POST', newAuctionInfo)
 
         if (response.status === 201) {
@@ -123,7 +133,7 @@ export default function Profile() {
 
     return <>
         <div className="container">
-            <h1 className="mb-4">Welcome </h1>
+            <h1 className="mb-4">Welcome {userInfo.name}</h1>
             <button className="btn btn-primary mx-2" onClick={() => setShowEditForm(true)}>Edit account info</button>
             <button className="btn btn-secondary" onClick={() => { handleLogout(); redirect("/") }}>Logout</button>
             <div className="row my-4">

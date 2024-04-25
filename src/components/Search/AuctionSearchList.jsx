@@ -1,5 +1,5 @@
 import AuctionSearchListItem from './AuctionSearchListItem';
-import { useContext } from'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../contexts/GlobalContext';
 
@@ -13,9 +13,9 @@ function AuctionList({ searchResult }) {
 
 
   return (
-    <div className='d-flex p-4 position-absolute start-0 w-100 justify-content-between bg-body-tertiary z-3 mt-4'>
+    <div className='d-flex p-4 position-absolute start-0 w-100 justify-content-start bg-body-tertiary z-3 mt-4'>
       {searchResult.slice(0, 4).map((auction) => (
-        <div key={auction.id} onClick={() => handleAuctionClick(auction._id)}>
+        <div key={auction._id} onClick={() => handleAuctionClick(auction._id)}>
           <AuctionSearchListItem auction={auction} />
         </div>
       ))}
