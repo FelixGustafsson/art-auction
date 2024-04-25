@@ -5,6 +5,7 @@ import Footer from './components/Footer/Footer.jsx';
 import Home from './routes/Home.route.jsx';
 import Profile from './routes/Profile.route.jsx';
 import ArtInfo from './routes/ArtInfo.route.jsx';
+import HelpCenter from './routes/HelpCenter.route.jsx';
 import { GlobalProvider } from './contexts/GlobalContext.jsx';
 import BidPage from './routes/Bid.route.jsx';
 import { FetchProvider } from './contexts/FetchContext.jsx';
@@ -23,6 +24,7 @@ function App() {
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/info/:id' element={<ArtInfo />} />
                 <Route path='/bid/:id' element={<BidPage />} />
+                <Route path='/helpcenter' element={<HelpCenter />} />
               </Routes>
               <Footer />
             </BrowserRouter>
