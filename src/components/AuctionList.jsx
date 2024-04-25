@@ -1,19 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import AuctionListItem from './AuctionListItem';
 import { HomeFilterContext } from '../contexts/HomeFilterContext';
+import { GlobalContext } from '../contexts/GlobalContext';
 import { FetchContext } from '../contexts/FetchContext';
 
-const AuctionList = () => {
+export const AuctionList = () => {
   const { chosenFilters } = useContext(HomeFilterContext);
   const { getFetchGeneral } = useContext(FetchContext);
+  //const { listings } = useContext(GlobalContext);
   const [listings, setListings] = useState([]);
-
-  useEffect(() => {
-    const fetchListings = async () => {
-      setListings(await getFetchGeneral('/items'));
-    };
-    fetchListings();
-  }, []);
 
   const filterAuctions = (listings, filters) => {
     if (filters.length === 0) {
@@ -21,21 +16,29 @@ const AuctionList = () => {
     } else {
       let tempFilteredAuctions = []
       for (const listing of listings) {
-        if (filters.every(cur => listing.filters.includes(cur))) {
+        const itemFilters = []
+        itemFilters.push(listing.location, listing.type, listing.period)
+        if (filters.every(cur => itemFilters.includes(cur))) {
           tempFilteredAuctions.push(listing)
         }
-
       }
       return tempFilteredAuctions
     }
   };
 
-  const filteredAuctions = filterAuctions(listings, chosenFilters);
+  useEffect(() => {
+    const fetchAllAuctions = async () => {
+      const result = await getFetchGeneral('/api/items');
+      setListings(result);
+    }
+    fetchAllAuctions()
+  })
 
+  const filteredAuctions = filterAuctions(listings, chosenFilters);
   return (
     <ul className='d-flex flex-column gap-5'>
       {filteredAuctions.map((auction) => (
-        <AuctionListItem auction={auction} key={auction.id} />
+        <AuctionListItem auction={auction} key={auction._id} />
       ))}
     </ul>
   );

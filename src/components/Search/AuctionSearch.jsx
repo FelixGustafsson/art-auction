@@ -1,10 +1,30 @@
-import AuctionSearchForm from './AuctionSearchForm';
+import React, { useState, useContext, useEffect } from 'react';
+import AuctionSearchForm from './AuctionSearchForm.jsx';
 import AuctionSearchList from './AuctionSearchList.jsx';
-import useAuctionSearchHook from '../../hooks/useAuctionSearchHook.jsx';
+import { GlobalContext } from '../../contexts/GlobalContext.jsx';
 
 function AuctionSearch() {
-  const { searchTerm, filteredAuctions, handleInputChange } =
-    useAuctionSearchHook();
+  const [filteredAuctions, setFilteredAuctions] = useState([]);
+  const { listings, searchTerm, setSearchTerm } = useContext(GlobalContext);
+  
+  useEffect(() => {
+    const filteredAuctions = listings.filter((auction) => {
+      const title = auction.title || '';
+      const filters = auction.filters || [];
+      return (
+        title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        filters.some((filter) =>
+          filter.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    });
+    setFilteredAuctions(filteredAuctions);
+  }, [searchTerm, listings]);
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
 
   return (
     <div>

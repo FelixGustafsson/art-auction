@@ -14,7 +14,7 @@ import { periodTags, typeTags, locationTags } from "../../data/FilterNames";
 
 export default function Profile() {
     const { login, setLogin } = useContext(GlobalContext) // login status
-    const [userInfo, setUserInfo] = useState([])  // user data from fetch
+    const [userInfo, setUserInfo] = useState({})  // user data from fetch
     const [showEditForm, setShowEditForm] = useState(false) // switches edit account form on and off
     const [showAuctionForm, setShowAuctionForm] = useState(false) //switches create auction form on and off
     const [showSuccessModal, setShowSuccessModal] = useState(false) // handles message after succesful form submission
@@ -25,49 +25,87 @@ export default function Profile() {
     const [type, setType] = useState("") // handles type filters in create auction form
     const [period, setPeriod] = useState("") // handles period filters in create auction form
     const [location, setLocation] = useState("") // handles location filters in create auction form
-    const { fetchGeneral } = useContext(FetchContext);  // handles fetch requests
+    const { fetchGeneral, getFetchGeneral } = useContext(FetchContext);  // handles fetch requests
     const redirect = useNavigate()
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
 
     const dismiss = () => setShowSuccessModal(false)
 
+    const handleDelete = async (id) => {
+        const response = await fetch(`/api/favorite/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        //if (response.ok) {
+        setShowDeleteModal(true)
+        //}
+
+    }
+
     useEffect(() => {
+
         const fetchUser = async () => {
-            login === null && redirect("/")   // reloads the home page if no-one is logged in
-            const currentUser = login
-            setUserInfo(currentUser)
-            // filters out all except the highest current bid for each object
-            const allBids = currentUser && currentUser.ongoingBids ? currentUser.ongoingBids : null
-            const itemIdArray = []
-            if (allBids !== null) {allBids.forEach(element => {
-                const elementID = element.itemId
-                !itemIdArray.includes(elementID) && itemIdArray.push(elementID)
-            })};
-            const highestBids = []
-            itemIdArray.forEach(id => {
-                const itemBids = allBids.filter((bid) => bid.itemId === id)
-                let highest = []
-                itemBids.forEach(bid => {
-                    if (highest.length === 0 || bid.bidAmount > highest[0].bidAmount) {
-                        highest.length = 0;
-                        highest.push(bid)
-                    }
+            const result = await getFetchGeneral('/api/login');
+            setLogin(result);
+            const tempLogin = await result;
+            // reloads the home page if no-one is logged in
+            // fetch user bids
+            if (tempLogin) {
+                const allBids = await getFetchGeneral(`/api/bids/user/${tempLogin}`);
+                // fetch user saved auctions
+                const favorites = await getFetchGeneral(`/api/favorites/${tempLogin}`);
+                // fetch user auctions
+                const auctions = await getFetchGeneral(`/api/items/user/${tempLogin}`);
+                // fetch user info
+                const user = await getFetchGeneral(`/api/users/${tempLogin}`);
+
+                // filters out all except the highest current bid for each object
+                const itemIdArray = [];
+                allBids !== null && allBids.forEach(element => {
+                    const elementID = element.itemId
+                    !itemIdArray.includes(elementID) && itemIdArray.push(elementID)
+                });
+                const highestBids = []
+                itemIdArray.forEach(id => {
+                    const itemBids = allBids.filter((bid) => bid.itemId === id)
+                    let highest = []
+                    itemBids.forEach(bid => {
+                        if (highest.length === 0 || bid.bidAmount > highest[0].bidAmount) {
+                            highest.length = 0;
+                            highest.push(bid)
+                        }
+                    })
+                    highest && highest.forEach(bid => highestBids.push(bid))
                 })
-                highest && highest.forEach(bid => highestBids.push(bid))
-            })
 
-            // sets user information to be rendered
-            setBids(highestBids)
-            currentUser && setSavedAuctions(currentUser.savedAuctions)
-            currentUser && setMyAuctions(currentUser.myAuctions)
-        };
+                // sets user information to be rendered
+                setBids(highestBids)
+                setSavedAuctions(favorites)
+                setMyAuctions(auctions)
+                setUserInfo({
+                    username: user.username,
+                    name: user.name,
+                    lastname: user.lastname
+                })
+            } else {
+                redirect("/")
+            }
+        }
         fetchUser();
-    }, []);
+    }, [showDeleteModal, showEditForm]);
 
-    
+    const handleLogout = async () => {
+        const response = await fetch("/api/login", { method: 'DELETE', headers: { 'Content-Type': 'application/json' } })
+        setLogin(null)
+    }
+
+
     const handleSubmitAuction = async (event) => {
         event.preventDefault()
         const form = event.currentTarget.elements
-        const filters = [type, period, location]
+
         const newAuctionInfo = {
             title: form.title.value,
             description: form.description.value,
@@ -75,44 +113,48 @@ export default function Profile() {
             startingBid: form.startingBid.value,
             image: form.image.value,
             auctionEnds: form.auctionEnds.value,
-            seller: userInfo.id,
-            filters: filters
+            seller: login,
+            location: location,
+            period: period,
+            type: type
         }
-        const response = await fetchGeneral('/items', 'POST', newAuctionInfo)
+
+        setMyAuctions([...myAuctions, newAuctionInfo])
+
+        const response = await fetchGeneral('/api/item', 'POST', newAuctionInfo)
+
         if (response.status === 201) {
             setShowAuctionForm(false)
             setSuccessText("New auction created.")
             setShowSuccessModal(true)
         }
-        else {
-            console.log("Something went wrong")
-        }
+
     }
 
     return <>
         <div className="container">
             <h1 className="mb-4">Welcome {userInfo.name}</h1>
             <button className="btn btn-primary mx-2" onClick={() => setShowEditForm(true)}>Edit account info</button>
-            <button className="btn btn-secondary" onClick={() => { setLogin(null); redirect("/") }}>Logout</button>
+            <button className="btn btn-secondary" onClick={() => { handleLogout(); redirect("/") }}>Logout</button>
             <div className="row my-4">
                 <div className="col">
                     <h2 className="mb-4">Your bids</h2>
-                    {bids.length > 0 ? bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.bidId} />) : <p>You haven't placed any bids!</p>}
+                    {bids.length > 0 ? bids.map((bid) => <ProfilePageItem {...bid} bidText="Your bid: " key={bid.itemId} />) : <p>You haven't placed any bids!</p>}
                 </div>
                 <div className="col">
                     <h2 className="mb-4">Saved auctions</h2>
-                    {savedAuctions.length > 0 ? savedAuctions.map((auction) => <ProfilePageItem {...auction} setSavedAuctions={setSavedAuctions} key={auction.itemId} deleteButton/>) : <p>You have no saved auctions!</p>}
+                    {savedAuctions.length > 0 ? savedAuctions.map((auction) => <ProfilePageItem {...auction} setSavedAuctions={setSavedAuctions} key={auction._id} handleDelete={handleDelete} deleteButton itemId={auction._id} />) : <p>You have no saved auctions!</p>}
                 </div>
                 <div className="col">
                     <h2 className="mb-4">Your auctions</h2>
-                    {myAuctions ? myAuctions.map((auction) => <ProfilePageItem {...auction} bidText={auction.highestBid ? "Highest bid: " : "Your starting price: "} editButton bidAmount={auction.highestBid ? auction.highestBid.amount : auction.startingBid} key={auction.itemId} />) : <p>You have no active auctions!</p>}
+                    {myAuctions ? myAuctions.map((auction) => <ProfilePageItem {...auction} itemId={auction._id} editButton key={auction._id} />) : <p>You have no active auctions!</p>}
                     <div className="d-flex justify-content-center my-4">
                         <button type="button" className="btn btn-success" onClick={() => setShowAuctionForm(true)}>Create new auction</button>
                     </div>
                 </div>
             </div>
 
-        <EditInfoForm setSuccessText={setSuccessText} userInfo={userInfo} setUserInfo={setUserInfo} setShowSuccessModal={setShowSuccessModal} showEditForm={showEditForm} setShowEditForm={setShowEditForm} />
+            <EditInfoForm setSuccessText={setSuccessText} userInfo={userInfo} setUserInfo={setUserInfo} setShowSuccessModal={setShowSuccessModal} showEditForm={showEditForm} setShowEditForm={setShowEditForm} />
 
             <Modal show={showAuctionForm} onHide={() => setShowAuctionForm(false)} animation={false}>
                 <Modal.Header closeButton>
@@ -148,6 +190,7 @@ export default function Profile() {
             </Modal>
 
             <InfoModal showInfoModal={showSuccessModal} title="Success!" infoText={successText} dismiss={dismiss} />
+            <InfoModal showInfoModal={showDeleteModal} title="Success" infoText="You've successfully deleted your favorite auction. Shame on you!" dismiss={() => setShowDeleteModal(false)} />
         </div>
     </>
 }
