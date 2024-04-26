@@ -1,13 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import AuctionListItem from './AuctionListItem';
 import { HomeFilterContext } from '../contexts/HomeFilterContext';
-import { GlobalContext } from '../contexts/GlobalContext';
 import { FetchContext } from '../contexts/FetchContext';
 
 export const AuctionList = () => {
   const { chosenFilters } = useContext(HomeFilterContext);
   const { getFetchGeneral } = useContext(FetchContext);
-  //const { listings } = useContext(GlobalContext);
   const [listings, setListings] = useState([]);
 
   const filterAuctions = (listings, filters) => {
@@ -32,7 +30,7 @@ export const AuctionList = () => {
       setListings(result);
     }
     fetchAllAuctions()
-  })
+  }, [])
 
   const filteredAuctions = filterAuctions(listings, chosenFilters);
   return (
