@@ -87,6 +87,7 @@ export default function LoginModal({ showModal, setShowModal, setSuccessText, se
             />
           </div>
           <input
+            id='emailInput'
             type='email'
             name='email'
             autoComplete='email'
@@ -96,6 +97,7 @@ export default function LoginModal({ showModal, setShowModal, setSuccessText, se
             required
           />
           <input
+            id='passwordInput'
             type='password'
             name='password'
             className='form-control'
@@ -110,7 +112,7 @@ export default function LoginModal({ showModal, setShowModal, setSuccessText, se
           >
             Cancel
           </Button>
-          <Button variant='primary' className='my-3 ms-2' type='submit'>
+          <Button id="loginModalButton" variant='primary' className='my-3 ms-2' type='submit'>
             {selectedValue === 'login' ? 'Login' : 'Register'}
           </Button>
         </Form>
