@@ -25,17 +25,17 @@ const AuctionListItem = ({ auction }) => {
   }
 
   const fetchHighestBid = async (id) => {
-      let highestBid = 0;
-      const result = await getFetchGeneral(`/api/bids/${id}`)
-      if (result.status === 404) {
-        return;
-      }
-      if (result.objectBids) {
-        for (const bid of result.objectBids) {
-          if (bid.amount > highestBid) {
-            highestBid = bid.amount
-          }
+    let highestBid = 0;
+    const result = await getFetchGeneral(`/api/bids/${id}`)
+    if (result.status === 404) {
+      return;
+    }
+    if (result.objectBids) {
+      for (const bid of result.objectBids) {
+        if (bid.amount > highestBid) {
+          highestBid = bid.amount
         }
+      }
       setHighestBid(highestBid > 0 ? highestBid : "No bids yet")
     }
   }
@@ -70,7 +70,7 @@ const AuctionListItem = ({ auction }) => {
     <>
       <li className='d-flex justify-content-between shadow rounded-5 p-5'>
         <div className='me-5'>
-          <h2>{auction.title}</h2>
+          <h2 className='auctionTitle'>{auction.title}</h2>
           <p>{auction.description}</p>
           <div className='d-flex flex-column'>
             <span>Other information:</span>
