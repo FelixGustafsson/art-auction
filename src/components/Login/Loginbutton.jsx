@@ -22,6 +22,7 @@ export default function Loginbutton() {
   return (
     <>
       <button
+        id='loginButton'
         className='btn btn-primary'
         onClick={() => (login ? redirect('/profile') : setShowModal(true))}
       >
